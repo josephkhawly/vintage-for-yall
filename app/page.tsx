@@ -4,12 +4,14 @@ import { PT_Sans, Poppins, Quicksand } from 'next/font/google'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
 })
 
 const quicksand = Quicksand({ subsets: ['latin'] })
 
 const ptsans = PT_Sans({
   weight: ['400', '700'],
+  subsets: ['latin'],
 })
 
 export default function Home() {
