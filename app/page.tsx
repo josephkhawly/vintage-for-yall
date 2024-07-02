@@ -1,18 +1,5 @@
 import Image from 'next/image'
 import bioImage from '../public/bio-img.png'
-import { PT_Sans, Poppins, Quicksand } from 'next/font/google'
-
-const poppins = Poppins({
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
-})
-
-const quicksand = Quicksand({ subsets: ['latin'] })
-
-const ptsans = PT_Sans({
-  weight: ['400', '700'],
-  subsets: ['latin'],
-})
 
 export default function Home() {
   return (
@@ -24,7 +11,7 @@ export default function Home() {
           alt='Photo of Ariel Khawly'
         />
         <div>
-          <p className={`${poppins.className} mb-5`}>
+          <p className={`mb-5`}>
             Ariel Khawly started writing online in 2011 as a moderately popular Tumblr blogger,
             eventually crafting narratives and brand voices across advertising, public relations,
             creative strategy, and digital/print media. Growing up in Houston and attending an
@@ -34,7 +21,7 @@ export default function Home() {
             York to Ariel’s own stint in The City as well as San Francisco, borrowing friends’
             clothes and cycling her wardrobe out on Haight Ashbury.
           </p>
-          <p className={`${quicksand.className} mb-5`}>
+          <p className='mb-5'>
             Ariel started selling vintage clothing in 2017 after a professor at The University of
             Texas said he couldn’t take her seriously because she wears “rags.” She was wearing a
             1969 Gunne Sax by Jessica McClintock at the time of this comment that was purchased for
@@ -45,7 +32,7 @@ export default function Home() {
             transparency in the secondhand shopping experience, offering detailed accounts of each
             piece she sells, whether handmade or designer.
           </p>
-          <p className={`${ptsans.className} mb-5`}>
+          <p className='mb-5'>
             An advocate for fashion history and education, Ariel currently lives in LA and continues
             to yap about her love of clothes, new and old, through the lenses of (sub)culture,
             social media communities, and sustainability. She will always tell you the brand name
