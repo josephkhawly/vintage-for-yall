@@ -14,13 +14,7 @@ const config: Config = {
       'dusty-rose': '#E46E6D',
       'bubblegum-pink': '# FF6489',
       'barbie-pink': '#FF99B6',
-    },
-    extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-    },
+    }
   },
   plugins: [],
 }
