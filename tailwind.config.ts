@@ -15,9 +15,8 @@ const config: Config = {
         'dusty-rose': '#E46E6D',
         'bubblegum-pink': '#FF6489',
         'barbie-pink': '#FF99B6',
-      }
-    }
-
+      },
+    },
   },
   plugins: [],
 }
