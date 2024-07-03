@@ -4,10 +4,10 @@ import ImageBlock from '@/components/ImageBlock'
 export default function NoveltyFoodPrints() {
   return (
     <article>
-      <h1 className='text-8xl mb-8'>This Summer, Wear What You Eat</h1>
-      <p className='italic'>
+      <h1 className='text-5xl mb-[15px]'>This Summer, Wear What You Eat</h1>
+      <h2 className='font-bold text-xl mb-[30px]'>
         Pasta, Tomatoes, Tinned Fish, and more are moving from our pantries into our personal style.
-      </p>
+      </h2>
       <p className='mb-5'>
         It might feel as if tomatoes in fashion quite literally came out of nowhere&mdash;
         <Link href='https://hypebeast.com/2024/6/jonathan-anderson-loewe-clutch-bag-accessory-viral-tomato-meme-into-reality'>
@@ -26,7 +26,7 @@ export default function NoveltyFoodPrints() {
         and your closet making a low growling noise, too.
       </p>
 
-      <h2 className='font-bold text-4xl'>DRESSES</h2>
+      <h2 className='font-bold text-3xl mt-5 mb-[15px] uppercase'>Dresses</h2>
 
       <ImageBlock
         product='Sofia Slip Dress by Lisa Says Gah'
@@ -66,7 +66,7 @@ export default function NoveltyFoodPrints() {
                 mules.'
       />
 
-      <h2 className='font-bold text-4xl'>SEPARATES</h2>
+      <h2 className='font-bold text-3xl mt-5 mb-[15px] uppercase'>Separates</h2>
 
       <ImageBlock
         product='The Hester Top in Juicy by Reformation'
@@ -106,6 +106,8 @@ export default function NoveltyFoodPrints() {
                 this blazer would be at home at a dinner party and the diner you head to after because you&rsquo;re
                 still hungry.'
       />
+
+      <h2 className='font-bold text-3xl mt-5 mb-[15px] uppercase'>Accessories</h2>
 
       {/* <ImageBlock
         product='Kate Spade Hot Sauce Silk Square Scarf'

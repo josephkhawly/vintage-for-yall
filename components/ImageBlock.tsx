@@ -23,13 +23,16 @@ export default function ImageBlock({
 }: ImageBlockProps) {
   return (
     <>
-      <p>
-        <a href={url}>{product}</a> ${price}
+      <p className='mt-5 mb-[15px]'>
+        <a className='underline' href={url}>
+          {product}
+        </a>{' '}
+        ${price}
       </p>
       <p>
-        <Image alt={alt} src={src} width={imgWidth} height={imgHeight} />
+        <Image alt={alt} src={src} width={imgWidth} height={imgHeight} className='mb-3 mx-auto' />
       </p>
-      <p>{description}</p>
+      <p className='mb-[15px]'>{description}</p>
     </>
   )
 }
