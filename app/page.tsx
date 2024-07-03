@@ -3,13 +3,10 @@ import bioImage from '../public/bio-img.png'
 
 export default function Home() {
   return (
-    <main className='min-h-screen p-12 container mx-auto'>
+    <>
       <h1 className='text-8xl mb-8'>About</h1>
       <div className='lg:flex items-start gap-8'>
-        <Image
-          src={bioImage}
-          alt='Photo of Ariel Khawly'
-        />
+        <Image src={bioImage} alt='Photo of Ariel Khawly' />
         <div>
           <p className={`mb-5`}>
             Ariel Khawly started writing online in 2011 as a moderately popular Tumblr blogger,
@@ -40,6 +37,6 @@ export default function Home() {
           </p>
         </div>
       </div>
-    </main>
+    </>
   )
 }
