@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image'
 
 export default function Mom() {
   return (
@@ -42,10 +42,16 @@ export default function Mom() {
         Marialena reminisces on her favorite &lsquo;80s pieces you should add to your closet this
         winter while I share the secondhand shopping tips to help you find them.
       </p>
-      <p>
-        <Image alt='' src='/moms-80s-clothes/image4.png' width={353} height={529} />
+      <Image
+        alt=''
+        src='/moms-80s-clothes/image4.png'
+        width={353}
+        height={529}
+        className='mb-3 mx-auto'
+      />
+      <p className='text-center'>
+        Marialena, pictured right, with her friend Lisa on their way to The Peppermint Lounge.
       </p>
-      <p>Marialena, pictured right, with her friend Lisa on their way to The Peppermint Lounge.</p>
       <h2 className='font-bold text-3xl mt-5 mb-[15px] uppercase'>
         MID-CENTURY BLACK WOOL OVERCOAT
       </h2>
@@ -63,17 +69,24 @@ export default function Mom() {
         pads, use searches that include designers like Calvin Klein or features like double-breasted
         and notched collars.
       </p>
-      <p>
-        <Image alt='' src='/moms-80s-clothes/image1.png' width={353} height={529} />
-      </p>
-      <p>
-        <a href='https://www.therealreal.com/products/men/clothing/outerwear/pierre-cardin-vintage-1980-s-overcoat-k758t?sid=pxogmz&utm_source=google&utm_medium=shopping&utm_campaign=shopping_200&gad_source=1&gclid=Cj0KCQjw7ZO0BhDYARIsAFttkCjKNaMiWsUTV7TH0iBBx_rDqf28kpunPCMN5ehQDQKxwgFjHQmAn98aAu2gEALw_wcB'>
+      <Image
+        alt=''
+        src='/moms-80s-clothes/image1.png'
+        width={353}
+        height={529}
+        className='mb-3 mx-auto'
+      />
+      <p className='text-center'>
+        <a
+          className='underline'
+          href='https://www.therealreal.com/products/men/clothing/outerwear/pierre-cardin-vintage-1980-s-overcoat-k758t?sid=pxogmz&utm_source=google&utm_medium=shopping&utm_campaign=shopping_200&gad_source=1&gclid=Cj0KCQjw7ZO0BhDYARIsAFttkCjKNaMiWsUTV7TH0iBBx_rDqf28kpunPCMN5ehQDQKxwgFjHQmAn98aAu2gEALw_wcB'
+        >
           1980s Pierre Cardin Wool Overcoat
         </a>
         &nbsp;via The Real Real $245
       </p>
-      <a id='t.6130f64f3ccef1c1f412bec246a7e62ed9da64cb'></a>
-      <a id='t.0'></a>
+      <a className='underline' id='t.6130f64f3ccef1c1f412bec246a7e62ed9da64cb'></a>
+      <a className='underline' id='t.0'></a>
       <h2 className='font-bold text-3xl mt-5 mb-[15px] uppercase'>TAPERED SUIT PANTS</h2>
       <p className='mb-5'>
         The best day-to-night item? Marialena says it&rsquo;s the high-waisted, tapered pant. What
@@ -88,11 +101,18 @@ export default function Mom() {
         get these a little cropped or cuff them, so you can show off some colorful socks and a
         ballet flat.
       </p>
-      <p>
-        <Image alt='' src='/moms-80s-clothes/image3.png' width={353} height={529} />
-      </p>
-      <p>
-        <a href='https://www.etsy.com/listing/1739481512/small-80s-pleated-trousers-woven-high?ga_order=most_relevant&ga_search_type=vintage&ga_view_type=gallery&ga_search_query=80s+tapered+suit+pants&ref=sr_gallery-1-4&frs=1&cns=1&sts=1&content_source=e9cd3147ed8c0d5dfb6c488db410d5cb01a679ae%253A1739481512&organic_search_click=1'>
+      <Image
+        alt=''
+        src='/moms-80s-clothes/image3.png'
+        width={353}
+        height={529}
+        className='mb-3 mx-auto'
+      />
+      <p className='text-center'>
+        <a
+          className='underline'
+          href='https://www.etsy.com/listing/1739481512/small-80s-pleated-trousers-woven-high?ga_order=most_relevant&ga_search_type=vintage&ga_view_type=gallery&ga_search_query=80s+tapered+suit+pants&ref=sr_gallery-1-4&frs=1&cns=1&sts=1&content_source=e9cd3147ed8c0d5dfb6c488db410d5cb01a679ae%253A1739481512&organic_search_click=1'
+        >
           High Waisted Tapered Trousers{' '}
         </a>
         from BirdiesVintageCloset via Etsy&nbsp;$50
@@ -111,11 +131,18 @@ export default function Mom() {
         can still read casual elegance if paired with tapered pants.{' '}
       </p>
 
-      <p>
-        <Image alt='' src='/moms-80s-clothes/image5.png' width={353} height={529} />
-      </p>
-      <p>
-        <a href='https://www.etsy.com/listing/1685107292/vintage-50s-beaded-cardigan-sweater?ga_order=most_relevant&ga_search_type=vintage&ga_view_type=gallery&ga_search_query=applique+cardigan+50s&ref=sr_gallery-2-6&frs=1&content_source=e9bf228751789c95bb41626372244cd1009acd8a%253A1685107292&organic_search_click=1'>
+      <Image
+        alt=''
+        src='/moms-80s-clothes/image5.png'
+        width={353}
+        height={529}
+        className='mb-3 mx-auto'
+      />
+      <p className='text-center'>
+        <a
+          className='underline'
+          href='https://www.etsy.com/listing/1685107292/vintage-50s-beaded-cardigan-sweater?ga_order=most_relevant&ga_search_type=vintage&ga_view_type=gallery&ga_search_query=applique+cardigan+50s&ref=sr_gallery-2-6&frs=1&content_source=e9bf228751789c95bb41626372244cd1009acd8a%253A1685107292&organic_search_click=1'
+        >
           Vintage 50s Lambswool Beaded Cardigan
         </a>
         &nbsp;from CharmVintageBotique via Etsy $68
@@ -136,17 +163,18 @@ export default function Mom() {
         dress. You can take this look out to dinner by opting for knee-high boots or take it to run
         errands with sneakers and a lacey sock.
       </p>
-
-      <p>
-        <Image
-          alt=''
-          src='/moms-80s-clothes/image2.png'
-          width={353}
-          height={529}
-        />
-      </p>
-      <p>
-        <a href='https://www.therealreal.com/products/women/clothing/dresses/betsey-johnson-vintage-knee-length-dress-ihzog'>
+      <Image
+        alt=''
+        src='/moms-80s-clothes/image2.png'
+        width={353}
+        height={529}
+        className='mb-3 mx-auto'
+      />
+      <p className='text-center'>
+        <a
+          className='underline'
+          href='https://www.therealreal.com/products/women/clothing/dresses/betsey-johnson-vintage-knee-length-dress-ihzog'
+        >
           &lsquo;80s Betsey Johnson Sweater Dress
         </a>
         &nbsp;via TheRealReal $445
