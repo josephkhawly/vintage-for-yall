@@ -10,7 +10,12 @@ export default function NoveltyFoodPrints() {
       </h2>
       <p className='mb-5'>
         It might feel as if tomatoes in fashion quite literally came out of nowhere&mdash;
-        <Link href='https://hypebeast.com/2024/6/jonathan-anderson-loewe-clutch-bag-accessory-viral-tomato-meme-into-reality'>
+        <Link
+          className='underline'
+          href='https://hypebeast.com/2024/6/jonathan-anderson-loewe-clutch-bag-accessory-viral-tomato-meme-into-reality'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
           if not a viral moment comparing an iteration of the fruit to Loewe
         </Link>
         &mdash;but food prints have quite a rich history when it comes to trending style. Also known
@@ -49,7 +54,7 @@ export default function NoveltyFoodPrints() {
         src='/novelty-food-prints/image6.png'
         imgWidth={285}
         imgHeight={427.5}
-        description='Just a friendly reminder you&rsquo;re a fan of seafood towers.'
+        description='A food-inspired dress that really sets a scene or, in this case, a table. The combo of a tablecloth pattern with the oversized seafood tower print enhances the camp factor but maintains a chic edge thanks to the classic shift silhouette.'
       />
 
       <ImageBlock
@@ -89,8 +94,7 @@ export default function NoveltyFoodPrints() {
         src='/novelty-food-prints/image4.png'
         imgWidth={287.77}
         imgHeight={432.5}
-        description='If you&rsquo;re a bit intimidated by an all over print, Farm Rio&rsquo;s fruit
-                skirt has a more minimalist approach to the trend that can be used as a pop of color for a neutral look.'
+        description='If you’re a bit intimidated by an all-over print, Farm Rio’s fruit skirt takes a more minimalist approach to the trend. It can be used as a pop of color for a neutral look.'
       />
 
       <ImageBlock

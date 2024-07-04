@@ -24,7 +24,7 @@ export default function ImageBlock({
   return (
     <>
       <p className='mt-5 mb-[15px]'>
-        <a className='underline' href={url}>
+        <a className='underline' href={url} target='_blank' rel='noopener noreferrer'>
           {product}
         </a>{' '}
         ${price}
