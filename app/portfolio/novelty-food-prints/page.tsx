@@ -113,9 +113,14 @@ export default function NoveltyFoodPrints() {
         </a>{' '}
         $88
       </p>
-      <p className='mb-3 mx-auto flex justify-center items-center gap-4'>
-        <Image alt='' src='/novelty-food-prints/image10.png' width={353} height={529} />
-        <Image alt='' src='/novelty-food-prints/image3.png' width={353} height={529} />
+      <p>
+        <Image
+          alt=''
+          src='/novelty-food-prints/image10.png'
+          width={353}
+          height={529}
+          className='mb-3 mx-auto'
+        />
       </p>
       <p className='mb-[15px]'>
         Another designer brand known for their highly coveted novelty prints, Kate Spade brings the
