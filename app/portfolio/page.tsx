@@ -1,17 +1,24 @@
 import { pressClippings, sampleLinks } from '@/lib/writingSamples'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Portfolio() {
   return (
     <>
-      <h1 className='text-9xl mb-8'>Writing Samples</h1>
-      {sampleLinks.map((sample) => (
-        <div key={sample.slug} className='mb-4'>
-          <a href={`/portfolio/${sample.slug}`}>{sample.title}</a>
+      <div className='lg:flex justify-between items-center mb-40'>
+        <h1 className='text-6xl lg:text-9xl mb-8'>Writing Samples</h1>
+        <div>
+          {sampleLinks.map((sample) => (
+            <div key={sample.slug} className='mb-4'>
+              <Link href={`/portfolio/${sample.slug}`} className='underline'>
+                {sample.title}
+              </Link>
+            </div>
+          ))}
         </div>
-      ))}
-      <div className='flex justify-between'>
-        <h1 className='text-9xl mb-8'>Published Press</h1>
+      </div>
+      <div className='lg:flex justify-between items-start'>
+        <h1 className='text-6xl lg:text-9xl mb-8'>Published Press</h1>
         <div>
           {pressClippings.map((clipping) => (
             <div key={clipping.url} className='mb-4'>
@@ -19,9 +26,8 @@ export default function Portfolio() {
                 <Image
                   src={clipping.image}
                   alt={clipping.alt}
-                  className='w-96'
-                  width={500}
-                  height={500}
+                  width={600}
+                  height={600}
                 />
               </a>
             </div>

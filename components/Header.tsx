@@ -10,9 +10,9 @@ export default function Header() {
       </Link>
       <nav>
         <ul className='flex gap-4'>
-          <li>
+          {/* <li>
             <Link href='/'>About</Link>
-          </li>
+          </li> */}
           <li>
             <Link href='/portfolio'>Portfolio</Link>
           </li>
