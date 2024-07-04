@@ -39,8 +39,6 @@ export default function NoveltyFoodPrints() {
         price={158}
         alt='aaaaa'
         src='/novelty-food-prints/image9.png'
-        imgWidth={313.13}
-        imgHeight={417.5}
         description='Lisa Says Gah has created modern novelty patterns that easily rival vintage ones, especially
         their depictions of food. This seasonal spread of farfalle, spaghetti, basil, garlic, and
         tomato invokes a whimsy of what someone might be hoping to devour off the Amalfi Coast.'
@@ -52,8 +50,6 @@ export default function NoveltyFoodPrints() {
         price={278}
         alt=''
         src='/novelty-food-prints/image6.png'
-        imgWidth={285}
-        imgHeight={427.5}
         description='A food-inspired dress that really sets a scene or, in this case, a table. The combo of a tablecloth pattern with the oversized seafood tower print enhances the camp factor but maintains a chic edge thanks to the classic shift silhouette.'
       />
 
@@ -63,8 +59,6 @@ export default function NoveltyFoodPrints() {
         price={128}
         alt=''
         src='/novelty-food-prints/image7.png'
-        imgWidth={348.5}
-        imgHeight={348.5}
         description='There&rsquo;s just something inherently fun about a tomato red, but lately,
                 we&rsquo;ve been using the whole fruit to achieve our ideal summer vibe. This vintage Cynthia Rowley
                 dress features a classic silhouette that would look perfect with a wicker purse and Italian leather
@@ -79,8 +73,6 @@ export default function NoveltyFoodPrints() {
         price={98}
         alt=''
         src='/novelty-food-prints/image1.png'
-        imgWidth={269.02}
-        imgHeight={359.5}
         description='Reformation knows how to utilize midcentury style elements to create iconic
                 pieces that immediately elevate a look. This sweetheart tank and its print of fruits, which are
                 currently in season, can easily be worn to the farmer&rsquo;s market or dinner on the French Riviera.'
@@ -92,8 +84,6 @@ export default function NoveltyFoodPrints() {
         price={275}
         alt=''
         src='/novelty-food-prints/image4.png'
-        imgWidth={287.77}
-        imgHeight={432.5}
         description='If you’re a bit intimidated by an all-over print, Farm Rio’s fruit skirt takes a more minimalist approach to the trend. It can be used as a pop of color for a neutral look.'
       />
 
@@ -103,8 +93,6 @@ export default function NoveltyFoodPrints() {
         price={113}
         alt=''
         src='/novelty-food-prints/image5.png'
-        imgWidth={378.43}
-        imgHeight={441.5}
         description='Arguably the blueprint for the modern styles you see here, Nicole Miller&#39;s
                 intricate designs would be a shame to leave out. Known for her novelty patterns printed on 100% silk,
                 this blazer would be at home at a dinner party and the diner you head to after because you&rsquo;re
@@ -113,27 +101,35 @@ export default function NoveltyFoodPrints() {
 
       <h2 className='font-bold text-3xl mt-5 mb-[15px] uppercase'>Accessories</h2>
 
-      {/* <ImageBlock
+      <ImageBlock
         product='Kate Spade Hot Sauce Silk Square Scarf'
-        url=''
+        url='https://www.katespade.com/products/hot-sauce-silk-square-scarf/KS1004298.html'
         price={88}
         alt=''
         src=''
-        imgWidth={0}
-        imgHeight={0}
-        description=''
+        description='Another designer brand known for their highly coveted novelty prints, Kate Spade
+                brings the hear to a classic summer accessory&mdash;tie up in your hair al la Breakfast at
+                Tiffany&rsquo;s, around your neck Roman Holiday style, or attach it to your purse for a pop of color (no
+                Audrey Hepburn example here, sorry).'
       />
 
       <ImageBlock
-        product=''
-        url=''
-        price={0}
+        product='Jeffrey Campbell Sweet-On-U Mules'
+        url='https://jeffreycampbellshoes.com/products/sweet-on-u?variant=40788997898305'
+        price={150}
         alt=''
-        src=''
-        imgWidth={0}
-        imgHeight={0}
-        description=''
-      /> */}
+        src='/novelty-food-prints/image8.png'
+        description='Cherries and open-toed mules are top of mind every summer, though not typically together. Jeffrey Campbell’s take on this trend combines the sweetness of a traditional cherry print and bows with sexy patent leather and square-toe details.'
+      />
+
+      <ImageBlock
+        product='The Fiona Beaded Bag: Produce Edition by Anthropologie'
+        url='https://www.anthropologie.com/shop/the-fiona-beaded-bag-produce-edition?color=075&inventoryCountry=US&countryCode=US&utm_medium=paid_search&utm_source=Google&utm_campaign=US+-+Shopping+-+PMAX+-+Apparel+-+Accessories+-+Accessories&utm_content=&utm_term=&creative=&device=c&matchtype=&network=x&utm_kxconfid=vx6rd81ts&gad_source=1&gclid=CjwKCAjwp4m0BhBAEiwAsdc4aCGcvVpo2HWL-F-r7_uEtvaP7RnS7i9NEutbSUAaoGZpwMj5hq-a6hoC3t0QAvD_BwE&gclsrc=aw.ds&type=STANDARD&size=One+Size&quantity=1'
+        price={88}
+        alt=''
+        src='/novelty-food-prints/image2.png'
+        description='If you’re looking for a way to satiate your craving for the sold-out Staud tomato bag that’s also a little more cost-friendly, this bag from Anthropologie has that all-over beaded in a baby blue that really makes the tomatoes pop. Not a tomato girl? The brand also has an olive version. '
+      />
     </article>
   )
 }

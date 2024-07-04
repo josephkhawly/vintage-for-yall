@@ -6,8 +6,8 @@ interface ImageBlockProps {
   price: number
   src: string
   alt: string
-  imgWidth: number
-  imgHeight: number
+  imgWidth?: number
+  imgHeight?: number
   description: string
 }
 
@@ -30,7 +30,7 @@ export default function ImageBlock({
         ${price}
       </p>
       <p>
-        <Image alt={alt} src={src} width={imgWidth} height={imgHeight} className='mb-3 mx-auto' />
+        <Image alt={alt} src={src} width={imgWidth ?? 353} height={imgHeight ?? 529} className='mb-3 mx-auto' />
       </p>
       <p className='mb-[15px]'>{description}</p>
     </>
