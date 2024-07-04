@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import ImageBlock from '@/components/ImageBlock'
+import Image from 'next/image'
 
 export default function NoveltyFoodPrints() {
   return (
@@ -101,17 +102,27 @@ export default function NoveltyFoodPrints() {
 
       <h2 className='font-bold text-3xl mt-5 mb-[15px] uppercase'>Accessories</h2>
 
-      <ImageBlock
-        product='Kate Spade Hot Sauce Silk Square Scarf'
-        url='https://www.katespade.com/products/hot-sauce-silk-square-scarf/KS1004298.html'
-        price={88}
-        alt=''
-        src=''
-        description='Another designer brand known for their highly coveted novelty prints, Kate Spade
-                brings the hear to a classic summer accessory&mdash;tie up in your hair al la Breakfast at
-                Tiffany&rsquo;s, around your neck Roman Holiday style, or attach it to your purse for a pop of color (no
-                Audrey Hepburn example here, sorry).'
-      />
+      <p className='mt-5 mb-[15px]'>
+        <a
+          className='underline'
+          href='https://www.katespade.com/products/hot-sauce-silk-square-scarf/KS1004298.html'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          Kate Spade Hot Sauce Silk Square Scarf
+        </a>{' '}
+        $88
+      </p>
+      <p className='mb-3 mx-auto flex justify-center items-center gap-4'>
+        <Image alt='' src='/novelty-food-prints/image10.png' width={353} height={529} />
+        <Image alt='' src='/novelty-food-prints/image3.png' width={353} height={529} />
+      </p>
+      <p className='mb-[15px]'>
+        Another designer brand known for their highly coveted novelty prints, Kate Spade brings the
+        hear to a classic summer accessory&mdash;tie up in your hair al la Breakfast at
+        Tiffany&rsquo;s, around your neck Roman Holiday style, or attach it to your purse for a pop
+        of color (no Audrey Hepburn example here, sorry).
+      </p>
 
       <ImageBlock
         product='Jeffrey Campbell Sweet-On-U Mules'
@@ -122,14 +133,45 @@ export default function NoveltyFoodPrints() {
         description='Cherries and open-toed mules are top of mind every summer, though not typically together. Jeffrey Campbell’s take on this trend combines the sweetness of a traditional cherry print and bows with sexy patent leather and square-toe details.'
       />
 
-      <ImageBlock
-        product='The Fiona Beaded Bag: Produce Edition by Anthropologie'
-        url='https://www.anthropologie.com/shop/the-fiona-beaded-bag-produce-edition?color=075&inventoryCountry=US&countryCode=US&utm_medium=paid_search&utm_source=Google&utm_campaign=US+-+Shopping+-+PMAX+-+Apparel+-+Accessories+-+Accessories&utm_content=&utm_term=&creative=&device=c&matchtype=&network=x&utm_kxconfid=vx6rd81ts&gad_source=1&gclid=CjwKCAjwp4m0BhBAEiwAsdc4aCGcvVpo2HWL-F-r7_uEtvaP7RnS7i9NEutbSUAaoGZpwMj5hq-a6hoC3t0QAvD_BwE&gclsrc=aw.ds&type=STANDARD&size=One+Size&quantity=1'
-        price={88}
-        alt=''
-        src='/novelty-food-prints/image2.png'
-        description='If you’re looking for a way to satiate your craving for the sold-out Staud tomato bag that’s also a little more cost-friendly, this bag from Anthropologie has that all-over beaded in a baby blue that really makes the tomatoes pop. Not a tomato girl? The brand also has an olive version. '
-      />
+      <p className='mt-5 mb-[15px]'>
+        <a
+          className='underline'
+          href='https://www.anthropologie.com/shop/the-fiona-beaded-bag-produce-edition?color=075&inventoryCountry=US&countryCode=US&utm_medium=paid_search&utm_source=Google&utm_campaign=US+-+Shopping+-+PMAX+-+Apparel+-+Accessories+-+Accessories&utm_content=&utm_term=&creative=&device=c&matchtype=&network=x&utm_kxconfid=vx6rd81ts&gad_source=1&gclid=CjwKCAjwp4m0BhBAEiwAsdc4aCGcvVpo2HWL-F-r7_uEtvaP7RnS7i9NEutbSUAaoGZpwMj5hq-a6hoC3t0QAvD_BwE&gclsrc=aw.ds&type=STANDARD&size=One+Size&quantity=1'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          The Fiona Beaded Bag: Produce Edition
+        </a>{' '}
+        by Anthropologie $88
+      </p>
+      <p>
+        <Image
+          alt=''
+          src='/novelty-food-prints/image2.png'
+          width={353}
+          height={529}
+          className='mb-3 mx-auto'
+        />
+      </p>
+      <p className='mb-[15px]'>
+        If you’re looking for a way to satiate your craving for the sold-out{' '}
+        <a
+          href='https://staud.clothing/products/tommy-beaded-bag-tomato'
+          target='_blank'
+          className='underline'
+        >
+          Staud tomato bag
+        </a>{' '}
+        that’s also a little more cost-friendly, this bag from Anthropologie has that all-over
+        beaded in a baby blue that really makes the tomatoes pop. Not a tomato girl?{' '}
+        <a
+          href='https://www.anthropologie.com/shop/the-fiona-beaded-bag-produce-edition?color=230&inventoryCountry=US&countryCode=US&utm_medium=paid_search&utm_source=Google&utm_campaign=US+-+Shopping+-+PMAX+-+Apparel+-+Accessories+-+Accessories&utm_content=&utm_term=&creative=&device=c&matchtype=&network=x&utm_kxconfid=vx6rd81ts&gad_source=1&gclid=CjwKCAjwp4m0BhBAEiwAsdc4aCGcvVpo2HWL-F-r7_uEtvaP7RnS7i9NEutbSUAaoGZpwMj5hq-a6hoC3t0QAvD_BwE&gclsrc=aw.ds&type=STANDARD&size=One+Size&quantity=1'
+          target='_blank'
+          className='underline'
+        >
+          The brand also has an olive version.
+        </a>
+      </p>
     </article>
   )
 }

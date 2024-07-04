@@ -1,6 +1,6 @@
 export const sampleLinks = [
-    {
-        title: 'Novelty Food Prints',
-        slug: 'novelty-food-prints',
-    }
+  {
+    title: 'This Summer, Wear What You Eat',
+    slug: 'novelty-food-prints',
+  },
 ]
