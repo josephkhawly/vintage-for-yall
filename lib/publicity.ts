@@ -152,3 +152,29 @@ export const podcasts = {
     },
   ],
 }
+
+export const awards = {
+  name: 'Awards',
+  clippings: [
+    {
+      image: '/publicity/awards/klur-menshealth.png',
+      alt: 'Klur - Mens Health',
+      url: 'https://www.menshealth.com/grooming/a36530627/mens-health-grooming-awards-2021/',
+    },
+    {
+      image: '/publicity/awards/klur-self.png',
+      alt: 'Klur - Self',
+      url: 'https://www.self.com/gallery/best-face-toner',
+    },
+    {
+      image: '/publicity/awards/klur-popsugar.png',
+      alt: 'Klur - Popsugar',
+      url: 'https://www.popsugar.com/beauty/beauty-awards-best-black-beauty-products-2021-48155331',
+    },
+    {
+      image: '/publicity/awards/sz-popsugar.png',
+      alt: 'Superzero - Popsugar',
+      url: 'https://www.popsugar.com/beauty/beauty-awards-best-conscious-products-2021-48277687',
+    },
+  ],
+}

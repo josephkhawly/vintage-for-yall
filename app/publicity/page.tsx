@@ -1,5 +1,5 @@
 import { ClipSection } from '@/components/ClipSection'
-import { digitalPress, onSite, podcasts, socialMedia, video } from '@/lib/publicity'
+import { awards, digitalPress, onSite, podcasts, socialMedia, video } from '@/lib/publicity'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export default function Portfolio() {
       <ClipSection section={onSite} />
       <ClipSection section={socialMedia} />
       <ClipSection section={podcasts} />
-      {/* <ClipSection section={awards} /> */}
+      <ClipSection section={awards} />
       {/* <ClipSection section={print} /> */}
     </>
   )
