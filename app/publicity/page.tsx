@@ -1,5 +1,11 @@
 import { ClipSection } from '@/components/ClipSection'
 import { digitalPress, video } from '@/lib/publicity'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "Publicity | Vintage for Y'all",
+  description: '',
+}
 
 export default function Portfolio() {
   return (
@@ -10,7 +16,6 @@ export default function Portfolio() {
       </h1>
       <ClipSection section={digitalPress} />
       <ClipSection section={video} />
-      {/* <ClipSection section={video} /> */}
       {/* <ClipSection section={onSite} /> */}
       {/* <ClipSection section={socialMedia} /> */}
       {/* <ClipSection section={podcasts} /> */}
