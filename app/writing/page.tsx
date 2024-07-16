@@ -10,7 +10,7 @@ export default function Portfolio() {
         <div>
           {sampleLinks.map((sample) => (
             <div key={sample.slug} className='mb-4'>
-              <Link href={`/portfolio/${sample.slug}`} className='underline'>
+              <Link href={`/writing/${sample.slug}`} className='underline'>
                 {sample.title}
               </Link>
             </div>
@@ -23,12 +23,7 @@ export default function Portfolio() {
           {pressClippings.map((clipping) => (
             <div key={clipping.url} className='mb-4'>
               <a href={clipping.url} target='_blank' rel='noopener noreferrer'>
-                <Image
-                  src={clipping.image}
-                  alt={clipping.alt}
-                  width={600}
-                  height={600}
-                />
+                <Image src={clipping.image} alt={clipping.alt} width={600} height={600} />
               </a>
             </div>
           ))}
