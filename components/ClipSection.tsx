@@ -3,7 +3,7 @@ import Image from 'next/image'
 export const ClipSection = ({ section }: any) => {
   return (
     <div className='lg:flex justify-between items-start'>
-      <h1 className='text-6xl lg:text-9xl mb-8'>{section.title}</h1>
+      <h1 className='text-6xl lg:text-9xl mb-8'>{section.name}</h1>
       <div>
         {section.clippings.map((clipping: any) => (
           <div key={clipping.url} className='mb-4'>
