@@ -100,3 +100,34 @@ export const onSite = {
     },
   ],
 }
+
+export const socialMedia = {
+  name: 'Social Media',
+  clippings: [
+    {
+      image: '/publicity/socialmedia/remezcla.png',
+      alt: 'Remezcla Instagram',
+      url: '',
+    },
+    {
+      image: '/publicity/socialmedia/wwd.png',
+      alt: 'WWD',
+      url: '',
+    },
+    {
+      image: '/publicity/socialmedia/refinery29.png',
+      alt: 'Refinery29',
+      url: '',
+    },
+    {
+      image: '/publicity/socialmedia/revolve.png',
+      alt: 'Revolve',
+      url: '',
+    },
+    {
+      image: '/publicity/socialmedia/supergoop.png',
+      alt: 'Supergoop',
+      url: '',
+    },
+  ],
+}
