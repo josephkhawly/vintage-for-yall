@@ -131,3 +131,24 @@ export const socialMedia = {
     },
   ],
 }
+
+export const podcasts = {
+  name: 'Podcasts',
+  clippings: [
+    {
+      image: '/publicity/podcasts/business-of-creators.png',
+      alt: 'Business of Creators',
+      url: 'https://podcasts.apple.com/gb/podcast/from-rapper-to-creator-economy-pioneer-with-iggy-azalea/id1589028774?i=1000658772323',
+    },
+    {
+      image: '/publicity/podcasts/happiness-happens.png',
+      alt: 'Happiness Happens',
+      url: 'https://podcasts.apple.com/gb/podcast/233-divorced-single-mom-finds-love-and-self-worth/id1449403993?i=1000656243234',
+    },
+    {
+      image: '/publicity/podcasts/dom-meets-world.png',
+      alt: 'Dom Meets World',
+      url: 'https://www.youtube.com/watch?v=vidXImg7k4c',
+    },
+  ],
+}
