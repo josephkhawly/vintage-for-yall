@@ -4,7 +4,7 @@ export const digitalPress = {
     {
       image: '/publicity/digital/forbes-iggy.png',
       alt: 'Forbes',
-      url: 'https://www.forbes.com/sites/ianshepherd/2024/06/12/from-rapper-to-creator-economy-pioneer-iggy-azaleas-bold-new-venture/',
+      url: 'https://www.forbes.com/sites/ianshepherd/2024/06/12/from-rapper-to-creator-economy-pioneer-s-bold-new-venture/',
     },
     {
       image: '/publicity/digital/thr-dripology.png',
@@ -65,7 +65,38 @@ export const video = {
     {
       image: '/publicity/video/iggy-azalea-wired.png',
       alt: 'Wired - Iggy Azalea',
-      url: 'https://www.wired.com/video/watch/google-autocomplete-inverviews-iggy-azalea-answers-the-web-most-searched-questions',
+      url: 'https://www.wired.com/video/watch/google-autocomplete-inverviews--answers-the-web-most-searched-questions',
+    },
+  ],
+}
+
+export const onSite = {
+  name: 'On-Site Coordination',
+  clippings: [
+    {
+      image: '/publicity/onsite/vulturefest.png',
+      alt: 'Vulture Fest',
+      url: 'https://www.vulture.com/2022/11/paula-j-parker-suggests-the-proud-family-ye-musical-episode.html',
+    },
+    {
+      image: '/publicity/onsite/comiccon.png',
+      alt: 'Comic Con',
+      url: 'https://sdccblog.com/2023/07/underdeveloped-cast-set-for-san-diego-comic-con-panel/',
+    },
+    {
+      image: '/publicity/onsite/remington.png',
+      alt: 'Remington One',
+      url: 'https://www.prnewswire.com/news-releases/remington-expands-global-portfolio-with-the-remington-one-collection----an-innovative-system-of-high-quality-multi-function-styling-tools-302019085.html',
+    },
+    {
+      image: '/publicity/onsite/jhud.png',
+      alt: 'Jennifer Hudson',
+      url: 'https://www.youtube.com/watch?v=qPx7cJHVma8',
+    },
+    {
+      image: '/publicity/onsite/sona.png',
+      alt: 'SONA',
+      url: 'https://www.billboard.com/lists/justin-tranter-allee-willis-2023-sona-warrior-awards/',
     },
   ],
 }
