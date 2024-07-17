@@ -71,7 +71,7 @@ export const video = {
 }
 
 export const onSite = {
-  name: 'On-Site Coordination',
+  name: 'On-Site',
   clippings: [
     {
       image: '/publicity/onsite/vulturefest.png',
