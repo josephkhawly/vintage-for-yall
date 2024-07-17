@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Portfolio() {
   return (
     <>
-      <h1 className='text-center italic mb-7'>
+      <h1 className='text-center italic'>
         Click on the icons below to view highlights from various publicity work across entertainment
         and consumer clients
       </h1>
