@@ -1,8 +1,12 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import logo1 from '../public/logo.png'
 
 export default function Header() {
+  const pathname = usePathname()
   return (
     <header className='container mx-auto p-6 md:p-12 flex items-center justify-between'>
       <Link href='/'>
@@ -14,7 +18,9 @@ export default function Header() {
             <Link href='/'>About</Link>
           </li> */}
           <li>
-            <Link href='/writing'>Portfolio</Link>
+            <Link className={pathname === '/writing' ? 'underline' : ''} href='/writing'>
+              Portfolio
+            </Link>
           </li>
         </ul>
       </nav>
