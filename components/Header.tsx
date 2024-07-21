@@ -21,6 +21,7 @@ export default function Header() {
             <Link className={pathname === '/writing' ? 'underline' : ''} href='/writing'>
               Writing Samples
             </Link>
+            <Link href='/shop'>Shop</Link>
           </li>
         </ul>
       </nav>
