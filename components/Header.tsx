@@ -18,6 +18,11 @@ export default function Header() {
             <Link href='/'>About</Link>
           </li> */}
           <li>
+            <Link className={pathname === '/shop' ? 'underline' : ''} href='/shop'>
+              Shop
+            </Link>
+          </li>
+          <li>
             <Link className={pathname === '/writing' ? 'underline' : ''} href='/writing'>
               Writing Samples
             </Link>
