@@ -19,7 +19,7 @@ export default function Header() {
           </li> */}
           <li>
             <Link className={pathname === '/writing' ? 'underline' : ''} href='/writing'>
-              Portfolio
+              Writing Samples
             </Link>
           </li>
         </ul>
