@@ -1,12 +1,11 @@
-'use client'
-
-import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import logo1 from '../public/logo.png'
+import { getMenu } from '@/lib/shopify'
+import NavItem from './NavItem'
 
-export default function Header() {
-  const pathname = usePathname()
+export default async function Header() {
+  const menu = await getMenu('main-menu')
   return (
     <header className='container mx-auto p-6 md:p-12 flex items-center justify-between'>
       <Link href='/'>
@@ -14,19 +13,12 @@ export default function Header() {
       </Link>
       <nav>
         <ul className='flex gap-4'>
-          {/* <li>
-            <Link href='/'>About</Link>
-          </li> */}
           <li>
-            <Link className={pathname === '/shop' ? 'underline' : ''} href='/shop'>
-              Shop
-            </Link>
+            <Link href='/shop'>Shop</Link>
           </li>
-          <li>
-            <Link className={pathname === '/writing' ? 'underline' : ''} href='/writing'>
-              Writing Samples
-            </Link>
-          </li>
+          {menu.map((item) => (
+            <NavItem key={item.title} item={item} />
+          ))}
         </ul>
       </nav>
     </header>
