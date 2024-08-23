@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${poppins.className} bg-dark-magenta text-light-pink`}>
+      <body className={`${poppins.className} text-black`}>
         <Header />
         <main className='min-h-screen p-6 md:p-12 container mx-auto'>{children}</main>
         <Footer />
