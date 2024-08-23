@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: "Shop | Vintage for Y'all",
@@ -9,16 +10,14 @@ export const metadata: Metadata = {
 function ProductCard({ product }: any) {
   return (
     <li className='aspect-square'>
-      <a
+      <Link
         className='flex flex-col items-center justify-between'
-        href={product.url}
-        target='_blank'
-        rel='noopener noreferrer'
+        href={`/shop/${product.id}`}
       >
         <Image alt={product.title} src={product.image} width={353} height={353} className='mb-3' />
         <p className='mt-5 mb-[15px]'>{product.title}</p>
         <p>${product.price.toFixed(2)}</p>
-      </a>
+      </Link>
     </li>
   )
 }
