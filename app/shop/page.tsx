@@ -11,6 +11,7 @@ function ProductCard({ product }: any) {
   return (
     <li className='aspect-square'>
       <Link
+        prefetch={true}
         className='flex flex-col items-center justify-between'
         href={`/shop/${product.id}`}
       >

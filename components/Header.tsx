@@ -8,13 +8,15 @@ export default async function Header() {
   const menu = await getMenu('main-menu')
   return (
     <header className='container mx-auto p-6 md:p-12 flex items-center justify-between'>
-      <Link href='/'>
+      <Link href='/' prefetch={true}>
         <Image src={logo1} alt='logo' width={150} />
       </Link>
       <nav>
         <ul className='flex gap-4'>
           <li>
-            <Link href='/shop'>Shop</Link>
+            <Link prefetch={true} href='/shop'>
+              Shop
+            </Link>
           </li>
           {menu.map((item) => (
             <NavItem key={item.title} item={item} />

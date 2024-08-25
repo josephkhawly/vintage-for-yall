@@ -16,7 +16,7 @@ export default function Portfolio() {
         <div>
           {sampleLinks.map((sample) => (
             <div key={sample.slug} className='mb-4'>
-              <Link href={`/writing/${sample.slug}`} className='underline'>
+              <Link prefetch={true} href={`/writing/${sample.slug}`} className='underline'>
                 {sample.title}
               </Link>
             </div>

@@ -8,7 +8,7 @@ export default function NavItem({ item }: { item: Menu }) {
   const pathname = usePathname()
   return (
     <li key={item.title}>
-      <Link className={pathname === item.path ? 'underline' : ''} href={item.path}>
+      <Link prefetch={true} className={pathname === item.path ? 'underline' : ''} href={item.path}>
         {item.title}
       </Link>
     </li>
