@@ -6,6 +6,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'fakestoreapi.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.shopify.com',
+        pathname: '/s/files/**',
+      },
     ],
   },
 }
