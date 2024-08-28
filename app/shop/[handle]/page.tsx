@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!product) return notFound()
 
-  const { url, width, height, altText: alt } = featuredImage || {}
+  const { url, width, height, altText: alt } = product.featuredImage || {}
   const indexable = !product.tags.includes(HIDDEN_PRODUCT_TAG)
 
   return {
