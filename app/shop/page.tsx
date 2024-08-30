@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { getProducts } from '@/lib/shopify'
 import { defaultSort } from '@/lib/constants'
 import { Product } from '@/lib/shopify/types'
+import Price from '@/components/Price'
 
 export const metadata: Metadata = {
   title: "Shop | Vintage for Y'all",
@@ -21,11 +22,10 @@ function ProductCard({ product }: { product: Product }) {
       >
         <Image alt={title} src={featuredImage?.url} width={353} height={353} className='mb-3' />
         <p className='mt-5 mb-[15px]'>{title}</p>
-        <p>{`${new Intl.NumberFormat(undefined, {
-          style: 'currency',
-          currency: 'USD',
-          currencyDisplay: 'narrowSymbol',
-        }).format(parseFloat(priceRange.maxVariantPrice.amount))}`}</p>
+        <Price
+          amount={priceRange?.minVariantPrice.amount}
+          currencyCode={priceRange?.minVariantPrice.currencyCode}
+        />
       </Link>
     </li>
   )

@@ -1,3 +1,4 @@
+import Price from '@/components/Price'
 import { HIDDEN_PRODUCT_TAG } from '@/lib/constants'
 import { getProduct } from '@/lib/shopify'
 import { Metadata } from 'next'
@@ -85,11 +86,10 @@ export default async function ProductPage({ params }: PageProps) {
       </div>
       <div>
         <h1 className='text-4xl lg:text-6xl mb-8'>{product.title}</h1>
-        <p className='text-dark-magenta'>{`${new Intl.NumberFormat(undefined, {
-          style: 'currency',
-          currency: priceRange.maxVariantPrice.currencyCode,
-          currencyDisplay: 'narrowSymbol',
-        }).format(parseFloat(priceRange.maxVariantPrice.amount))}`}</p>
+        <Price
+          amount={priceRange.minVariantPrice.amount}
+          currencyCode={priceRange.minVariantPrice.currencyCode}
+        />
         <p className='mt-5 mb-[15px]'>{product.description}</p>
       </div>
     </div>
