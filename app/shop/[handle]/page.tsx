@@ -1,4 +1,6 @@
+import { AddToCart } from '@/components/cart/AddToCart'
 import Price from '@/components/Price'
+import Prose from '@/components/Prose'
 import { HIDDEN_PRODUCT_TAG } from '@/lib/constants'
 import { getProduct } from '@/lib/shopify'
 import { Metadata } from 'next'
@@ -90,7 +92,10 @@ export default async function ProductPage({ params }: PageProps) {
           amount={priceRange.minVariantPrice.amount}
           currencyCode={priceRange.minVariantPrice.currencyCode}
         />
-        <p className='mt-5 mb-[15px]'>{product.description}</p>
+        {product.descriptionHtml ? (
+          <Prose className='mb-6 text-sm leading-tight' html={product.descriptionHtml} />
+        ) : null}
+        <AddToCart product={product} />
       </div>
     </div>
   )
