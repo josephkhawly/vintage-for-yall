@@ -1,3 +1,5 @@
+'use client'
+
 import clsx from 'clsx'
 import { useFormState } from 'react-dom'
 import { addItem } from './actions'
