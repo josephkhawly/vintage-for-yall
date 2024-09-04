@@ -11,12 +11,32 @@ import { useFormStatus } from 'react-dom'
 import { createCartAndSetCookie, redirectToCheckout } from './actions'
 import { useCart } from './CartContext'
 import { DeleteItemButton } from './DeleteItemButton'
-import OpenCart from './OpenCart'
-import CloseCart from './CloseCart'
-import { HiOutlineShoppingCart } from 'react-icons/hi2'
+import { HiOutlineShoppingCart, HiOutlineXMark, HiShoppingCart } from 'react-icons/hi2'
 
 type MerchandiseSearchParams = {
   [key: string]: string
+}
+
+function OpenCart({ quantity }: { quantity?: number }) {
+  return (
+    <div className='relative flex h-11 w-11 items-center justify-center text-black transition-colors'>
+      <HiShoppingCart className='h-7 w-7' />
+
+      {quantity ? (
+        <div className='absolute right-0 top-0 -mr-1 -mt-1 h-4 w-4 rounded bg-burnt-orange text-[11px] font-medium text-white'>
+          {quantity}
+        </div>
+      ) : null}
+    </div>
+  )
+}
+
+function CloseCart() {
+  return (
+    <div className='relative flex h-11 w-11 items-center justify-center text-black'>
+      <HiOutlineXMark className='h-8 w-8' />
+    </div>
+  )
 }
 
 export default function CartModal() {
@@ -82,7 +102,7 @@ export default function CartModal() {
 
               {!cart || cart.lines.length === 0 ? (
                 <div className='mt-20 flex w-full flex-col items-center justify-center overflow-hidden'>
-                  <HiOutlineShoppingCart className='h-16' />
+                  <HiOutlineShoppingCart className='h-16 w-16' />
                   <p className='mt-6 text-center text-2xl font-bold'>Your cart is empty.</p>
                 </div>
               ) : (
