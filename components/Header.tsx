@@ -3,6 +3,7 @@ import Link from 'next/link'
 import logo1 from '../public/logo.png'
 import { getMenu } from '@/lib/shopify'
 import NavItem from './NavItem'
+import CartModal from './cart/CartModal'
 
 export default async function Header() {
   const menu = await getMenu('main-menu')
@@ -12,7 +13,7 @@ export default async function Header() {
         <Image src={logo1} alt='logo' width={150} />
       </Link>
       <nav>
-        <ul className='flex gap-4'>
+        <ul className='flex gap-4 items-center'>
           <li>
             <Link prefetch={true} href='/shop'>
               Shop
@@ -21,6 +22,9 @@ export default async function Header() {
           {menu.map((item) => (
             <NavItem key={item.title} item={item} />
           ))}
+          <li>
+            <CartModal />
+          </li>
         </ul>
       </nav>
     </header>
