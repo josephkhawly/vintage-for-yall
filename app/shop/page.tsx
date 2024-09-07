@@ -34,7 +34,6 @@ function ProductCard({ product }: { product: Product }) {
 export default async function Shop() {
   const { sortKey, reverse } = defaultSort
   const products = await getProducts({ sortKey, reverse })
-  // console.log(products)
 
   return (
     <>

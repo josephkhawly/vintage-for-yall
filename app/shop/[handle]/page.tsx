@@ -1,5 +1,6 @@
 import { AddToCart } from '@/components/cart/AddToCart'
 import Price from '@/components/Price'
+import { ProductProvider } from '@/components/ProductContext'
 import Prose from '@/components/Prose'
 import { HIDDEN_PRODUCT_TAG } from '@/lib/constants'
 import { getProduct } from '@/lib/shopify'
@@ -70,33 +71,35 @@ export default async function ProductPage({ params }: PageProps) {
   }
 
   return (
-    <div className='grid grid-flow-row gap-4 grid-cols-1 sm:grid-cols-2'>
+    <ProductProvider>
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className='flex justify-center'>
-        <Image
-          alt={product.title}
-          src={featuredImage.url}
-          width={featuredImage.width}
-          height={featuredImage.height}
-          className='mb-3'
-        />
+      <div className='grid grid-flow-row gap-4 grid-cols-1 sm:grid-cols-2'>
+        <div className='flex justify-center relative'>
+          <Image
+            alt={product.title}
+            src={featuredImage.url}
+            className='h-full w-full object-contain'
+            fill
+            sizes='(min-width: 1024px) 66vw, 100vw'
+          />
+        </div>
+        <div>
+          <h1 className='text-4xl lg:text-6xl mb-8'>{product.title}</h1>
+          <Price
+            amount={priceRange.minVariantPrice.amount}
+            currencyCode={priceRange.minVariantPrice.currencyCode}
+          />
+          {product.descriptionHtml ? (
+            <Prose className='mb-6 text-sm leading-tight' html={product.descriptionHtml} />
+          ) : null}
+          <AddToCart product={product} />
+        </div>
       </div>
-      <div>
-        <h1 className='text-4xl lg:text-6xl mb-8'>{product.title}</h1>
-        <Price
-          amount={priceRange.minVariantPrice.amount}
-          currencyCode={priceRange.minVariantPrice.currencyCode}
-        />
-        {product.descriptionHtml ? (
-          <Prose className='mb-6 text-sm leading-tight' html={product.descriptionHtml} />
-        ) : null}
-        <AddToCart product={product} />
-      </div>
-    </div>
+    </ProductProvider>
   )
 }

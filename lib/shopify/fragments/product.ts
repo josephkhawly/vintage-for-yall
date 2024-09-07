@@ -8,6 +8,7 @@ const productFragment = /* GraphQL */ `
     title
     description
     descriptionHtml
+    availableForSale
     priceRange {
       maxVariantPrice {
         amount
@@ -16,6 +17,23 @@ const productFragment = /* GraphQL */ `
       minVariantPrice {
         amount
         currencyCode
+      }
+    }
+    variants(first: 250) {
+      edges {
+        node {
+          id
+          title
+          availableForSale
+          selectedOptions {
+            name
+            value
+          }
+          price {
+            amount
+            currencyCode
+          }
+        }
       }
     }
     featuredImage {
@@ -36,6 +54,6 @@ const productFragment = /* GraphQL */ `
   }
   ${imageFragment}
   ${seoFragment}
-`;
+`
 
 export default productFragment;
