@@ -89,10 +89,11 @@ export default async function ProductPage({ params }: PageProps) {
           />
         </div>
         <div>
-          <h1 className='text-4xl lg:text-6xl mb-8'>{product.title}</h1>
+          <h1 className='text-3xl lg:text-5xl mb-6'>{product.title}</h1>
           <Price
             amount={priceRange.minVariantPrice.amount}
             currencyCode={priceRange.minVariantPrice.currencyCode}
+            className='text-2xl lg:text-3xl mb-6 text-dark-magenta'
           />
           {product.descriptionHtml ? (
             <Prose className='mb-6 text-sm leading-tight' html={product.descriptionHtml} />
