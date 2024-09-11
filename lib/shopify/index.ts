@@ -39,6 +39,7 @@ import {
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
+  ShopifyMedia,
   ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -159,14 +160,14 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
   return reshapedCollections
 }
 
-const reshapeImages = (images: Connection<Image>, productTitle: string) => {
+const reshapeImages = (images: Connection<ShopifyMedia>, productTitle: string) => {
   const flattened = removeEdgesAndNodes(images)
 
   return flattened.map((image) => {
-    const filename = image.url.match(/.*\/(.*)\..*/)?.[1]
+    const filename = image.image?.url.match(/.*\/(.*)\..*/)?.[1]
     return {
-      ...image,
-      altText: image.altText || `${productTitle} - ${filename}`,
+      ...image.image,
+      altText: image.image?.altText || `${productTitle} - ${filename}`,
     }
   })
 }
@@ -176,11 +177,11 @@ const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean =
     return undefined
   }
 
-  const { images, variants, ...rest } = product
+  const { media, variants, ...rest } = product
 
   return {
     ...rest,
-    images: reshapeImages(images, product.title),
+    images: reshapeImages(media, product.title),
     variants: removeEdgesAndNodes(variants),
   }
 }

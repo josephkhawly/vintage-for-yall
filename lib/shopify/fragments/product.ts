@@ -1,5 +1,5 @@
-import imageFragment from './image';
-import seoFragment from './seo';
+import mediaFragment from './image'
+import seoFragment from './seo'
 
 const productFragment = /* GraphQL */ `
   fragment product on Product {
@@ -19,7 +19,7 @@ const productFragment = /* GraphQL */ `
         currencyCode
       }
     }
-    variants(first: 250) {
+    variants(first: 2) {
       edges {
         node {
           id
@@ -37,12 +37,16 @@ const productFragment = /* GraphQL */ `
       }
     }
     featuredImage {
-      ...image
+      url 
+      altText
+      width
+      height
     }
-    images(first: 20) {
+    media(first: 10) {
       edges {
         node {
-          ...image
+          alt
+          ...mediaFieldsByType
         }
       }
     }
@@ -52,8 +56,8 @@ const productFragment = /* GraphQL */ `
     tags
     updatedAt
   }
-  ${imageFragment}
+  ${mediaFragment}
   ${seoFragment}
 `
 
-export default productFragment;
+export default productFragment

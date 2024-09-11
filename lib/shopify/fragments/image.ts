@@ -1,10 +1,20 @@
-const imageFragment = /* GraphQL */ `
-  fragment image on Image {
-    url
-    altText
-    width
-    height
+const mediaFragment = /* GraphQL */ `
+  fragment mediaFieldsByType on Media {
+    ... on MediaImage {
+      image {
+        url
+      }
+    }
+    ... on Video {
+      sources {
+        url
+        mimeType
+        format
+        height
+        width
+      }
+    }
   }
-`;
+`
 
-export default imageFragment;
+export default mediaFragment
