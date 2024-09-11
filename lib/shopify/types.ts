@@ -68,7 +68,7 @@ export type Page = {
   updatedAt: string;
 };
 
-export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
+export type Product = Omit<ShopifyProduct, 'variants' | 'images' | 'media'> & {
   variants: ProductVariant[];
   images: Image[];
 };
@@ -117,7 +117,7 @@ export type ShopifyCollection = {
 
 export type ShopifyMedia = {
   alt: string
-  image?: Image
+  image: Image
 };
 
 export type ShopifyProduct = {
