@@ -1,11 +1,11 @@
 import { AddToCart } from '@/components/cart/AddToCart'
+import ImageGallery from '@/components/ImageGallery'
 import Price from '@/components/Price'
 import { ProductProvider } from '@/components/ProductContext'
 import Prose from '@/components/Prose'
 import { HIDDEN_PRODUCT_TAG } from '@/lib/constants'
 import { getProduct } from '@/lib/shopify'
 import { Metadata } from 'next'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 
 interface PageProps {
@@ -78,18 +78,10 @@ export default async function ProductPage({ params }: PageProps) {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className='grid grid-flow-row gap-4 grid-cols-1 sm:grid-cols-2'>
-        <div className='flex justify-center relative'>
-          <Image
-            alt={product.title}
-            src={featuredImage.url}
-            className='h-full w-full object-contain'
-            fill
-            sizes='(min-width: 1024px) 66vw, 100vw'
-          />
-        </div>
+      <div className='grid grid-flow-row gap-4 grid-cols-1 md:grid-cols-2'>
+        <ImageGallery images={product.images} />
         <div>
-          <h1 className='text-3xl lg:text-5xl mb-6'>{product.title}</h1>
+          <h1 className='text-3xl lg:text-4xl mb-6'>{product.title}</h1>
           <Price
             amount={priceRange.minVariantPrice.amount}
             currencyCode={priceRange.minVariantPrice.currencyCode}
