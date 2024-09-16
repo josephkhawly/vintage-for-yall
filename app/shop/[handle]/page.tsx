@@ -88,7 +88,7 @@ export default async function ProductPage({ params }: PageProps) {
             className='text-2xl lg:text-3xl mb-6 text-dark-magenta'
           />
           {product.descriptionHtml ? (
-            <Prose className='mb-6 text-sm leading-tight' html={product.descriptionHtml} />
+            <Prose className='mb-6 text-md leading-tight' html={product.descriptionHtml} />
           ) : null}
           <AddToCart product={product} />
         </div>
