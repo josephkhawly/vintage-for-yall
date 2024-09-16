@@ -20,7 +20,13 @@ function ProductCard({ product }: { product: Product }) {
         className='flex flex-col items-center justify-between'
         href={`/shop/${handle}`}
       >
-        <Image alt={title} src={featuredImage?.url} width={353} height={353} className='mb-4' />
+        <Image
+          alt={title}
+          src={featuredImage?.url}
+          width={353}
+          height={353}
+          className='mb-4 w-full'
+        />
         <p className='mb-2 text-center'>{title}</p>
         <Price
           amount={priceRange?.minVariantPrice.amount}
@@ -40,7 +46,7 @@ export default async function Shop() {
     <>
       <h1 className='text-4xl sm:text-6xl mb-8'>Shop</h1>
       <div>
-        <ul className='grid grid-flow-row gap-4 grid-cols-2 lg:grid-cols-3'>
+        <ul className='grid grid-flow-row gap-4 md:gap-10 grid-cols-2 lg:grid-cols-3'>
           {products.map((product: Product) => (
             <ProductCard key={product.handle} product={product} />
           ))}
