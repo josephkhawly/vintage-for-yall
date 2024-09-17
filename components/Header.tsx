@@ -10,7 +10,7 @@ export default async function Header() {
   return (
     <header className='container mx-auto p-6 md:p-12 flex items-center justify-between'>
       <Link href='/' prefetch={true}>
-        <Image src={logo1} alt='logo' width={150} />
+        <Image src={logo1} alt='logo' width={180} />
       </Link>
       <nav>
         <ul className='flex gap-4 items-center'>
@@ -19,10 +19,15 @@ export default async function Header() {
               Shop
             </Link>
           </li>
+          <li>
+            <Link prefetch={true} href='/about'>
+              About
+            </Link>
+          </li>
           {menu.map((item) => (
             <NavItem key={item.title} item={item} />
           ))}
-          <li>
+          <li className='ml-8'>
             <CartModal />
           </li>
         </ul>
