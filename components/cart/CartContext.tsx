@@ -133,6 +133,7 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
       const { variant, product } = action.payload
       const existingItem = currentCart.lines.find((item) => item.merchandise.id === variant.id)
       const updatedItem = createOrUpdateCartItem(existingItem, variant, product)
+      console.log('//////', updatedItem)
 
       const updatedLines = existingItem
         ? currentCart.lines.map((item) => (item.merchandise.id === variant.id ? updatedItem : item))
