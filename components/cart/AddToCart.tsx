@@ -40,7 +40,7 @@ function SubmitButton({
 
 export function AddToCart({ product }: { product: Product }) {
   const { variants, availableForSale } = product
-  const { addCartItem } = useCart()
+  const { addCartItem, cart } = useCart()
   const { state } = useProduct()
   const [message, formAction] = useFormState(addItem, null)
 
@@ -53,7 +53,7 @@ export function AddToCart({ product }: { product: Product }) {
   const actionWithVariant = formAction.bind(null, selectedVariantId)
   const finalVariant = variants.find((variant) => variant.id === selectedVariantId)!
 
-  // console.log('??? cart', cart)
+  console.log('??? cart', cart)
 
   return (
     <form
