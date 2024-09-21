@@ -9,9 +9,6 @@ import { redirect } from 'next/navigation'
 export async function addItem(prevState: any, selectedVariantId: string | undefined) {
   let cartId = cookies().get('cartId')?.value
 
-  console.log('cartId', cartId)
-  console.log('selectedVariantId', selectedVariantId)
-
   if (!cartId || !selectedVariantId) {
     return 'Error adding item to cart'
   }
