@@ -10,8 +10,7 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
   let cartId = cookies().get('cartId')?.value
 
   if (!cartId || !selectedVariantId) {
-    return 'Missing cart ID or variant ID'
-    // return 'Error adding item to cart'
+    return 'Error adding item to cart'
   }
 
   try {

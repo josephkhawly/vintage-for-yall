@@ -49,10 +49,11 @@ export function AddToCart({ product }: { product: Product }) {
   )
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined
   const selectedVariantId = variant?.id || defaultVariantId
+  console.log('??? defaultVariantId', defaultVariantId, 'selectedVariantId', selectedVariantId)
   const actionWithVariant = formAction.bind(null, selectedVariantId)
   const finalVariant = variants.find((variant) => variant.id === selectedVariantId)!
 
-  console.log('??? selectedVariantId', selectedVariantId)
+  // console.log('??? cart', cart)
 
   return (
     <form
