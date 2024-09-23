@@ -168,26 +168,17 @@ export default function CartModal() {
                       })}
                   </ul>
                   <div className='py-4 text-sm text-neutral-500'>
-                    <div className='mb-3 flex items-center justify-between border-b border-neutral-200 pb-1'>
-                      <p>Taxes</p>
+                    <div className='mb-3 flex items-center justify-between pb-1 pt-1'>
+                      <p className='text-md'>Subtotal</p>
                       <Price
                         className='text-right text-base text-black'
-                        amount={cart.cost.totalTaxAmount.amount}
-                        currencyCode={cart.cost.totalTaxAmount.currencyCode}
+                        amount={cart.cost.subtotalAmount.amount}
+                        currencyCode={cart.cost.subtotalAmount.currencyCode}
                       />
                     </div>
-                    <div className='mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1'>
-                      <p>Shipping</p>
-                      <p className='text-right'>Calculated at checkout</p>
-                    </div>
-                    <div className='mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1'>
-                      <p>Total</p>
-                      <Price
-                        className='text-right text-base text-black'
-                        amount={cart.cost.totalAmount.amount}
-                        currencyCode={cart.cost.totalAmount.currencyCode}
-                      />
-                    </div>
+                      <p className='mt-0.5 text-sm text-gray-500'>
+                        Shipping and taxes calculated at checkout.
+                      </p>
                   </div>
                   <form action={redirectToCheckout}>
                     <CheckoutButton />
