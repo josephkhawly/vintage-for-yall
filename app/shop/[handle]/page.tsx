@@ -87,10 +87,12 @@ export default async function ProductPage({ params }: PageProps) {
             currencyCode={priceRange.minVariantPrice.currencyCode}
             className='text-2xl lg:text-3xl mb-6 text-dark-magenta'
           />
-          {product.descriptionHtml ? (
-            <Prose className='mb-6 text-md leading-tight' html={product.descriptionHtml} />
-          ) : null}
-          <AddToCart product={product} />
+          <div className='flex flex-col-reverse md:flex-col'>
+            {product.descriptionHtml ? (
+              <Prose className='mb-6 mt-6 md:mt-0 text-md leading-tight' html={product.descriptionHtml} />
+            ) : null}
+            <AddToCart product={product} />
+          </div>
         </div>
       </div>
     </ProductProvider>
