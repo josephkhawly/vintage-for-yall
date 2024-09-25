@@ -208,6 +208,8 @@ export async function createCart(): Promise<Cart> {
     cache: 'no-store',
   })
 
+  console.log('createCart', res.status, res.body)
+
   return reshapeCart(res.body.data.cartCreate.cart)
 }
 
