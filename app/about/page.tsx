@@ -6,7 +6,7 @@ export default function About() {
     <>
       <h1 className='text-4xl sm:text-6xl mb-8'>ABOUT</h1>
       <div className='lg:flex items-start gap-8'>
-        <Image src={bioImage} alt='Photo of Ariel Khawly' />
+        <Image src={bioImage} alt='Photo of Ariel Khawly' width={600} className='mb-5 lg:mb-0' />
         <div>
           <p className={`mb-5`}>
             Ariel Khawly started writing online in 2011 as a moderately popular Tumblr blogger,
