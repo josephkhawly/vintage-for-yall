@@ -4,6 +4,18 @@ import logo1 from '../public/logo.png'
 import { getMenu } from '@/lib/shopify'
 import NavItem from './NavItem'
 import CartModal from './cart/CartModal'
+import path from 'path'
+
+const hardcodedMenu = [
+  {
+    title: 'Shop',
+    path: '/shop',
+  },
+  {
+    title: 'About',
+    path: '/about',
+  },
+]
 
 export default async function Header() {
   const menu = await getMenu('main-menu')
@@ -14,16 +26,9 @@ export default async function Header() {
       </Link>
       <nav>
         <ul className='flex gap-4 items-center'>
-          <li>
-            <Link prefetch={true} href='/shop'>
-              Shop
-            </Link>
-          </li>
-          <li>
-            <Link prefetch={true} href='/about'>
-              About
-            </Link>
-          </li>
+          {hardcodedMenu.map((item) => (
+            <NavItem key={item.title} item={item} />
+          ))}
           {menu.map((item) => (
             <NavItem key={item.title} item={item} />
           ))}
