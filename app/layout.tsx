@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import { getCart } from '@/lib/shopify'
 import { cookies } from 'next/headers'
 import { CartProvider } from '@/components/cart/CartContext'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -34,6 +35,7 @@ export default function RootLayout({
           <main className='min-h-screen p-6 md:p-12 container mx-auto'>{children}</main>
           <Footer />
         </CartProvider>
+        <SpeedInsights />
       </body>
     </html>
   )
