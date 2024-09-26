@@ -18,11 +18,11 @@ export default function ProductCard({ product }: { product: Product }) {
             src={featuredImage?.url}
             width={353}
             height={353}
-            className='mb-4 w-full aspect-auto'
+            className='mb-4 w-full object-cover'
           />
           {!availableForSale && (
             <div className='absolute top-0 right-0 bg-white bg-opacity-50 text-black text-lg p-1 w-full h-full flex items-center justify-center'>
-              Sold Out
+              <span className='p-3 rounded-full bg-burnt-orange text-white'>Sold Out</span>
             </div>
           )}
         </div>
