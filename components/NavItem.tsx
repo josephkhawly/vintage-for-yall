@@ -7,8 +7,12 @@ import Link from 'next/link'
 export default function NavItem({ item }: { item: Menu }) {
   const pathname = usePathname()
   return (
-    <li key={item.title}>
-      <Link prefetch={true} className={pathname === item.path ? 'underline' : ''} href={item.path}>
+    <li key={item.title} className='text-md'>
+      <Link
+        prefetch={true}
+        className={`${pathname === item.path ? 'underline' : ''} md:text-lg`}
+        href={item.path}
+      >
         {item.title}
       </Link>
     </li>
