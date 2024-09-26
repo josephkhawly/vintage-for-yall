@@ -4,7 +4,6 @@ import logo1 from '../public/logo.png'
 import { getMenu } from '@/lib/shopify'
 import NavItem from './NavItem'
 import CartModal from './cart/CartModal'
-import path from 'path'
 
 const hardcodedMenu = [
   {
