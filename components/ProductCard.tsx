@@ -8,7 +8,6 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <li>
       <Link
-        prefetch={true}
         className='flex flex-col items-center justify-between'
         href={`/shop/${handle}`}
       >
