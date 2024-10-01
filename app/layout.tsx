@@ -7,6 +7,7 @@ import { getCart } from '@/lib/shopify'
 import { cookies } from 'next/headers'
 import { CartProvider } from '@/components/cart/CartContext'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/react'
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -36,6 +37,7 @@ export default function RootLayout({
           <Footer />
         </CartProvider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   )
