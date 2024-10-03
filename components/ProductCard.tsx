@@ -7,17 +7,13 @@ export default function ProductCard({ product }: { product: Product }) {
   const { title, handle, featuredImage, priceRange, availableForSale } = product
   return (
     <li>
-      <Link
-        className='flex flex-col items-center justify-between'
-        href={`/shop/${handle}`}
-      >
-        <div className='relative'>
+      <Link className='flex flex-col items-center justify-between' href={`/shop/${handle}`}>
+        <div className='relative mb-4 w-full' style={{ aspectRatio: '3/4' }}>
           <Image
             alt={title}
-            src={featuredImage?.url}
-            width={353}
-            height={353}
-            className='mb-4 w-full object-cover rounded-md'
+            src={featuredImage.url}
+            fill
+            className='rounded-md'
           />
           {!availableForSale && (
             <div className='absolute top-0 right-0 bg-white bg-opacity-50 text-black text-lg p-1 w-full h-full flex items-center justify-center'>
