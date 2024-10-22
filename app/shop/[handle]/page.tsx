@@ -9,10 +9,11 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 interface PageProps {
-  params: { handle: string }
+  params: Promise<{ handle: string }>
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params
   const product = await getProduct(params.handle)
 
   if (!product) return notFound()
@@ -46,7 +47,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default async function ProductPage({ params }: PageProps) {
+export default async function ProductPage(props: PageProps) {
+  const params = await props.params
   const product = await getProduct(params.handle)
 
   if (!product) return notFound()
@@ -89,7 +91,10 @@ export default async function ProductPage({ params }: PageProps) {
           />
           <div className='flex flex-col-reverse md:flex-col'>
             {product.descriptionHtml ? (
-              <Prose className='mb-6 mt-6 md:mt-0 text-md leading-tight' html={product.descriptionHtml} />
+              <Prose
+                className='mb-6 mt-6 md:mt-0 text-md leading-tight'
+                html={product.descriptionHtml}
+              />
             ) : null}
             <AddToCart product={product} />
           </div>

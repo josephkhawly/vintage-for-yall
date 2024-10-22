@@ -20,12 +20,13 @@ export const metadata: Metadata = {
   description: '',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const cartId = cookies().get('cartId')?.value
+  const cookieStore = await cookies()
+  const cartId = cookieStore.get('cartId')?.value
   // Don't await the fetch, pass the Promise to the context provider
   const cart = getCart(cartId)
   return (
