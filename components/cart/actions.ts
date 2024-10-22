@@ -70,5 +70,6 @@ export async function redirectToCheckout() {
 
 export async function createCartAndSetCookie() {
   let cart = await createCart()
-  (await cookies()).set('cartId', cart.id!)
+  const cookieStore = await cookies()
+  cookieStore.set('cartId', cart.id!)
 }
