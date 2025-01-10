@@ -6,8 +6,7 @@ import { DEFAULT_OPTION } from '@/lib/constants'
 import { createUrl } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Fragment, useEffect, useRef, useState } from 'react'
-import { useFormStatus } from 'react-dom'
+import { Fragment, useActionState, useEffect, useRef, useState } from 'react'
 import { createCartAndSetCookie, redirectToCheckout } from './actions'
 import { useCart } from './CartContext'
 import { DeleteItemButton } from './DeleteItemButton'
@@ -45,6 +44,10 @@ export default function CartModal() {
   const quantityRef = useRef(cart?.totalQuantity)
   const openCart = () => setIsOpen(true)
   const closeCart = () => setIsOpen(false)
+
+  const [, submitAction, isPending] = useActionState(async () => {
+    redirectToCheckout()
+  }, null)
 
   useEffect(() => {
     if (!cart) {
@@ -176,12 +179,18 @@ export default function CartModal() {
                         currencyCode={cart.cost.subtotalAmount.currencyCode}
                       />
                     </div>
-                      <p className='mt-0.5 text-sm text-gray-500'>
-                        Shipping and taxes calculated at checkout.
-                      </p>
+                    <p className='mt-0.5 text-sm text-gray-500'>
+                      Shipping and taxes calculated at checkout.
+                    </p>
                   </div>
-                  <form action={redirectToCheckout}>
-                    <CheckoutButton />
+                  <form action={submitAction}>
+                    <button
+                      className='block w-full rounded-md bg-burnt-orange p-3 text-center text-md tracking-wide text-white hover:opacity-90'
+                      type='submit'
+                      disabled={isPending}
+                    >
+                      Proceed to Checkout
+                    </button>
                   </form>
                 </div>
               )}
@@ -190,19 +199,5 @@ export default function CartModal() {
         </Dialog>
       </Transition>
     </>
-  )
-}
-
-function CheckoutButton() {
-  const { pending } = useFormStatus()
-
-  return (
-    <button
-      className='block w-full rounded-md bg-burnt-orange p-3 text-center text-md tracking-wide text-white hover:opacity-90'
-      type='submit'
-      disabled={pending}
-    >
-      Proceed to Checkout
-    </button>
   )
 }
