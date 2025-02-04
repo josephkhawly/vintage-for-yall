@@ -22,7 +22,7 @@ function OpenCart({ quantity }: { quantity?: number }) {
       <HiShoppingCart className='h-7 w-7' />
 
       {quantity ? (
-        <div className='absolute right-0 top-0 -mr-1 -mt-1 h-4 w-4 rounded bg-burnt-orange text-[11px] font-medium text-white'>
+        <div className='absolute right-0 top-0 -mr-1 -mt-1 h-4 w-4 rounded-sm bg-burnt-orange text-[11px] font-medium text-white'>
           {quantity}
         </div>
       ) : null}
@@ -110,7 +110,7 @@ export default function CartModal() {
                 </div>
               ) : (
                 <div className='flex h-full flex-col justify-between overflow-hidden p-1'>
-                  <ul className='flex-grow overflow-auto py-4'>
+                  <ul className='grow overflow-auto py-4'>
                     {cart.lines
                       .sort((a, b) =>
                         a.merchandise.product.title.localeCompare(b.merchandise.product.title),

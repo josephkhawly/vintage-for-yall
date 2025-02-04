@@ -16,7 +16,7 @@ export default function ProductCard({ product }: { product: Product }) {
             className='rounded-md'
           />
           {!availableForSale && (
-            <div className='absolute top-0 right-0 bg-white bg-opacity-50 text-black text-lg p-1 w-full h-full flex items-center justify-center'>
+            <div className='absolute top-0 right-0 bg-white/50 text-lg p-1 w-full h-full flex items-center justify-center'>
               <span className='p-3 rounded-full bg-burnt-orange text-white'>Sold Out</span>
             </div>
           )}
