@@ -40,7 +40,7 @@ export default function NewsletterModal() {
 
         {status === 'success' ? (
           <div className='text-green-600 p-4 bg-green-50 rounded-md'>
-            Thanks for subscribing! We've added you to our mailing list.
+            Thanks for subscribing! We&apos;ve added you to our mailing list.
           </div>
         ) : (
           <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
