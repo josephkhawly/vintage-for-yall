@@ -1,4 +1,5 @@
 import { ReadonlyURLSearchParams } from 'next/navigation'
+import { Product } from './shopify/types'
 
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString()
@@ -36,4 +37,15 @@ export const validateEnvironmentVariables = () => {
       'Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.',
     )
   }
+}
+
+/**
+ * Sorts products so that sold-out ones appear last
+ */
+export function sortProductsByAvailability(products: Product[]): Product[] {
+  return [...products].sort((a, b) => {
+    if (a.availableForSale && !b.availableForSale) return -1
+    if (!a.availableForSale && b.availableForSale) return 1
+    return 0
+  })
 }

@@ -1,6 +1,6 @@
 import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from '../constants'
 import { isShopifyError } from '../type-guards'
-import { ensureStartsWith } from '../utils'
+import { ensureStartsWith, sortProductsByAvailability } from '../utils'
 import { revalidateTag } from 'next/cache'
 import { headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
@@ -169,7 +169,7 @@ const reshapeImages = (images: Connection<ShopifyMedia>, productTitle: string) =
       ...image.image,
       altText: image.image?.altText || `${productTitle} - ${filename}`,
     }
-  });
+  })
 }
 
 const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
@@ -199,7 +199,8 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
     }
   }
 
-  return reshapedProducts
+  // Sort products so that sold-out ones appear last
+  return sortProductsByAvailability(reshapedProducts)
 }
 
 export async function createCart(): Promise<Cart> {
