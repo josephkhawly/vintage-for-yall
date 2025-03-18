@@ -18,7 +18,7 @@ const hardcodedMenu = [
 
 function AnnouncementBanner() {
   return (
-    <div className='w-full bg-bubblegum-pink text-white py-2 text-center text-sm'>
+    <div className='w-full bg-bubblegum-pink text-white py-2 text-center text-md'>
       Come see us at the Silverlake Flea on March 30 and April 5!
     </div>
   )
