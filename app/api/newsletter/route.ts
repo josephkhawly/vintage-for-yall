@@ -1,4 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { shopifyFetch } from '@/lib/shopify'
+import { newsletterSignupMutation } from '@/lib/shopify/mutations/newsletter'
+import { ShopifyAdminAddCustomerOperation } from '@/lib/shopify/types'
+
+// TODO: set up with ADMIN API key
 
 export async function POST(request: NextRequest) {
   try {
@@ -8,35 +13,32 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 })
     }
 
-    // Shopify customer creation or marketing API endpoint
-    const response = await fetch(
-      `https://${process.env.SHOPIFY_STORE_DOMAIN}/admin/api/2023-10/customers.json`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Shopify-Access-Token': process.env.SHOPIFY_PRIVATE_ACCESS_TOKEN || '',
-        },
-        body: JSON.stringify({
-          customer: {
-            email,
-            accepts_marketing: true,
+    const res = await shopifyFetch<ShopifyAdminAddCustomerOperation>({
+      query: newsletterSignupMutation,
+      variables: {
+        input: {
+          email,
+          emailMarketingConsent: {
+            marketingState: 'SUBSCRIBED',
+            marketingOptInLevel: 'SINGLE_OPT_IN',
+            consentUpdatedAt: new Date().toISOString(),
           },
-        }),
+        },
       },
-    )
+    })
 
-    if (!response.ok) {
-      const error = await response.json()
-      return NextResponse.json(
-        { error: error.message || 'Failed to subscribe' },
-        { status: response.status },
-      )
+    const { customer, userErrors } = res.body.data.customerCreate
+
+    if (userErrors.length > 0) {
+      return NextResponse.json({ error: userErrors[0].message }, { status: 400 })
     }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({
+      success: true,
+      data: customer.emailMarketingConsent.marketingState,
+    })
   } catch (error) {
-    console.error('Newsletter subscription error:', error)
-    return NextResponse.json({ error: 'Failed to process subscription' }, { status: 500 })
+    console.error('Newsletter signup error:', error)
+    return NextResponse.json({ error: 'Failed to subscribe to newsletter' }, { status: 500 })
   }
 }
