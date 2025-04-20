@@ -19,7 +19,7 @@ const hardcodedMenu = [
 function AnnouncementBanner() {
   return (
     <div className='w-full bg-bubblegum-pink text-white py-1 md:py-2 text-center text-xs md:text-base'>
-      Come see us at the Silverlake Flea on March 30 and April 5!
+      Come see us at the Silverlake Flea May 23-25!
     </div>
   )
 }
@@ -28,7 +28,7 @@ export default async function Header() {
   const menu = await getMenu('main-menu')
   return (
     <>
-      {/* <AnnouncementBanner /> */}
+      <AnnouncementBanner />
       <header className='container mx-auto p-5 md:p-12 flex items-center justify-between'>
         <Link href='/' prefetch={true}>
           <Image src={logo1} alt='logo' className='w-28 md:w-[180px]' />
