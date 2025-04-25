@@ -1,15 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import logo1 from '../public/logo.png'
-import { getMenu } from '@/lib/shopify'
+import { getMenu, getCollections } from '@/lib/shopify'
 import NavItem from './NavItem'
 import CartModal from './cart/CartModal'
+import NavDropdown from './NavDropdown'
 
 const hardcodedMenu = [
-  {
-    title: 'Shop',
-    path: '/shop',
-  },
   {
     title: 'About',
     path: '/about',
@@ -26,6 +23,11 @@ function AnnouncementBanner() {
 
 export default async function Header() {
   const menu = await getMenu('main-menu')
+  const collections = await getCollections()
+
+  // Filter out any "Shop" items from the menu to avoid duplication
+  const filteredMenu = menu.filter((item) => item.title.toLowerCase() !== 'shop')
+
   return (
     <>
       <AnnouncementBanner />
@@ -35,10 +37,13 @@ export default async function Header() {
         </Link>
         <nav>
           <ul className='flex gap-4 items-center'>
+            <li>
+              <NavDropdown collections={collections} />
+            </li>
             {hardcodedMenu.map((item) => (
               <NavItem key={item.title} item={item} />
             ))}
-            {menu.map((item) => (
+            {filteredMenu.map((item) => (
               <NavItem key={item.title} item={item} />
             ))}
             <li className='ml-8'>
