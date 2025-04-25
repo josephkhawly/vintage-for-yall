@@ -7,7 +7,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const { title, handle, featuredImage, priceRange, availableForSale } = product
   return (
     <li>
-      <Link className='flex flex-col items-center justify-between' href={`/shop/${handle}`}>
+      <Link className='flex flex-col items-center justify-between' href={`/product/${handle}`}>
         <div className='relative mb-4 w-full' style={{ aspectRatio: '3/4' }}>
           <Image
             alt={title}

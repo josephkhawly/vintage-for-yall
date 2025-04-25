@@ -140,7 +140,7 @@ const reshapeCollection = (collection: ShopifyCollection): Collection | undefine
 
   return {
     ...collection,
-    path: `/search/${collection.handle}`,
+    path: `/shop/${collection.handle}`,
   }
 }
 
@@ -329,7 +329,7 @@ export async function getCollections(): Promise<Collection[]> {
         title: 'All',
         description: 'All products',
       },
-      path: '/search',
+      path: '/shop',
       updatedAt: new Date().toISOString(),
     },
     // Filter out the `hidden` collections.
@@ -354,7 +354,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   return (
     res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
       title: item.title,
-      path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', ''),
+      path: item.url.replace(domain, '').replace('/collections', '/shop').replace('/pages', ''),
     })) || []
   )
 }
