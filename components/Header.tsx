@@ -30,7 +30,7 @@ export default async function Header() {
 
   return (
     <>
-      <AnnouncementBanner />
+      {/* <AnnouncementBanner /> */}
       <header className='container mx-auto p-5 md:p-12 flex items-center justify-between'>
         <Link href='/' prefetch={true}>
           <Image src={logo1} alt='logo' className='w-28 md:w-[180px]' />
