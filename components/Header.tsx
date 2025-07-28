@@ -37,9 +37,7 @@ export default async function Header() {
         </Link>
         <nav>
           <ul className='flex gap-4 items-center'>
-            <li>
-              <NavItem item={{ title: 'Home', path: '/' }} />
-            </li>
+            <NavItem item={{ title: 'Home', path: '/' }} />
             <li>
               <NavDropdown collections={collections} />
             </li>
