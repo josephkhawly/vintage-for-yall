@@ -1,11 +1,11 @@
-import { getProducts } from '@/lib/shopify'
+import { getCollectionProducts, getProducts } from '@/lib/shopify'
 import { defaultSort } from '@/lib/constants'
 import { Product } from '@/lib/shopify/types'
 import ProductCard from '@/components/ProductCard'
 
 export default async function Home() {
   const { sortKey, reverse } = defaultSort
-  const products = await getProducts({ sortKey, reverse })
+  const products = await getCollectionProducts({ collection: 'new-arrivals', sortKey, reverse })
 
   return (
     <>
