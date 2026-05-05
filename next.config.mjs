@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    qualities: [60, 75],
+    minimumCacheTTL: 2678400, // 31 days
     remotePatterns: [
       {
         protocol: 'https',
@@ -13,6 +15,10 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    turbopackFileSystemCacheForDev: true,
+    turbopackFileSystemCacheForBuild: true,
+  },
 }
 
-export default nextConfig;
+export default nextConfig
