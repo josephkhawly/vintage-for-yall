@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Poppins } from 'next/font/google'
+import localFont from 'next/font/local'
 // import Header from '@/components/Header'
 // import Footer from '@/components/Footer'
 import { getCart } from '@/lib/shopify'
@@ -13,6 +14,12 @@ const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
   style: ['normal', 'italic'],
+})
+
+const frogmore = localFont({
+  src: './ED-Frogmore-Regular.otf',
+  display: 'swap',
+  variable: '--font-frogmore',
 })
 
 export const metadata: Metadata = {
@@ -31,7 +38,7 @@ export default async function RootLayout({
   const cart = getCart(cartId)
   return (
     <html lang='en'>
-      <body className={`${poppins.className} text-black`}>
+      <body className={`${poppins.className} ${frogmore.variable} text-black`}>
         <CartProvider cartPromise={cart}>
           {/* <Header /> */}
           <main className='min-h-screen p-6 md:p-12 container mx-auto'>{children}</main>
