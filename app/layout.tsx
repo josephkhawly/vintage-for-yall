@@ -17,7 +17,7 @@ const poppins = Poppins({
 })
 
 const frogmore = localFont({
-  src: './ED-Frogmore-Regular.otf',
+  src: '../public/ED-Frogmore-Regular.otf',
   display: 'swap',
   variable: '--font-frogmore',
 })
