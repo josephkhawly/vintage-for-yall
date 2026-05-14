@@ -23,7 +23,7 @@ const frogmore = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Vintage for Y'all",
+  title: "Ugly Cry Vintage",
   description: '',
 }
 

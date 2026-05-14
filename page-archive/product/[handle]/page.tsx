@@ -22,7 +22,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const indexable = !product.tags.includes(HIDDEN_PRODUCT_TAG)
 
   return {
-    title: `${product.seo.title || product.title} | Vintage for Y'all`,
+    title: `${product.seo.title || product.title} | Ugly Cry Vintage`,
     description: product.seo.description || product.description,
     robots: {
       index: indexable,

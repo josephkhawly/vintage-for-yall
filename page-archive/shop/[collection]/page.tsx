@@ -14,7 +14,7 @@ export async function generateMetadata(props: {
   if (!collection) return notFound()
 
   return {
-    title: `${collection.seo?.title || collection.title} | Vintage for Y'all`,
+    title: `${collection.seo?.title || collection.title} | Ugly Cry Vintage`,
     description:
       collection.seo?.description || collection.description || `${collection.title} products`,
   }

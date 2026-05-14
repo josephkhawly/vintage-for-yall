@@ -3,13 +3,21 @@ import Link from 'next/link'
 import logo1 from '../public/logo.png'
 import { getMenu, getCollections } from '@/lib/shopify'
 import NavItem from './NavItem'
-import CartModal from './cart/CartModal'
-import NavDropdown from './NavDropdown'
+// import CartModal from './cart/CartModal'
+// import NavDropdown from './NavDropdown'
 
 const hardcodedMenu = [
   {
+    title: 'Shop',
+    path: '/shop',
+  },
+  {
     title: 'About',
     path: '/about',
+  },
+  {
+    title: 'Blog',
+    path: '/blog',
   },
 ]
 
@@ -38,18 +46,15 @@ export default async function Header() {
         <nav>
           <ul className='flex gap-4 items-center'>
             <NavItem item={{ title: 'Home', path: '/' }} />
-            <li>
-              <NavDropdown collections={collections} />
-            </li>
             {hardcodedMenu.map((item) => (
               <NavItem key={item.title} item={item} />
             ))}
             {filteredMenu.map((item) => (
               <NavItem key={item.title} item={item} />
             ))}
-            <li className='ml-8'>
+            {/* <li className='ml-8'>
               <CartModal />
-            </li>
+            </li> */}
           </ul>
         </nav>
       </header>

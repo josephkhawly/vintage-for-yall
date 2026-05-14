@@ -5,7 +5,7 @@ import { Product } from '@/lib/shopify/types'
 import ProductCard from '@/components/ProductCard'
 
 export const metadata: Metadata = {
-  title: "Shop | Vintage for Y'all",
+  title: "Shop | Ugly Cry Vintage",
   description: '',
 }
 
