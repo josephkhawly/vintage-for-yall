@@ -1,62 +1,5 @@
-import { XMLParser } from 'fast-xml-parser';
-import { decode } from 'html-entities';
-
-interface SubstackPost {
-  title: string;
-  link: string;
-  pubDate: string;
-  description: string;
-}
-
-async function fetchSubstackPosts(): Promise<SubstackPost[]> {
-  const res = await fetch('https://uglycryvintage.substack.com/feed', {
-    next: { revalidate: 3600 },
-  });
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch Substack feed');
-  }
-
-  const xml = await res.text();
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    parseTagValue: false,
-  });
-
-  const parsed = parser.parse(xml);
-  const items = parsed.rss?.channel?.item ?? [];
-
-  return items.map((item: any) => ({
-    title: item.title,
-    link: item.link,
-    pubDate: item.pubDate,
-    description: item['content:encoded'] || item.description,
-  }));
-}
-
-function extractPreview(html: string, maxLength = 280): string {
-  // Decode all HTML entities (&amp;, &#39;, &nbsp;, etc.)
-  const decoded = decode(html, { level: 'html5' });
-
-  // Strip HTML tags
-  const text = decoded
-    .replace(/<[^>]*>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-  if (text.length <= maxLength) return text;
-
-  // Try to break at a sentence boundary
-  const truncated = text.slice(0, maxLength);
-  const lastPeriod = truncated.lastIndexOf('.');
-
-  if (lastPeriod > maxLength * 0.6) {
-    return truncated.slice(0, lastPeriod + 1);
-  }
-
-  const lastSpace = truncated.lastIndexOf(' ');
-  return truncated.slice(0, lastSpace) + '...';
-}
+import Image from 'next/image';
+import { fetchSubstackPosts, extractPreview } from '@/lib/substack';
 
 function ReadMoreLink({ href }: { href: string }) {
   return (
@@ -95,23 +38,37 @@ export default async function BlogPage() {
       {featured ? (
         <article
           key={featured.link}
-          className="border-2 rounded-xl p-8 md:p-10 mb-10 md:mb-12 flex flex-col bg-gray-50/50"
+          className="border-2 rounded-xl overflow-hidden mb-10 md:mb-12 flex flex-col bg-gray-50/50"
         >
-          <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md">
-              Latest
-            </span>
-            <time className="text-sm text-gray-500">
-              {new Date(featured.pubDate).toLocaleDateString()}
-            </time>
+          {featured.previewImage ? (
+            <div className="relative aspect-2/1 w-full bg-gray-200">
+              <Image
+                src={featured.previewImage}
+                alt={featured.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1152px) 100vw, 1152px"
+                priority
+              />
+            </div>
+          ) : null}
+          <div className="p-8 md:p-10 flex flex-col grow">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md">
+                Latest
+              </span>
+              <time className="text-sm text-gray-500">
+                {new Date(featured.pubDate).toLocaleDateString()}
+              </time>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 leading-tight tracking-tight">
+              {featured.title}
+            </h2>
+            <p className="text-gray-600 text-base md:text-lg mb-6 max-w-3xl leading-relaxed">
+              {extractPreview(featured.description, 400)}
+            </p>
+            <ReadMoreLink href={featured.link} />
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 leading-tight tracking-tight">
-            {featured.title}
-          </h2>
-          <p className="text-gray-600 text-base md:text-lg mb-6 max-w-3xl leading-relaxed">
-            {extractPreview(featured.description, 400)}
-          </p>
-          <ReadMoreLink href={featured.link} />
         </article>
       ) : null}
 
@@ -120,18 +77,31 @@ export default async function BlogPage() {
           {rest.map((post) => (
             <article
               key={post.link}
-              className="border rounded-lg p-6 flex flex-col"
+              className="border rounded-lg overflow-hidden flex flex-col"
             >
-              <time className="text-sm text-gray-500 mb-2">
-                {new Date(post.pubDate).toLocaleDateString()}
-              </time>
-              <h2 className="text-xl font-semibold mb-3 leading-tight">
-                {post.title}
-              </h2>
-              <p className="text-gray-600 mb-4 grow leading-relaxed">
-                {extractPreview(post.description)}
-              </p>
-              <ReadMoreLink href={post.link} />
+              {post.previewImage ? (
+                <div className="relative aspect-16/10 w-full shrink-0 bg-gray-200">
+                  <Image
+                    src={post.previewImage}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
+              ) : null}
+              <div className="p-6 flex flex-col grow">
+                <time className="text-sm text-gray-500 mb-2">
+                  {new Date(post.pubDate).toLocaleDateString()}
+                </time>
+                <h2 className="text-xl font-semibold mb-3 leading-tight">
+                  {post.title}
+                </h2>
+                <p className="text-gray-600 mb-4 grow leading-relaxed">
+                  {extractPreview(post.description)}
+                </p>
+                <ReadMoreLink href={post.link} />
+              </div>
             </article>
           ))}
         </div>
