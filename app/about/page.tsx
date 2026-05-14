@@ -4,7 +4,7 @@ import bioImage from '../../public/bio-img.png'
 export default function About() {
   return (
     <>
-      <h1 className='text-4xl sm:text-6xl mb-8'>ABOUT</h1>
+      <h1 className='text-4xl sm:text-6xl mb-8 font-frogmore tracking-widest'>ABOUT</h1>
       <div className='lg:flex items-start gap-8'>
         <Image src={bioImage} alt='Photo of Ariel Khawly' width={600} className='mb-5 lg:mb-0' />
         <div>
