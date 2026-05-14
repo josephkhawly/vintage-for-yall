@@ -13,6 +13,7 @@ export default function ProductCard({ product }: { product: Product }) {
             alt={title}
             src={featuredImage.url}
             fill
+            sizes='(max-width: 768px) 100vw, 50vw'
             className='rounded-md'
           />
           {!availableForSale && (

@@ -12,15 +12,15 @@ export default async function Footer() {
             {item.title}
           </a>
         ))}
-        <a href='https://www.instagram.com/vintageforyall' target='_blank'>
-          <FaInstagram className='text-3xl text-dark-magenta' />
+        <a href='https://www.instagram.com/uglycryvintage' target='_blank'>
+          <FaInstagram className='text-3xl text-espresso' />
         </a>
-        <a href='https://vintageforyall.substack.com' target='_blank'>
-          <BsSubstack className='text-3xl text-dark-magenta w-6 h-6' />
+        <a href='https://uglycryvintage.substack.com/' target='_blank'>
+          <BsSubstack className='text-3xl text-espresso w-6 h-6' />
         </a>
       </div>
       {/* <p className='text-sm text-center'>
-            &copy; {new Date().getFullYear()} Vintage for Y'all
+            &copy; {new Date().getFullYear()} Ugly Cry Vintage
         </p> */}
     </footer>
   )
