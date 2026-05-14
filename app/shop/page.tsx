@@ -7,7 +7,6 @@ export const metadata: Metadata = {
 }
 
 export default function Shop() {
-
   return (
     <>
       <h1 className='text-4xl sm:text-6xl mb-8 font-frogmore text-espresso tracking-wide'>Coming soon...</h1>

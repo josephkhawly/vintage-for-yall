@@ -19,6 +19,10 @@ const hardcodedMenu = [
     title: 'Blog',
     path: '/blog',
   },
+  {
+    title: 'Press',
+    path: '/press',
+  },
 ]
 
 // function AnnouncementBanner() {
