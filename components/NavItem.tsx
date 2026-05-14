@@ -11,8 +11,8 @@ export default function NavItem({ item }: { item: Menu }) {
       <Link
         prefetch={true}
         className={`${
-          pathname === item.path ? 'text-bubblegum-pink' : ''
-        } md:text-lg hover:text-bubblegum-pink transition-colors duration-300`}
+          pathname === item.path ? 'text-espresso' : ''
+        } md:text-lg hover:text-espresso transition-colors duration-300`}
         href={item.path}
       >
         {item.title}

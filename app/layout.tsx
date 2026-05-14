@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Poppins } from 'next/font/google'
 import localFont from 'next/font/local'
-// import Header from '@/components/Header'
-// import Footer from '@/components/Footer'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 import { getCart } from '@/lib/shopify'
 import { cookies } from 'next/headers'
 import { CartProvider } from '@/components/cart/CartContext'
@@ -38,11 +38,11 @@ export default async function RootLayout({
   const cart = getCart(cartId)
   return (
     <html lang='en'>
-      <body className={`${poppins.className} ${frogmore.variable} text-black`}>
+      <body className={`${poppins.className} ${frogmore.variable} text-white bg-teal`}>
         <CartProvider cartPromise={cart}>
-          {/* <Header /> */}
+          <Header />
           <main className='min-h-screen p-6 md:p-12 container mx-auto'>{children}</main>
-          {/* <Footer /> */}
+          <Footer />
         </CartProvider>
         <SpeedInsights />
         <Analytics />
