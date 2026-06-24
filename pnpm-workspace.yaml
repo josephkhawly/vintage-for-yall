@@ -1,3 +1,11 @@
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade
+trustPolicyIgnoreAfter: 10080
+
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+
 allowBuilds:
   sharp: true
   unrs-resolver: true
