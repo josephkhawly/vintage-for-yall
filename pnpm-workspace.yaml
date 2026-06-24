@@ -24,3 +24,6 @@ minimumReleaseAgeExclude:
   - next@16.2.9
 overrides:
   "@types/react": "19.2.17"
+
+packages:
+  - '.'
