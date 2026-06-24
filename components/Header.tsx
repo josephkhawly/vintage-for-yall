@@ -11,10 +11,10 @@ const hardcodedMenu = [
     title: 'Shop',
     path: '/shop',
   },
-  {
-    title: 'About',
-    path: '/about',
-  },
+  // {
+  //   title: 'About',
+  //   path: '/about',
+  // },
   {
     title: 'Blog',
     path: '/blog',

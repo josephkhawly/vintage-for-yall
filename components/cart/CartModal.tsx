@@ -18,11 +18,11 @@ type MerchandiseSearchParams = {
 
 function OpenCart({ quantity }: { quantity?: number }) {
   return (
-    <div className='relative flex h-11 w-11 items-center justify-center text-black transition-colors'>
-      <HiShoppingCart className='h-7 w-7' />
+    <div className='relative flex size-11 items-center justify-center text-black transition-colors'>
+      <HiShoppingCart className='size-7' />
 
       {quantity ? (
-        <div className='absolute right-0 top-0 -mr-1 -mt-1 h-4 w-4 rounded-sm bg-burnt-orange text-[11px] font-medium text-white'>
+        <div className='absolute right-0 top-0 -mr-1 -mt-1 size-4 rounded-sm bg-burnt-orange text-[11px] font-medium text-white'>
           {quantity}
         </div>
       ) : null}
@@ -32,8 +32,8 @@ function OpenCart({ quantity }: { quantity?: number }) {
 
 function CloseCart() {
   return (
-    <div className='relative flex h-11 w-11 items-center justify-center text-black'>
-      <HiOutlineXMark className='h-8 w-8' />
+    <div className='relative flex size-11 items-center justify-center text-black'>
+      <HiOutlineXMark className='size-8' />
     </div>
   )
 }

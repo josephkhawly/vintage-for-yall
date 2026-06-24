@@ -16,7 +16,7 @@ export default async function Footer() {
           <FaInstagram className='text-3xl text-espresso' />
         </a>
         <a href='https://uglycryvintage.substack.com/' target='_blank'>
-          <BsSubstack className='text-3xl text-espresso w-6 h-6' />
+          <BsSubstack className='text-3xl text-espresso size-6' />
         </a>
       </div>
       {/* <p className='text-sm text-center'>

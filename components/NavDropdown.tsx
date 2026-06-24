@@ -30,7 +30,7 @@ export default function NavDropdown({ collections }: { collections: Collection[]
       >
         Shop
         <HiChevronDown
-          className={`h-4 w-4 ml-1 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`size-4 ml-1 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
