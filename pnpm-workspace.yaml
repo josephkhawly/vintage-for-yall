@@ -2,17 +2,25 @@ minimumReleaseAge: 10080
 trustPolicy: no-downgrade
 trustPolicyIgnoreAfter: 10080
 
-packages:
-  - "."
-
-ignoredBuiltDependencies:
-  - sharp
-  - unrs-resolver
-
 allowBuilds:
+  '@parcel/watcher': true
+  bufferutil: true
+  esbuild: true
   sharp: true
   unrs-resolver: true
-
+minimumReleaseAgeExclude:
+  - '@next/env@16.2.9'
+  - '@next/eslint-plugin-next@16.2.9'
+  - '@next/swc-darwin-arm64@16.2.9'
+  - '@next/swc-darwin-x64@16.2.9'
+  - '@next/swc-linux-arm64-gnu@16.2.9'
+  - '@next/swc-linux-arm64-musl@16.2.9'
+  - '@next/swc-linux-x64-gnu@16.2.9'
+  - '@next/swc-linux-x64-musl@16.2.9'
+  - '@next/swc-win32-arm64-msvc@16.2.9'
+  - '@next/swc-win32-x64-msvc@16.2.9'
+  - '@next/third-parties@16.2.9'
+  - eslint-config-next@16.2.9
+  - next@16.2.9
 overrides:
   "@types/react": "19.2.17"
-  "@types/react-dom": "19.2.3"
