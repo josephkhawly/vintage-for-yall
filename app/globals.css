@@ -12,7 +12,11 @@
   /* new colors */
   --color-espresso: #301b05;
   --color-teal: #809fa0;
+  --color-silver: #c1c7c7;
+  --color-sandy-clay: #eeb38c;
   --font-frogmore: var(--font-frogmore);
+  --font-subheading: var(--font-roboto);
+  --font-body: var(--font-kameron);
 }
 
 /*
