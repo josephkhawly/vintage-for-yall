@@ -15,6 +15,7 @@ const roboto = Roboto({
   weight: ['400', '500', '700'],
   subsets: ['latin'],
   style: ['normal', 'italic'],
+  variable: '--font-roboto',
 })
 
 const frogmore = localFont({
@@ -27,6 +28,7 @@ const kameron = Kameron({
   weight: ['400'],
   subsets: ['latin'],
   style: ['normal'],
+  variable: '--font-kameron',
 })
 
 export const metadata: Metadata = {
@@ -45,7 +47,7 @@ export default async function RootLayout({
   const cart = getCart(cartId)
   return (
     <html lang='en'>
-      <body className={`${roboto.className} ${kameron.className} ${frogmore.variable} text-white bg-teal`}>
+      <body className={`${roboto.variable} ${kameron.variable} ${frogmore.variable} font-body text-white bg-teal`}>
         <CartProvider cartPromise={cart}>
           <Header />
           <main className='min-h-screen p-6 md:p-12 container mx-auto'>{children}</main>

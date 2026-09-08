@@ -10,9 +10,12 @@
   --color-teal: #809fa0;
   --color-silver: #c1c7c7;
   --color-sandy-clay: #eeb38c;
+}
+
+@theme inline {
+  --font-body: var(--font-kameron);
   --font-frogmore: var(--font-frogmore);
   --font-subheading: var(--font-roboto);
-  --font-body: var(--font-kameron);
 }
 
 /*
