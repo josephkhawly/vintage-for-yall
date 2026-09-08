@@ -4,6 +4,7 @@ import { Roboto, Kameron } from 'next/font/google'
 import localFont from 'next/font/local'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { NewsletterModal } from '@/components/NewsletterModal'
 import { getCart } from '@/lib/shopify'
 import { cookies } from 'next/headers'
 import { CartProvider } from '@/components/cart/CartContext'
@@ -49,6 +50,7 @@ export default async function RootLayout({
           <Header />
           <main className='min-h-screen p-6 md:p-12 container mx-auto'>{children}</main>
           <Footer />
+          <NewsletterModal />
         </CartProvider>
         <SpeedInsights />
         <Analytics />

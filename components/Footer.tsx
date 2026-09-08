@@ -1,10 +1,7 @@
 import { BsSubstack } from 'react-icons/bs'
 import { FaInstagram } from 'react-icons/fa'
+import { subscribeNewsletterAction } from '@/components/newsletter/actions'
 import { getMenu } from '@/lib/shopify'
-
-async function subscribeNewsletterAction(_formData: FormData) {
-  'use server'
-}
 
 export default async function Footer() {
   const menu = await getMenu('footer')
