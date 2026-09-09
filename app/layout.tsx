@@ -46,11 +46,13 @@ export default async function RootLayout({
   // Don't await the fetch, pass the Promise to the context provider
   const cart = getCart(cartId)
   return (
-    <html lang='en'>
-      <body className={`${roboto.variable} ${kameron.variable} ${frogmore.variable} font-body text-white bg-teal`}>
+    <html className='overflow-x-clip' lang='en'>
+      <body
+        className={`${roboto.variable} ${kameron.variable} ${frogmore.variable} overflow-x-clip bg-teal font-body text-white`}
+      >
         <CartProvider cartPromise={cart}>
           <Header />
-          <main className='min-h-screen p-6 md:p-12 container mx-auto'>{children}</main>
+          <main className='min-h-svh pt-[7.75rem] md:pt-[16rem]'>{children}</main>
           <Footer />
           <NewsletterModal />
         </CartProvider>

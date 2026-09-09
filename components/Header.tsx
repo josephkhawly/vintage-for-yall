@@ -43,24 +43,26 @@ export default async function Header() {
   return (
     <>
       {/* <AnnouncementBanner /> */}
-      <header className='container mx-auto p-5 md:p-12 flex items-center justify-between'>
-        <Link href='/' prefetch={true}>
-          <Image src={logo1} alt='logo' className='w-20 md:w-[150px]' />
-        </Link>
-        <nav>
-          <ul className='flex gap-4 items-center'>
-            <NavItem item={{ title: 'Home', path: '/' }} />
-            {hardcodedMenu.map((item) => (
-              <NavItem key={item.title} item={item} />
-            ))}
-            {filteredMenu.map((item) => (
-              <NavItem key={item.title} item={item} />
-            ))}
-            {/* <li className='ml-8'>
-              <CartModal />
-            </li> */}
-          </ul>
-        </nav>
+      <header className='absolute inset-x-0 top-0 z-20'>
+        <div className='container mx-auto flex items-center justify-between p-5 md:p-12'>
+          <Link href='/' prefetch={true}>
+            <Image src={logo1} alt='logo' className='w-20 md:w-[150px]' />
+          </Link>
+          <nav>
+            <ul className='flex gap-4 items-center'>
+              <NavItem item={{ title: 'Home', path: '/' }} />
+              {hardcodedMenu.map((item) => (
+                <NavItem key={item.title} item={item} />
+              ))}
+              {filteredMenu.map((item) => (
+                <NavItem key={item.title} item={item} />
+              ))}
+              {/* <li className='ml-8'>
+                <CartModal />
+              </li> */}
+            </ul>
+          </nav>
+        </div>
       </header>
     </>
   )
