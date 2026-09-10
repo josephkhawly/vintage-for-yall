@@ -52,7 +52,7 @@ export default async function RootLayout({
       >
         <CartProvider cartPromise={cart}>
           <Header />
-          <main className='min-h-svh pt-[7.75rem] md:pt-[16rem]'>{children}</main>
+          <main className='min-h-svh'>{children}</main>
           <Footer />
           <NewsletterModal />
         </CartProvider>

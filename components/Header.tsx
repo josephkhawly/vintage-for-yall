@@ -43,8 +43,8 @@ export default async function Header() {
   return (
     <>
       {/* <AnnouncementBanner /> */}
-      <header className='absolute inset-x-0 top-0 z-20'>
-        <div className='container mx-auto flex items-center justify-between p-5 md:p-12'>
+      <header className='sticky top-0 z-20 border-b border-white/10 bg-teal/70 backdrop-blur-md'>
+        <div className='container mx-auto flex items-center justify-between px-5 py-3 md:px-12 md:py-5'>
           <Link href='/' prefetch={true}>
             <Image src={logo1} alt='logo' className='w-20 md:w-[150px]' />
           </Link>
