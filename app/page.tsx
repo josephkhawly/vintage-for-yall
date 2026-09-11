@@ -1,5 +1,6 @@
 import { Hero } from '@/components/Hero'
 import { ImageBanner } from '@/components/ImageBanner'
+import { ImageGrid } from '@/components/ImageGrid'
 import { ProductCarousel } from '@/components/ProductCarousel'
 import { getProducts } from '@/lib/shopify'
 
@@ -17,6 +18,9 @@ export default async function Home() {
       />
       <ProductCarousel heading='New arrivals' products={products.slice(0, 12)} />
       <ImageBanner backgroundImage='/newsletter-stock.jpg' />
+      <ImageGrid
+        images={['/apartment-therapy.jpeg', '/bio-img.png', '/wwd.jpeg']}
+      />
     </>
   )
 }
