@@ -1,4 +1,5 @@
 import { Hero } from '@/components/Hero'
+import { ImageBanner } from '@/components/ImageBanner'
 import { ProductCarousel } from '@/components/ProductCarousel'
 import { getProducts } from '@/lib/shopify'
 
@@ -15,6 +16,7 @@ export default async function Home() {
         supportingText='Curated vintage pieces with stories from the rack.'
       />
       <ProductCarousel heading='New arrivals' products={products.slice(0, 12)} />
+      <ImageBanner backgroundImage='/newsletter-stock.jpg' />
     </>
   )
 }
