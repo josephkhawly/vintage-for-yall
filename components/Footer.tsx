@@ -21,7 +21,7 @@ export default async function Footer() {
         </a>
       </div>
       <div className='flex flex-col gap-2'>
-        <h2 className='font-frogmore text-4xl tracking-wide text-espresso'>Join the list</h2>
+        <h2 className='font-frogmore text-5xl tracking-wide text-espresso'>Join the list</h2>
         <p className='max-w-xs font-body text-sm text-espresso/80'>
           New drops, shop updates, and stories from the rack.
         </p>
