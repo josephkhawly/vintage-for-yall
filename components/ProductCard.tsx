@@ -18,7 +18,7 @@ export default function ProductCard({ product }: { product: Product }) {
           />
           {!availableForSale && (
             <div className='absolute top-0 right-0 bg-white/50 text-lg p-1 w-full h-full flex items-center justify-center'>
-              <span className='p-3 rounded-full bg-burnt-orange text-white'>Sold Out</span>
+              <span className='p-3 rounded-full bg-sandy-clay text-white'>Sold Out</span>
             </div>
           )}
         </div>
