@@ -46,7 +46,7 @@ export default async function Header() {
       <header className='sticky top-0 z-20 border-b border-white/10 bg-teal/50 backdrop-blur-sm'>
         <div className='container mx-auto flex items-center justify-between px-5 py-3 md:px-12 md:py-5'>
           <Link href='/' prefetch={true}>
-            <Image src={logo1} alt='logo' className='w-20 md:w-[150px]' />
+            <Image src={logo1} alt='logo' className='w-20 md:w-37.5' />
           </Link>
           <nav>
             <ul className='flex gap-4 items-center'>

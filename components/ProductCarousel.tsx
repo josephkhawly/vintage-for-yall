@@ -23,7 +23,7 @@ export function ProductCarousel({ heading, products }: ProductCarouselProps) {
   if (products.length === 0) return null
 
   return (
-    <section className='py-12 md:py-16'>
+    <section className="bg-[url('/background-texture.jpg')] bg-cover bg-center bg-no-repeat py-12 md:py-16">
       <PageContainer>
         <div className='mb-6 flex items-center justify-between gap-4 md:mb-8'>
           <h2 className='font-frogmore text-3xl tracking-wide text-espresso md:text-5xl'>
@@ -49,7 +49,7 @@ export function ProductCarousel({ heading, products }: ProductCarouselProps) {
           </div>
         </div>
         <ul
-          className='flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] md:gap-6 [&::-webkit-scrollbar]:hidden [&_li]:w-44 [&_li]:shrink-0 [&_li]:snap-start md:[&_li]:w-56'
+          className='flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] scrollbar-none md:gap-6 [&::-webkit-scrollbar]:hidden [&_li]:w-44 [&_li]:shrink-0 [&_li]:snap-start md:[&_li]:w-56'
           ref={scrollerRef}
         >
           {products.map((product) => (
