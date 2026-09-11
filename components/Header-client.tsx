@@ -90,7 +90,7 @@ export function HeaderClient({ items }: HeaderClientProps) {
 
   return (
     <header className='sticky top-0 z-20 flex justify-center px-3 pt-3 md:px-6 md:pt-5'>
-      <div className='relative w-full max-w-[600px]'>
+      <div className='relative w-full max-w-150'>
         {/* Reserves collapsed height so expansion overlays instead of pushing the page */}
         <div
           aria-hidden='true'
