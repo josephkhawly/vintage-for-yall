@@ -28,6 +28,7 @@ export function Hero({
         priority
         sizes='100vw'
         src={backgroundImage}
+        loading='eager'
       />
       <div className='absolute inset-0 bg-espresso/40' />
       <div className='relative flex h-full flex-col items-center justify-center px-6 text-center md:px-12'>
