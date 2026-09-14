@@ -172,7 +172,7 @@ export function HeaderClient({ items }: HeaderClientProps) {
                       {items.map((item) => (
                         <li className='border-t border-black' key={item.title}>
                           <Link
-                            className='block py-4 text-center font-frogmore text-2xl italic tracking-wide transition-colors hover:text-espresso data-[active=true]:text-espresso md:text-3xl'
+                            className='block py-4 text-center font-roboto text-2xl italic tracking-wide transition-colors hover:text-espresso data-[active=true]:text-espresso md:text-3xl'
                             data-active={pathname === item.path}
                             href={item.path}
                             onClick={close}
