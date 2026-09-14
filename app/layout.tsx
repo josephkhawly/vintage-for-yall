@@ -48,7 +48,7 @@ export default async function RootLayout({
   return (
     <html className='overflow-x-clip' lang='en'>
       <body
-        className={`${roboto.variable} ${kameron.variable} ${frogmore.variable} overflow-x-clip bg-teal font-body text-white`}
+        className={`${roboto.variable} ${kameron.variable} ${frogmore.variable} overflow-x-clip font-body text-espresso`}
       >
         <CartProvider cartPromise={cart}>
           <Header />
