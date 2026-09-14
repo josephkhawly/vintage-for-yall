@@ -23,10 +23,10 @@ export function ProductCarousel({ heading, products }: ProductCarouselProps) {
   if (products.length === 0) return null
 
   return (
-    <section className="bg-[url('/background-texture.jpg')] bg-cover bg-center bg-no-repeat py-12 md:py-16">
+    <section className="py-12 md:py-16">
       <PageContainer>
         <div className='mb-6 flex items-center justify-between gap-4 md:mb-8'>
-          <h2 className='font-frogmore text-3xl tracking-wide text-espresso md:text-5xl'>
+          <h2 className='font-frogmore text-3xl capitalize tracking-wide text-espresso md:text-5xl'>
             {heading}
           </h2>
           <div className='flex shrink-0 gap-2'>
