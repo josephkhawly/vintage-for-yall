@@ -25,12 +25,12 @@ export function AnnouncementBar() {
       role='region'
     >
       {reduceMotion ? (
-        <p className='px-4 py-2 text-center font-subheading text-xs tracking-wide md:text-sm'>
+        <p className='px-4 py-2 text-center uppercase font-subheading text-xs tracking-wide md:text-sm'>
           {ANNOUNCEMENT_TEXT}
         </p>
       ) : (
         <Marquee autoFill pauseOnHover speed={35}>
-          <span className='mx-8 inline-block py-2 font-subheading text-xs tracking-wide md:text-sm'>
+          <span className='mx-8 inline-block uppercase py-2 font-subheading text-xs tracking-wide md:text-sm'>
             {ANNOUNCEMENT_TEXT}
           </span>
         </Marquee>
