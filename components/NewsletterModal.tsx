@@ -8,7 +8,7 @@ import { subscribeNewsletterAction } from '@/components/newsletter/actions'
 const STORAGE_KEY = 'newsletter-modal-dismissed'
 
 export function NewsletterModal() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
 
   useEffect(() => {
     if (localStorage.getItem(STORAGE_KEY)) return
@@ -49,7 +49,7 @@ export function NewsletterModal() {
               <div className='relative flex w-full flex-col items-center justify-center px-8 py-14 text-center md:px-10 md:py-16'>
                 <button
                   aria-label='Close newsletter signup'
-                  className='absolute right-3 top-1 cursor-pointer text-espresso hover:opacity-70'
+                  className='absolute right-3 top-3 cursor-pointer text-espresso hover:opacity-70'
                   onClick={closeModal}
                   type='button'
                 >
@@ -60,13 +60,38 @@ export function NewsletterModal() {
                   Join the list
                 </DialogTitle>
                 <p className='mt-4 max-w-sm font-body text-lg text-espresso/80 md:text-xl'>
-                  Get first dibs on upcoming vintage drops and event news plus an exclusive welcome discount.
+                  Get first dibs on upcoming vintage drops and event news plus an exclusive welcome
+                  discount.
                 </p>
 
                 <form
                   action={subscribeNewsletterAction}
-                  className='mt-8 flex w-full max-w-sm flex-col items-center gap-4'
+                  className='mt-6 flex w-full max-w-sm flex-col items-center gap-4'
                 >
+                  <label
+                    className='flex cursor-pointer items-start gap-3 text-left font-body text-sm text-espresso/80'
+                    htmlFor='newsletter-modal-substack'
+                  >
+                    <input
+                      className='mt-0.5 size-4 shrink-0 cursor-pointer accent-espresso'
+                      id='newsletter-modal-substack'
+                      name='substack'
+                      type='checkbox'
+                      value='1'
+                    />
+                    <span>
+                      Also sign me up for UCV&apos;s{' '}
+                      <a
+                        className='cursor-pointer underline underline-offset-2 hover:opacity-70'
+                        href='https://uglycryvintage.substack.com/?utm_campaign=profile_chips'
+                        rel='noopener noreferrer'
+                        target='_blank'
+                      >
+                        Secondhand Hysteria
+                      </a>{' '}
+                      on Substack
+                    </span>
+                  </label>
                   <label className='sr-only' htmlFor='newsletter-modal-email'>
                     Email address
                   </label>
