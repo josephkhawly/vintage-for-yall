@@ -99,9 +99,9 @@ export function HeaderClient({ items }: HeaderClientProps) {
             aria-hidden='true'
             className='invisible grid grid-cols-3 items-center border border-transparent px-3 py-2 md:px-5 md:py-2.5'
           >
-            <span className='flex size-9 md:size-11' />
+            <span className='flex size-11 md:size-14' />
             <span className='mx-auto h-10 md:h-14' />
-            <span className='flex size-9 justify-self-end md:size-11' />
+            <span className='flex size-11 justify-self-end md:size-14' />
           </div>
 
           <div
@@ -115,17 +115,17 @@ export function HeaderClient({ items }: HeaderClientProps) {
               <button
                 aria-expanded={panel === 'menu'}
                 aria-label={panel === 'menu' ? 'Close menu' : 'Open menu'}
-                className='flex items-center gap-2 justify-self-start'
+                className='flex cursor-pointer items-center gap-2 justify-self-start'
                 onClick={toggleMenu}
                 type='button'
               >
                 <span
                   className={clsx(
-                    'flex size-9 items-center justify-center rounded-full border border-black transition-colors duration-300 md:size-11',
+                    'flex size-11 items-center justify-center rounded-full border border-black transition-colors duration-300 md:size-14',
                     panel === 'menu' && 'bg-white',
                   )}
                 >
-                  <HiOutlineBars3 className='size-5' />
+                  <HiOutlineBars3 className='size-6 md:size-7' />
                 </span>
               </button>
 
@@ -141,17 +141,17 @@ export function HeaderClient({ items }: HeaderClientProps) {
               <button
                 aria-expanded={panel === 'search'}
                 aria-label={panel === 'search' ? 'Close search' : 'Open search'}
-                className='flex items-center gap-2 justify-self-end'
+                className='flex cursor-pointer items-center gap-2 justify-self-end'
                 onClick={toggleSearch}
                 type='button'
               >
                 <span
                   className={clsx(
-                    'flex size-9 items-center justify-center rounded-full border border-black transition-colors duration-300 md:size-11',
+                    'flex size-11 items-center justify-center rounded-full border border-black transition-colors duration-300 md:size-14',
                     panel === 'search' && 'bg-white',
                   )}
                 >
-                  <HiMagnifyingGlass className='size-4' />
+                  <HiMagnifyingGlass className='size-6 md:size-7' />
                 </span>
               </button>
             </div>
