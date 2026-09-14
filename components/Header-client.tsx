@@ -93,7 +93,7 @@ export function HeaderClient({ items }: HeaderClientProps) {
     <header className='sticky top-0 z-20'>
       <AnnouncementBar />
       <div className='flex justify-center px-3 pt-3 md:px-6 md:pt-5'>
-        <div className='relative w-full max-w-150'>
+        <div className='relative w-full max-w-130'>
           {/* Reserves collapsed height so expansion overlays instead of pushing the page */}
           <div
             aria-hidden='true'
@@ -106,7 +106,7 @@ export function HeaderClient({ items }: HeaderClientProps) {
 
           <div
             className={clsx(
-              'absolute inset-x-0 top-0 overflow-hidden rounded-[42px] border border-black bg-teal/50 text-black backdrop-blur-sm',
+              'absolute inset-x-0 top-0 overflow-hidden rounded-[50px] border border-black bg-teal/50 text-black backdrop-blur-sm',
               content && 'z-30',
             )}
             ref={panelRef}
@@ -127,13 +127,12 @@ export function HeaderClient({ items }: HeaderClientProps) {
                 >
                   <HiOutlineBars3 className='size-5' />
                 </span>
-                <span className='font-subheading text-sm uppercase'>Menu</span>
               </button>
 
               <Link className='justify-self-center' href='/' onClick={close} prefetch={true}>
                 <Image
                   alt='Ugly Cry Vintage'
-                  className='h-10 w-auto md:h-14'
+                  className='h-10 w-auto md:h-20'
                   priority
                   src={logo}
                 />
@@ -146,7 +145,6 @@ export function HeaderClient({ items }: HeaderClientProps) {
                 onClick={toggleSearch}
                 type='button'
               >
-                <span className='font-subheading text-sm uppercase'>Search</span>
                 <span
                   className={clsx(
                     'flex size-9 items-center justify-center rounded-full border border-black transition-colors duration-300 md:size-11',
