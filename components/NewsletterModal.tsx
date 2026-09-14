@@ -1,7 +1,6 @@
 'use client'
 
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
-import Image from 'next/image'
 import { Fragment, useEffect, useState } from 'react'
 import { HiOutlineXMark } from 'react-icons/hi2'
 import { subscribeNewsletterAction } from '@/components/newsletter/actions'
@@ -46,22 +45,11 @@ export function NewsletterModal() {
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <DialogPanel className='relative grid w-full max-w-3xl overflow-hidden rounded-2xl bg-white text-espresso shadow-lg md:grid-cols-2'>
-              <div className='relative h-48 md:min-h-104'>
-                <Image
-                  alt=''
-                  className='object-cover'
-                  fill
-                  priority
-                  sizes='(min-width: 768px) 50vw, 100vw'
-                  src='/newsletter-stock.jpg'
-                />
-              </div>
-
-              <div className='relative flex flex-col items-center justify-center px-8 py-14 text-center md:px-10 md:py-16'>
+            <DialogPanel className="relative flex min-h-48 w-full max-w-2xl items-center justify-center overflow-hidden rounded-3xl bg-[url('/background-texture.jpg')] bg-cover  bg-no-repeat text-espresso shadow-lg md:min-h-114">
+              <div className='relative flex w-full flex-col items-center justify-center px-8 py-14 text-center md:px-10 md:py-16'>
                 <button
                   aria-label='Close newsletter signup'
-                  className='absolute right-3 top-3 text-espresso hover:opacity-70'
+                  className='absolute right-3 top-1 cursor-pointer text-espresso hover:opacity-70'
                   onClick={closeModal}
                   type='button'
                 >
@@ -71,9 +59,8 @@ export function NewsletterModal() {
                 <DialogTitle className='font-frogmore text-5xl tracking-wide md:text-6xl'>
                   Join the list
                 </DialogTitle>
-                <p className='mt-4 max-w-sm font-body text-base text-espresso/80'>
-                  Be first to know about new vintage drops, shop updates, and the occasional story
-                  from the rack.
+                <p className='mt-4 max-w-sm font-body text-lg text-espresso/80 md:text-xl'>
+                  Get first dibs on upcoming vintage drops and event news plus an exclusive welcome discount.
                 </p>
 
                 <form
@@ -93,7 +80,7 @@ export function NewsletterModal() {
                     type='email'
                   />
                   <button
-                    className='rounded-full border border-espresso bg-sandy-clay px-8 py-2.5 text-sm tracking-wide text-espresso uppercase hover:opacity-90'
+                    className='cursor-pointer rounded-full border border-espresso bg-sandy-clay px-10 py-3.5 text-lg tracking-wide text-espresso uppercase hover:opacity-90'
                     type='submit'
                   >
                     Subscribe
