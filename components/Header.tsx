@@ -45,9 +45,9 @@ export default async function Header() {
       {/* <AnnouncementBanner /> */}
       <header className='container mx-auto p-5 md:p-12 flex items-center justify-between'>
         <Link href='/' prefetch={true}>
-          <Image src={logo1} alt='logo' className='w-20 md:w-[150px]' />
+          <Image src={logo1} alt='logo' className='w-20 md:w-37.5' />
         </Link>
-        <nav>
+        {/* <nav>
           <ul className='flex gap-4 items-center'>
             <NavItem item={{ title: 'Home', path: '/' }} />
             {hardcodedMenu.map((item) => (
@@ -56,11 +56,11 @@ export default async function Header() {
             {filteredMenu.map((item) => (
               <NavItem key={item.title} item={item} />
             ))}
-            {/* <li className='ml-8'>
+            <li className='ml-8'>
               <CartModal />
-            </li> */}
+            </li>
           </ul>
-        </nav>
+        </nav> */}
       </header>
     </>
   )

@@ -1,25 +1,33 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Poppins } from 'next/font/google'
+import { Roboto, Kameron } from 'next/font/google'
 import localFont from 'next/font/local'
 import Header from '@/components/Header'
-import Footer from '@/components/Footer'
+// import Footer from '@/components/Footer'
 import { getCart } from '@/lib/shopify'
 import { cookies } from 'next/headers'
 import { CartProvider } from '@/components/cart/CartContext'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
 
-const poppins = Poppins({
-  weight: ['400', '500', '600', '700'],
+const roboto = Roboto({
+  weight: ['400', '500', '700'],
   subsets: ['latin'],
   style: ['normal', 'italic'],
+  variable: '--font-roboto',
 })
 
 const frogmore = localFont({
   src: '../public/ED-Frogmore-Regular.otf',
   display: 'swap',
   variable: '--font-frogmore',
+})
+
+const kameron = Kameron({
+  weight: ['400'],
+  subsets: ['latin'],
+  style: ['normal'],
+  variable: '--font-kameron',
 })
 
 export const metadata: Metadata = {
@@ -38,11 +46,11 @@ export default async function RootLayout({
   const cart = getCart(cartId)
   return (
     <html lang='en'>
-      <body className={`${poppins.className} ${frogmore.variable} text-white bg-teal`}>
+      <body className={`${kameron.variable} ${roboto.variable} ${frogmore.variable} text-white bg-teal`}>
         <CartProvider cartPromise={cart}>
           <Header />
           <main className='min-h-screen p-6 md:p-12 container mx-auto'>{children}</main>
-          <Footer />
+          {/* <Footer /> */}
         </CartProvider>
         <SpeedInsights />
         <Analytics />
