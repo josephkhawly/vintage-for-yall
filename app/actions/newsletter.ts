@@ -29,7 +29,7 @@ export async function subscribeToNewsletter(
     await subscribeEmailToNewsletter(email)
     return {
       status: 'success',
-      message: "You're on the list — talk soon!",
+      message: "You're in! Check your inbox to verify signup. <3",
     }
   } catch (error) {
     console.error('Newsletter signup error:', error)
