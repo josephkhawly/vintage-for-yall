@@ -1,9 +1,26 @@
-export default function Home() {
+import { Hero } from '@/components/Hero'
+import { ImageBanner } from '@/components/ImageBanner'
+import { ImageGrid } from '@/components/ImageGrid'
+import { ProductCarousel } from '@/components/ProductCarousel'
+import { getProducts } from '@/lib/shopify'
+
+export default async function Home() {
+  const products = await getProducts({ reverse: true, sortKey: 'CREATED_AT' })
+
   return (
-    <div className="flex min-h-[60vh] items-center justify-center">
-      <p className="text-4xl font-semibold uppercase tracking-wide md:text-6xl">
-        Coming soon...
-      </p>
-    </div>
+    <>
+      <Hero
+        backgroundImage='/newsletter-stock.jpg'
+        backgroundImageAlt='Vintage clothing rack'
+        cta={{ href: '/shop', label: 'Shop now' }}
+        heading='Vintage that will make you hysterical'
+        // supportingText='Curated vintage pieces with stories from the rack.'
+      />
+      <ProductCarousel heading='New arrivals' products={products.slice(0, 12)} />
+      <ImageBanner backgroundImage='/newsletter-stock.jpg' />
+      <ImageGrid
+        images={['/apartment-therapy.jpeg', '/bio-img.png', '/wwd.jpeg']}
+      />
+    </>
   )
 }

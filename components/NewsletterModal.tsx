@@ -1,0 +1,75 @@
+'use client'
+
+import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
+import { Fragment, useEffect, useState } from 'react'
+import { HiOutlineXMark } from 'react-icons/hi2'
+import { NewsletterForm } from '@/components/newsletter/NewsletterForm'
+
+const STORAGE_KEY = 'newsletter-modal-dismissed'
+
+export function NewsletterModal() {
+  const [isOpen, setIsOpen] = useState(true)
+
+  useEffect(() => {
+    if (localStorage.getItem(STORAGE_KEY)) return
+    setIsOpen(true)
+  }, [])
+
+  function closeModal() {
+    localStorage.setItem(STORAGE_KEY, '1')
+    setIsOpen(false)
+  }
+
+  return (
+    <Transition show={isOpen}>
+      <Dialog className='relative z-50' onClose={closeModal}>
+        <TransitionChild
+          as={Fragment}
+          enter='ease-out duration-300'
+          enterFrom='opacity-0'
+          enterTo='opacity-100'
+          leave='ease-in duration-200'
+          leaveFrom='opacity-100'
+          leaveTo='opacity-0'
+        >
+          <div aria-hidden='true' className='fixed inset-0 bg-black/40' />
+        </TransitionChild>
+
+        <div className='fixed inset-0 flex items-center justify-center p-4 md:p-6'>
+          <TransitionChild
+            as={Fragment}
+            enter='ease-out duration-300'
+            enterFrom='opacity-0 scale-95'
+            enterTo='opacity-100 scale-100'
+            leave='ease-in duration-200'
+            leaveFrom='opacity-100 scale-100'
+            leaveTo='opacity-0 scale-95'
+          >
+            <DialogPanel className="relative flex min-h-48 w-full max-w-2xl items-center justify-center overflow-hidden rounded-3xl bg-[url('/background-texture.jpg')] bg-cover  bg-no-repeat text-espresso shadow-lg md:min-h-114">
+              <div className='relative flex w-full flex-col items-center justify-center px-8 py-14 text-center md:px-10 md:py-16'>
+                <button
+                  aria-label='Close newsletter signup'
+                  className='absolute right-3 top-3 cursor-pointer text-espresso hover:opacity-70'
+                  onClick={closeModal}
+                  type='button'
+                >
+                  <HiOutlineXMark className='size-6' />
+                </button>
+
+                <DialogTitle className='font-frogmore text-5xl tracking-wide md:text-6xl'>
+                  Join the list
+                </DialogTitle>
+                <p className='mt-4 max-w-sm font-body text-lg text-espresso/80 md:text-xl'>
+                  Get first dibs on upcoming vintage drops and event news plus an exclusive welcome
+                  discount.
+                </p>
+
+                <NewsletterForm variant='modal' />
+              </div>
+            </DialogPanel>
+          </TransitionChild>
+        </div>
+      </Dialog>
+    </Transition>
+  )
+}

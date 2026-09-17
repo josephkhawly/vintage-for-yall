@@ -3,16 +3,19 @@
 
 @theme {
   --color-dark-magenta: #601e1e;
-  --color-light-pink: #f4d3d3;
   --color-burnt-orange: #d74712;
-  --color-dusty-rose: #e46e6d;
-  --color-bubblegum-pink: #ff6489;
-  --color-barbie-pink: #ff99b6;
 
   /* new colors */
   --color-espresso: #301b05;
   --color-teal: #809fa0;
+  --color-silver: #c1c7c7;
+  --color-sandy-clay: #eeb38c;
+}
+
+@theme inline {
+  --font-body: var(--font-kameron);
   --font-frogmore: var(--font-frogmore);
+  --font-subheading: var(--font-roboto);
 }
 
 /*
