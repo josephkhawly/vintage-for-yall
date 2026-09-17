@@ -3,7 +3,7 @@
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 import { HiOutlineXMark } from 'react-icons/hi2'
-import { subscribeNewsletterAction } from '@/components/newsletter/actions'
+import { NewsletterForm } from '@/components/newsletter/NewsletterForm'
 
 const STORAGE_KEY = 'newsletter-modal-dismissed'
 
@@ -64,53 +64,7 @@ export function NewsletterModal() {
                   discount.
                 </p>
 
-                <form
-                  action={subscribeNewsletterAction}
-                  className='mt-6 flex w-full max-w-sm flex-col items-center gap-4'
-                >
-                  <label
-                    className='flex cursor-pointer items-start gap-3 text-left font-body text-sm text-espresso/80'
-                    htmlFor='newsletter-modal-substack'
-                  >
-                    <input
-                      className='mt-0.5 size-4 shrink-0 cursor-pointer accent-espresso'
-                      id='newsletter-modal-substack'
-                      name='substack'
-                      type='checkbox'
-                      value='1'
-                    />
-                    <span>
-                      Also sign me up for UCV&apos;s{' '}
-                      <a
-                        className='cursor-pointer underline underline-offset-2 hover:opacity-70'
-                        href='https://uglycryvintage.substack.com/?utm_campaign=profile_chips'
-                        rel='noopener noreferrer'
-                        target='_blank'
-                      >
-                        Secondhand Hysteria
-                      </a>{' '}
-                      on Substack
-                    </span>
-                  </label>
-                  <label className='sr-only' htmlFor='newsletter-modal-email'>
-                    Email address
-                  </label>
-                  <input
-                    autoComplete='email'
-                    className='w-full rounded-md border border-espresso/20 bg-white px-4 py-3 text-espresso placeholder:text-espresso/40'
-                    id='newsletter-modal-email'
-                    name='email'
-                    placeholder='Enter your email address'
-                    required
-                    type='email'
-                  />
-                  <button
-                    className='cursor-pointer rounded-full border border-espresso bg-sandy-clay px-10 py-3.5 text-lg tracking-wide text-espresso uppercase hover:opacity-90'
-                    type='submit'
-                  >
-                    Subscribe
-                  </button>
-                </form>
+                <NewsletterForm variant='modal' />
               </div>
             </DialogPanel>
           </TransitionChild>

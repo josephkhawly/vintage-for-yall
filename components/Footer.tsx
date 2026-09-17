@@ -1,6 +1,6 @@
 import { BsSubstack } from 'react-icons/bs'
 import { FaInstagram } from 'react-icons/fa'
-import { subscribeNewsletterAction } from '@/components/newsletter/actions'
+import { NewsletterForm } from '@/components/newsletter/NewsletterForm'
 import { getMenu } from '@/lib/shopify'
 
 export default async function Footer() {
@@ -25,26 +25,7 @@ export default async function Footer() {
         <p className='max-w-xs font-body text-sm text-espresso/80'>
           New drops, shop updates, and stories from the rack.
         </p>
-        <form action={subscribeNewsletterAction} className='mt-1 flex w-full items-center gap-2 md:w-auto'>
-          <label htmlFor='newsletter-email' className='sr-only'>
-            Email address
-          </label>
-          <input
-            autoComplete='email'
-            className='min-w-0 flex-1 rounded-md border border-espresso/20 bg-white px-3 py-2 text-espresso placeholder:text-espresso/50 md:w-56 md:flex-none'
-            id='newsletter-email'
-            name='email'
-            placeholder='Email'
-            required
-            type='email'
-          />
-          <button
-            className='shrink-0 rounded-md bg-silver px-4 py-2 tracking-wide text-espresso hover:opacity-90'
-            type='submit'
-          >
-            Subscribe
-          </button>
-        </form>
+        <NewsletterForm variant='footer' />
       </div>
     </footer>
   )
