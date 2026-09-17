@@ -1,5 +1,7 @@
 'use server'
 
+import { subscribeEmailToNewsletter } from '@/lib/klaviyo'
+
 export type NewsletterFormState = {
   status: 'idle' | 'success' | 'error'
   message: string
@@ -24,7 +26,6 @@ export async function subscribeToNewsletter(
   }
 
   try {
-    const { subscribeEmailToNewsletter } = await import('@/lib/klaviyo')
     await subscribeEmailToNewsletter(email)
     return {
       status: 'success',
