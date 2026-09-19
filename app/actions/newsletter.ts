@@ -1,6 +1,6 @@
 'use server'
 
-import { subscribeEmailToNewsletter } from '@/lib/klaviyo'
+import { subscribeEmailToNewsletter } from '@/lib/shopify/newsletter'
 
 export type NewsletterFormState = {
   status: 'idle' | 'success' | 'error'
