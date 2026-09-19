@@ -24,7 +24,7 @@ const frogmore = localFont({
 })
 
 const kameron = Kameron({
-  weight: ['400'],
+  weight: ['400', '700'],
   subsets: ['latin'],
   style: ['normal'],
   variable: '--font-kameron',
