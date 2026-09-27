@@ -1,14 +1,15 @@
 import Image from 'next/image'
 import bioImage from '../../public/bio-img.png'
+import { PageContainer } from '@/components/PageContainer'
 
 export default function About() {
   return (
-    <>
-      <h1 className='text-4xl sm:text-6xl mb-8 font-frogmore tracking-widest'>ABOUT</h1>
-      <div className='lg:flex items-start gap-8'>
+    <PageContainer>
+      <h1 className='mb-8 font-frogmore text-4xl tracking-widest sm:text-6xl'>ABOUT</h1>
+      <div className='items-start gap-8 lg:flex'>
         <Image src={bioImage} alt='Photo of Ariel Khawly' width={600} className='mb-5 lg:mb-0' />
         <div>
-          <p className={`mb-5`}>
+          <p className='mb-5'>
             Ariel Khawly started writing online in 2011 as a moderately popular Tumblr blogger,
             eventually crafting narratives and brand voices across advertising, public relations,
             creative strategy, and digital/print media. Growing up in Houston and attending an
@@ -16,7 +17,7 @@ export default function About() {
             in their free time, Ariel somehow became obsessed with clothes and talking about them.
             Inspiration grew from her mother’s recount of her time as a new-wave teenager in New
             York to Ariel’s own stint in The City as well as San Francisco, borrowing friends’
-            clothes and cycling her wardrobe out on Haight Ashbury.
+            clothes and cycling herwardrobe out on Haight Ashbury.
           </p>
           <p className='mb-5'>
             Ariel started selling vintage clothing in 2017 after a professor at The University of
@@ -37,6 +38,6 @@ export default function About() {
           </p>
         </div>
       </div>
-    </>
+    </PageContainer>
   )
 }
