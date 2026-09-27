@@ -14,7 +14,6 @@ export default async function Home() {
         backgroundImageAlt='Vintage clothing rack'
         cta={{ href: '/shop', label: 'Shop now' }}
         heading='Vintage that will make you hysterical'
-        // supportingText='Curated vintage pieces with stories from the rack.'
       />
       <ProductCarousel heading='New arrivals' products={products.slice(0, 12)} />
       <ImageBanner backgroundImage='/newsletter-stock.jpg' />

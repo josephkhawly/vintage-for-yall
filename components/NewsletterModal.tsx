@@ -8,7 +8,7 @@ import { NewsletterForm } from '@/components/newsletter/NewsletterForm'
 const STORAGE_KEY = 'newsletter-modal-dismissed'
 
 export function NewsletterModal() {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
     if (localStorage.getItem(STORAGE_KEY)) return
@@ -45,7 +45,7 @@ export function NewsletterModal() {
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <DialogPanel className="relative flex min-h-48 w-full max-w-2xl items-center justify-center overflow-hidden rounded-3xl bg-[url('/background-texture.jpg')] bg-cover  bg-no-repeat text-espresso shadow-lg md:min-h-114">
+            <DialogPanel className="relative flex min-h-48 w-full max-w-2xl items-center justify-center overflow-hidden rounded-3xl bg-[url('/background-texture.jpg')] bg-cover bg-no-repeat text-espresso shadow-lg md:min-h-114">
               <div className='relative flex w-full flex-col items-center justify-center px-8 py-14 text-center md:px-10 md:py-16'>
                 <button
                   aria-label='Close newsletter signup'

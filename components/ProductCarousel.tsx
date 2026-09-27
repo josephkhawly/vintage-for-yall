@@ -23,7 +23,7 @@ export function ProductCarousel({ heading, products }: ProductCarouselProps) {
   if (products.length === 0) return null
 
   return (
-    <section className="py-12 md:py-16">
+    <section className='py-12 md:py-16'>
       <PageContainer>
         <div className='mb-6 flex items-center justify-between gap-4 md:mb-8'>
           <h2 className='font-frogmore text-3xl capitalize tracking-wide text-espresso md:text-5xl'>
@@ -32,7 +32,7 @@ export function ProductCarousel({ heading, products }: ProductCarouselProps) {
           <div className='flex shrink-0 gap-2'>
             <button
               aria-label='Scroll products left'
-              className='p-2 text-espresso'
+              className='cursor-pointer p-2 text-espresso'
               onClick={() => scroll(-1)}
               type='button'
             >
@@ -40,7 +40,7 @@ export function ProductCarousel({ heading, products }: ProductCarouselProps) {
             </button>
             <button
               aria-label='Scroll products right'
-              className='p-2 text-espresso'
+              className='cursor-pointer p-2 text-espresso'
               onClick={() => scroll(1)}
               type='button'
             >
