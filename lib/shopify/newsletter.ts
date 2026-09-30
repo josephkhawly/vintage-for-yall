@@ -22,10 +22,23 @@ const CUSTOMER_BY_EMAIL_QUERY = /* GraphQL */ `
       edges {
         node {
           id
+          email
           emailMarketingConsent {
             marketingState
           }
         }
+      }
+    }
+  }
+`
+
+const CUSTOMER_BY_ID_QUERY = /* GraphQL */ `
+  query customerById($id: ID!) {
+    customer(id: $id) {
+      id
+      email
+      emailMarketingConsent {
+        marketingState
       }
     }
   }
@@ -59,15 +72,22 @@ type CustomerCreateData = {
   }
 }
 
+type CustomerNode = {
+  id: string
+  email: string | null
+  emailMarketingConsent: { marketingState: string } | null
+}
+
 type CustomerByEmailData = {
   customers: {
     edges: Array<{
-      node: {
-        id: string
-        emailMarketingConsent: { marketingState: string } | null
-      }
+      node: CustomerNode
     }>
   }
+}
+
+type CustomerByIdData = {
+  customer: CustomerNode | null
 }
 
 type ConsentUpdateData = {
@@ -81,6 +101,11 @@ export type NewsletterSubscribeResult =
   | { status: 'already_subscribed'; customerId: string }
   | { status: 'confirmation_required'; customerId: string }
 
+export type NewsletterConfirmResult =
+  | 'confirmed'
+  | 'already_subscribed'
+  | 'rejected'
+
 const pendingConsent = {
   marketingState: 'PENDING' as const,
   marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
@@ -89,6 +114,14 @@ const pendingConsent = {
 const subscribedConsent = {
   marketingState: 'SUBSCRIBED' as const,
   marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
+}
+
+function normalizeEmail(email: string): string {
+  return email.trim().toLowerCase()
+}
+
+function escapeShopifySearchPhrase(value: string): string {
+  return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
 }
 
 function getAdminEndpoint(): string {
@@ -147,13 +180,35 @@ function isEmailTakenError(message: string): boolean {
   return lower.includes('email') && (lower.includes('taken') || lower.includes('already'))
 }
 
+function emailsMatch(a: string | null | undefined, b: string): boolean {
+  if (!a) return false
+  return normalizeEmail(a) === normalizeEmail(b)
+}
+
 async function findCustomerByEmail(email: string) {
+  const normalized = normalizeEmail(email)
   const lookup = await adminFetch<CustomerByEmailData>({
     query: CUSTOMER_BY_EMAIL_QUERY,
-    variables: { query: `email:${email}` },
+    variables: {
+      query: `email:"${escapeShopifySearchPhrase(normalized)}"`,
+    },
   })
 
-  return lookup.customers.edges[0]?.node ?? null
+  const customer = lookup.customers.edges[0]?.node ?? null
+  if (!customer || !emailsMatch(customer.email, normalized)) {
+    return null
+  }
+
+  return customer
+}
+
+async function getCustomerById(customerId: string) {
+  const lookup = await adminFetch<CustomerByIdData>({
+    query: CUSTOMER_BY_ID_QUERY,
+    variables: { id: customerId },
+  })
+
+  return lookup.customer
 }
 
 async function setCustomerConsent(
@@ -203,7 +258,7 @@ export async function subscribeEmailToNewsletter(
     query: CUSTOMER_CREATE_MUTATION,
     variables: {
       input: {
-        email,
+        email: normalizeEmail(email),
         emailMarketingConsent: pendingConsent,
       },
     },
@@ -225,6 +280,24 @@ export async function subscribeEmailToNewsletter(
 
 export async function confirmEmailMarketingSubscription(
   customerId: string,
-): Promise<void> {
+  email: string,
+): Promise<NewsletterConfirmResult> {
+  const customer = await getCustomerById(customerId)
+  if (!customer || !emailsMatch(customer.email, email)) {
+    return 'rejected'
+  }
+
+  const state = customer.emailMarketingConsent?.marketingState
+  if (state === 'SUBSCRIBED') {
+    return 'already_subscribed'
+  }
+
+  // Only complete double opt-in from PENDING. Refuse UNSUBSCRIBED / other
+  // states so an old confirmation link cannot restore withdrawn consent.
+  if (state !== 'PENDING') {
+    return 'rejected'
+  }
+
   await setCustomerConsent(customerId, subscribedConsent)
+  return 'confirmed'
 }

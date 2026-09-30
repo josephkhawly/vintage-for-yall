@@ -9,9 +9,7 @@ export type NewsletterConfirmPayload = {
 const TOKEN_TTL_MS = 1000 * 60 * 60 * 24
 
 function getSecret(): string {
-  const secret =
-    process.env.NEWSLETTER_CONFIRM_SECRET ||
-    process.env.SHOPIFY_REVALIDATION_SECRET
+  const secret = process.env.NEWSLETTER_CONFIRM_SECRET
 
   if (!secret) {
     throw new Error('Newsletter confirmation is not configured')

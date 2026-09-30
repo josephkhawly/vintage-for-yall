@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { confirmEmailMarketingSubscription } from '@/lib/shopify/newsletter'
+import { NewsletterConfirmForm } from '@/components/NewsletterConfirmForm'
 import { verifyNewsletterConfirmToken } from '@/lib/newsletter/token'
 
 type ConfirmPageProps = {
@@ -30,27 +30,18 @@ export default async function NewsletterConfirmPage({
     )
   }
 
-  try {
-    await confirmEmailMarketingSubscription(payload.customerId)
-  } catch (error) {
-    console.error('Newsletter confirmation error:', error)
-    return (
-      <ConfirmMessage
-        title='Something went wrong'
-        body='We couldn’t confirm your signup. Please try again in a bit.'
-      />
-    )
-  }
-
-  return (
-    <ConfirmMessage
-      title="You're in!"
-      body='Email confirmed. You’ll get first dibs on drops and that welcome discount. <3'
-    />
-  )
+  // GET only validates the token and renders a deliberate confirm control.
+  // Email scanners / link previews must not complete opt-in by fetching the URL.
+  return <NewsletterConfirmForm token={token} />
 }
 
-function ConfirmMessage({ title, body }: { title: string; body: string }) {
+export function ConfirmMessage({
+  title,
+  body,
+}: {
+  title: string
+  body: string
+}) {
   return (
     <div className='flex min-h-[70vh] items-center justify-center px-6'>
       <article className='w-full max-w-xl text-left font-body text-lg leading-relaxed italic md:text-xl md:leading-relaxed'>

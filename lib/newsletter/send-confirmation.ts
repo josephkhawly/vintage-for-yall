@@ -13,7 +13,26 @@ function getSiteUrl(): string {
     return `https://${process.env.VERCEL_URL.replace(/\/$/, '')}`
   }
 
-  return 'http://localhost:3000'
+  throw new Error('Newsletter signup is not configured')
+}
+
+function assertPublicSiteUrl(url: string): void {
+  let parsed: URL
+  try {
+    parsed = new URL(url)
+  } catch {
+    throw new Error('Newsletter signup is not configured')
+  }
+
+  const host = parsed.hostname.toLowerCase()
+  if (
+    host === 'localhost' ||
+    host === '127.0.0.1' ||
+    host === '::1' ||
+    host.endsWith('.local')
+  ) {
+    throw new Error('Newsletter signup is not configured')
+  }
 }
 
 function getFromAddress(): string {
@@ -88,5 +107,7 @@ export async function sendNewsletterConfirmationEmail({
 }
 
 export function buildNewsletterConfirmUrl(token: string): string {
-  return `${getSiteUrl()}/newsletter/confirm?token=${encodeURIComponent(token)}`
+  const siteUrl = getSiteUrl()
+  assertPublicSiteUrl(siteUrl)
+  return `${siteUrl}/newsletter/confirm?token=${encodeURIComponent(token)}`
 }
