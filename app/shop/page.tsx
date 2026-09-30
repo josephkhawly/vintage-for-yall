@@ -1,35 +1,28 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { PageContainer } from '@/components/PageContainer'
+import { getProducts } from '@/lib/shopify'
+import { defaultSort } from '@/lib/constants'
+import { Product } from '@/lib/shopify/types'
+import ProductCard from '@/components/ProductCard'
 
 export const metadata: Metadata = {
   title: "Shop | Ugly Cry Vintage",
   description: '',
 }
 
-export default function Shop() {
+export default async function Shop() {
+  const { sortKey, reverse } = defaultSort
+  const products = await getProducts({ sortKey, reverse })
+
   return (
-    <PageContainer>
-      <h1 className='mb-8 font-frogmore text-4xl tracking-wide text-espresso sm:text-6xl'>Coming soon...</h1>
+    <>
+      <h1 className='text-4xl sm:text-6xl mb-8'>Shop</h1>
       <div>
-        <p>
-          We're still working on the shop. In the meantime, you can buy from us on{' '}
-          <Link
-            className='text-espresso underline underline-offset-2'
-            href='https://www.depop.com/uglycryvintage/'
-          >
-            Depop
-          </Link>{' '}
-          or{' '}
-          <Link
-            className='text-espresso underline underline-offset-2'
-            href='https://www.etsy.com/shop/UglyCryVintage'
-          >
-            Etsy
-          </Link>
-          .
-        </p>
+        <ul className='grid grid-flow-row gap-4 md:gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+          {products.map((product: Product) => (
+            <ProductCard key={product.handle} product={product} />
+          ))}
+        </ul>
       </div>
-    </PageContainer>
+    </>
   )
 }

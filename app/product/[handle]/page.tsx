@@ -80,7 +80,7 @@ export default async function ProductPage(props: PageProps) {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className='grid grid-flow-row gap-4 grid-cols-1 md:grid-cols-2'>
+      <div className='grid grid-flow-row gap-4 grid-cols-1 md:grid-cols-2 container mx-auto'>
         <ImageGallery images={product.images} />
         <div>
           <h1 className='text-3xl lg:text-4xl mb-6'>{product.title}</h1>
