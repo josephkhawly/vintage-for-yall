@@ -1,5 +1,7 @@
 'use server'
 
+import { sendNewsletterConfirmationEmail, buildNewsletterConfirmUrl } from '@/lib/newsletter/send-confirmation'
+import { createNewsletterConfirmToken } from '@/lib/newsletter/token'
 import { subscribeEmailToNewsletter } from '@/lib/shopify/newsletter'
 
 export type NewsletterFormState = {
@@ -26,7 +28,21 @@ export async function subscribeToNewsletter(
   }
 
   try {
-    await subscribeEmailToNewsletter(email)
+    const result = await subscribeEmailToNewsletter(email)
+
+    if (result.status === 'already_subscribed') {
+      return {
+        status: 'success',
+        message: "You're already in. See you at the drop. <3",
+      }
+    }
+
+    const token = createNewsletterConfirmToken(email, result.customerId)
+    await sendNewsletterConfirmationEmail({
+      email,
+      confirmUrl: buildNewsletterConfirmUrl(token),
+    })
+
     return {
       status: 'success',
       message: "You're in! Check your inbox to verify signup. <3",

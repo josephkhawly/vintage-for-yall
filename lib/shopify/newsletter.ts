@@ -77,9 +77,18 @@ type ConsentUpdateData = {
   }
 }
 
-const emailMarketingConsent = {
+export type NewsletterSubscribeResult =
+  | { status: 'already_subscribed'; customerId: string }
+  | { status: 'confirmation_required'; customerId: string }
+
+const pendingConsent = {
+  marketingState: 'PENDING' as const,
+  marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
+}
+
+const subscribedConsent = {
   marketingState: 'SUBSCRIBED' as const,
-  marketingOptInLevel: 'SINGLE_OPT_IN' as const,
+  marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
 }
 
 function getAdminEndpoint(): string {
@@ -135,53 +144,67 @@ async function adminFetch<T>({
 
 function isEmailTakenError(message: string): boolean {
   const lower = message.toLowerCase()
-  return (
-    lower.includes('email') &&
-    (lower.includes('taken') ||
-      lower.includes('already') ||
-      lower.includes('has already been taken'))
-  )
+  return lower.includes('email') && (lower.includes('taken') || lower.includes('already'))
 }
 
-async function updateExistingCustomerConsent(email: string): Promise<void> {
+async function findCustomerByEmail(email: string) {
   const lookup = await adminFetch<CustomerByEmailData>({
     query: CUSTOMER_BY_EMAIL_QUERY,
     variables: { query: `email:${email}` },
   })
 
-  const customer = lookup.customers.edges[0]?.node
-  if (!customer) {
-    throw new Error('Failed to subscribe to newsletter')
-  }
+  return lookup.customers.edges[0]?.node ?? null
+}
 
-  if (customer.emailMarketingConsent?.marketingState === 'SUBSCRIBED') {
-    return
-  }
-
+async function setCustomerConsent(
+  customerId: string,
+  emailMarketingConsent: typeof pendingConsent | typeof subscribedConsent,
+) {
   const update = await adminFetch<ConsentUpdateData>({
     query: CUSTOMER_EMAIL_MARKETING_CONSENT_UPDATE,
     variables: {
       input: {
-        customerId: customer.id,
+        customerId,
         emailMarketingConsent,
       },
     },
   })
 
-  const { userErrors } = update.customerEmailMarketingConsentUpdate
-  if (userErrors.length > 0) {
+  const { customer, userErrors } = update.customerEmailMarketingConsentUpdate
+  if (userErrors.length > 0 || !customer) {
     console.error('Shopify consent update errors:', userErrors)
     throw new Error('Failed to subscribe to newsletter')
   }
 }
 
-export async function subscribeEmailToNewsletter(email: string): Promise<void> {
+async function prepareExistingCustomer(
+  email: string,
+): Promise<NewsletterSubscribeResult> {
+  const customer = await findCustomerByEmail(email)
+  if (!customer) {
+    throw new Error('Failed to subscribe to newsletter')
+  }
+
+  if (customer.emailMarketingConsent?.marketingState === 'SUBSCRIBED') {
+    return { status: 'already_subscribed', customerId: customer.id }
+  }
+
+  if (customer.emailMarketingConsent?.marketingState !== 'PENDING') {
+    await setCustomerConsent(customer.id, pendingConsent)
+  }
+
+  return { status: 'confirmation_required', customerId: customer.id }
+}
+
+export async function subscribeEmailToNewsletter(
+  email: string,
+): Promise<NewsletterSubscribeResult> {
   const create = await adminFetch<CustomerCreateData>({
     query: CUSTOMER_CREATE_MUTATION,
     variables: {
       input: {
         email,
-        emailMarketingConsent,
+        emailMarketingConsent: pendingConsent,
       },
     },
   })
@@ -189,18 +212,19 @@ export async function subscribeEmailToNewsletter(email: string): Promise<void> {
   const { customer, userErrors } = create.customerCreate
 
   if (customer && userErrors.length === 0) {
-    return
+    return { status: 'confirmation_required', customerId: customer.id }
   }
 
   if (userErrors.some((error) => isEmailTakenError(error.message))) {
-    await updateExistingCustomerConsent(email)
-    return
+    return prepareExistingCustomer(email)
   }
 
-  if (userErrors.length > 0) {
-    console.error('Shopify customerCreate errors:', userErrors)
-    throw new Error('Failed to subscribe to newsletter')
-  }
-
+  console.error('Shopify customerCreate errors:', userErrors)
   throw new Error('Failed to subscribe to newsletter')
+}
+
+export async function confirmEmailMarketingSubscription(
+  customerId: string,
+): Promise<void> {
+  await setCustomerConsent(customerId, subscribedConsent)
 }
