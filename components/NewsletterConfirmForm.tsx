@@ -13,6 +13,25 @@ const initialState: NewsletterConfirmFormState = {
   message: '',
 }
 
+export function ConfirmMessage({ title, body }: { title: string; body: string }) {
+  return (
+    <div className='flex min-h-[70vh] items-center justify-center px-6'>
+      <article className='w-full max-w-xl text-left font-body text-lg leading-relaxed italic md:text-xl md:leading-relaxed'>
+        <h1 className='mb-4 not-italic text-2xl text-espresso'>{title}</h1>
+        <p className='mb-8'>{body}</p>
+        <p>
+          <Link
+            href='/'
+            className='underline underline-offset-4 transition-colors hover:text-espresso'
+          >
+            Back home
+          </Link>
+        </p>
+      </article>
+    </div>
+  )
+}
+
 export function NewsletterConfirmForm({ token }: { token: string }) {
   const [state, formAction, pending] = useActionState(
     confirmNewsletterSubscription,
@@ -20,22 +39,7 @@ export function NewsletterConfirmForm({ token }: { token: string }) {
   )
 
   if (state.status === 'success' || state.status === 'error') {
-    return (
-      <div className='flex min-h-[70vh] items-center justify-center px-6'>
-        <article className='w-full max-w-xl text-left font-body text-lg leading-relaxed italic md:text-xl md:leading-relaxed'>
-          <h1 className='mb-4 not-italic text-2xl text-espresso'>{state.title}</h1>
-          <p className='mb-8'>{state.message}</p>
-          <p>
-            <Link
-              href='/'
-              className='underline underline-offset-4 transition-colors hover:text-espresso'
-            >
-              Back home
-            </Link>
-          </p>
-        </article>
-      </div>
-    )
+    return <ConfirmMessage title={state.title} body={state.message} />
   }
 
   return (

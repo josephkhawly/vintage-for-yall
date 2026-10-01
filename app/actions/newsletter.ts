@@ -21,7 +21,6 @@ export type NewsletterConfirmFormState = {
   message: string
 }
 
-// Intentionally omit Shopify search wildcards (* ?) from the local part.
 const EMAIL_REGEX =
   /^[a-z0-9.!#$%&'+/=^_`{|}~-]+@[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+$/i
 
@@ -55,8 +54,6 @@ export async function subscribeToNewsletter(
       })
     }
 
-    // Same success copy whether already subscribed or newly pending confirmation,
-    // so the public form cannot be used to probe newsletter membership.
     return {
       status: 'success',
       message: GENERIC_SIGNUP_SUCCESS,

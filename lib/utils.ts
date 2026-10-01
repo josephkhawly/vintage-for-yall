@@ -11,17 +11,6 @@ export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyUR
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`
 
-/**
- * Core storefront vars (validated at boot).
- * Newsletter signup additionally needs (see `.env.example`):
- * - SHOPIFY_ADMIN_ACCESS_TOKEN — Admin API token with `write_customers` /
- *   customer email marketing consent permissions
- * - NEWSLETTER_CONFIRM_SECRET — dedicated HMAC secret for confirm tokens
- *   (do not reuse SHOPIFY_REVALIDATION_SECRET)
- * - RESEND_API_KEY — confirmation email delivery
- * - NEXT_PUBLIC_SITE_URL — public site origin used in confirmation links
- * - RESEND_FROM_EMAIL — optional From override
- */
 export const validateEnvironmentVariables = () => {
   const requiredEnvironmentVariables = ['SHOPIFY_STORE_DOMAIN', 'SHOPIFY_PUBLIC_ACCESS_TOKEN']
   const missingEnvironmentVariables = [] as string[]

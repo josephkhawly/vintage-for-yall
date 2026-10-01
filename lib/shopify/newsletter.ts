@@ -292,8 +292,6 @@ export async function confirmEmailMarketingSubscription(
     return 'already_subscribed'
   }
 
-  // Only complete double opt-in from PENDING. Refuse UNSUBSCRIBED / other
-  // states so an old confirmation link cannot restore withdrawn consent.
   if (state !== 'PENDING') {
     return 'rejected'
   }
