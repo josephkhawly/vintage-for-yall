@@ -1,27 +1,29 @@
 'use client'
 
-import type { Menu } from '@/lib/shopify/types'
+import type { Collection, Menu } from '@/lib/shopify/types'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import type * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
-import { HiMagnifyingGlass, HiOutlineBars3 } from 'react-icons/hi2'
+import { HiChevronDown, HiMagnifyingGlass, HiOutlineBars3 } from 'react-icons/hi2'
 import logo from '../public/logo.png'
 import { AnnouncementBar } from './AnnouncementBar'
 
 type Panel = 'menu' | 'search'
 
 interface HeaderClientProps {
+  collections: Collection[]
   items: Menu[]
 }
 
-export function HeaderClient({ items }: HeaderClientProps) {
+export function HeaderClient({ collections, items }: HeaderClientProps) {
   const [panel, setPanel] = useState<Panel | null>(null)
   const [content, setContent] = useState<Panel | null>(null)
   const [expanded, setExpanded] = useState(false)
   const [query, setQuery] = useState('')
+  const [shopOpen, setShopOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
   const panelRef = useRef<HTMLDivElement>(null)
@@ -30,11 +32,13 @@ export function HeaderClient({ items }: HeaderClientProps) {
   function close() {
     setPanel(null)
     setExpanded(false)
+    setShopOpen(false)
   }
 
   function open(next: Panel) {
     setContent(next)
     setPanel(next)
+    if (next !== 'menu') setShopOpen(false)
     if (expanded) return
     requestAnimationFrame(() => {
       requestAnimationFrame(() => setExpanded(true))
@@ -167,19 +171,64 @@ export function HeaderClient({ items }: HeaderClientProps) {
                 {content === 'menu' ? (
                   <nav aria-label='Primary'>
                     <ul>
-                      {items.map((item) => (
-                        <li className='border-t border-black' key={item.title}>
-                          <Link
-                            className='block py-4 text-center font-subheading text-2xl italic tracking-wide transition-colors hover:text-espresso data-[active=true]:text-espresso md:text-3xl'
-                            data-active={pathname === item.path}
-                            href={item.path}
-                            onClick={close}
-                            prefetch={true}
-                          >
-                            {item.title}
-                          </Link>
-                        </li>
-                      ))}
+                      {items.map((item) => {
+                        if (item.title.toLowerCase() === 'shop') {
+                          return (
+                            <li className='border-t border-black' key={item.title}>
+                              <button
+                                aria-expanded={shopOpen}
+                                className='flex w-full cursor-pointer items-center justify-center gap-2 py-4 font-subheading text-2xl italic tracking-wide transition-colors hover:text-espresso md:text-3xl'
+                                onClick={() => setShopOpen((open) => !open)}
+                                type='button'
+                              >
+                                {item.title}
+                                <HiChevronDown
+                                  className={clsx(
+                                    'size-5 transition-transform duration-200 md:size-6',
+                                    shopOpen && 'rotate-180',
+                                  )}
+                                />
+                              </button>
+                              <div
+                                className={clsx(
+                                  'grid transition-[grid-template-rows] duration-300 ease-out',
+                                  shopOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
+                                )}
+                              >
+                                <ul className='min-h-0 overflow-hidden'>
+                                  {collections.map((collection) => (
+                                    <li key={collection.handle || 'all'}>
+                                      <Link
+                                        className='block py-1.5 text-center font-subheading text-lg italic tracking-wide transition-colors hover:text-white data-[active=true]:text-espresso md:text-xl'
+                                        data-active={pathname === collection.path}
+                                        href={collection.path}
+                                        onClick={close}
+                                        prefetch={true}
+                                      >
+                                        {collection.title}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </li>
+                          )
+                        }
+
+                        return (
+                          <li className='border-t border-black' key={item.title}>
+                            <Link
+                              className='block py-4 text-center font-subheading text-2xl italic tracking-wide transition-colors hover:text-espresso data-[active=true]:text-espresso md:text-3xl'
+                              data-active={pathname === item.path}
+                              href={item.path}
+                              onClick={close}
+                              prefetch={true}
+                            >
+                              {item.title}
+                            </Link>
+                          </li>
+                        )
+                      })}
                     </ul>
                     <div className='flex items-center justify-end border-t border-black px-5 py-4'>
                       <a

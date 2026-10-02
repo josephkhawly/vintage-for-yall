@@ -1,4 +1,4 @@
-import { getMenu } from '@/lib/shopify'
+import { getCollections, getMenu } from '@/lib/shopify'
 import { HeaderClient } from './Header-client'
 
 const hardcodedMenu = [
@@ -10,21 +10,15 @@ const hardcodedMenu = [
     path: '/blog',
     title: 'Blog',
   },
-  {
-    path: '/press',
-    title: 'Press',
-  },
 ]
 
+const excludedTitles = new Set(['home', 'press', 'shop'])
+
 export default async function Header() {
-  const menu = await getMenu('main-menu')
-  const filteredMenu = menu.filter((item) => item.title.toLowerCase() !== 'shop')
+  const [collections, menu] = await Promise.all([getCollections(), getMenu('main-menu')])
+  const filteredMenu = menu.filter((item) => !excludedTitles.has(item.title.toLowerCase()))
 
-  const items = [
-    { path: '/', title: 'Home' },
-    ...hardcodedMenu,
-    ...filteredMenu,
-  ]
+  const items = [...hardcodedMenu, ...filteredMenu]
 
-  return <HeaderClient items={items} />
+  return <HeaderClient collections={collections} items={items} />
 }
