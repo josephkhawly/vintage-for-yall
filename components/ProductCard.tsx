@@ -4,11 +4,13 @@ import Price from './Price'
 import { Product } from '@/lib/shopify/types'
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { title, handle, featuredImage, priceRange, availableForSale } = product
+  const { availableForSale, featuredImage, handle, images, priceRange, title } = product
+  const hoverImage = images.find((image) => image?.url && image.url !== featuredImage.url)
+
   return (
     <li>
       <Link className='flex flex-col items-start' href={`/product/${handle}`}>
-        <div className='relative mb-2 w-full' style={{ aspectRatio: '3/4' }}>
+        <div className='group relative mb-2 w-full' style={{ aspectRatio: '3/4' }}>
           <Image
             alt={title}
             src={featuredImage.url}
@@ -16,9 +18,18 @@ export default function ProductCard({ product }: { product: Product }) {
             sizes='(max-width: 768px) 100vw, 50vw'
             className='object-cover'
           />
+          {hoverImage ? (
+            <Image
+              alt={hoverImage.altText || title}
+              src={hoverImage.url}
+              fill
+              sizes='(max-width: 768px) 100vw, 50vw'
+              className='object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100'
+            />
+          ) : null}
           {!availableForSale && (
-            <div className='absolute top-0 right-0 bg-white/50 text-lg p-1 w-full h-full flex items-center justify-center'>
-              <span className='p-3 rounded-full bg-sandy-clay text-white'>Sold Out</span>
+            <div className='absolute inset-0 z-10 flex items-center justify-center bg-white/50 p-1 text-lg'>
+              <span className='rounded-full bg-sandy-clay p-3 text-white'>Sold Out</span>
             </div>
           )}
         </div>
