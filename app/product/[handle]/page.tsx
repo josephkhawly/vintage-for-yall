@@ -1,5 +1,5 @@
 import { AddToCart } from '@/components/cart/AddToCart'
-import ImageGallery from '@/components/ImageGallery'
+import { ImageGallery } from '@/components/ImageGallery'
 import Price from '@/components/Price'
 import { ProductProvider } from '@/components/ProductContext'
 import Prose from '@/components/Prose'
@@ -80,19 +80,19 @@ export default async function ProductPage(props: PageProps) {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className='grid grid-flow-row gap-4 grid-cols-1 md:grid-cols-2 container mx-auto'>
+      <div className='container mx-auto grid grid-cols-1 grid-flow-row gap-6 px-6 pb-12 pt-16 md:grid-cols-[1.4fr_1fr] md:gap-8 md:px-12 sm:pt-24'>
         <ImageGallery images={product.images} />
         <div>
-          <h1 className='text-3xl lg:text-4xl mb-6'>{product.title}</h1>
+          <h1 className='mb-6 text-3xl lg:text-4xl'>{product.title}</h1>
           <Price
             amount={priceRange.minVariantPrice.amount}
             currencyCode={priceRange.minVariantPrice.currencyCode}
-            className='text-2xl lg:text-3xl mb-6 text-dark-magenta'
+            className='mb-6 text-2xl text-espresso lg:text-3xl'
           />
           <div className='flex flex-col-reverse md:flex-col'>
             {product.descriptionHtml ? (
               <Prose
-                className='mb-6 mt-6 md:mt-0 text-md leading-tight'
+                className='mb-6 mt-6 text-md leading-tight md:mt-0'
                 html={product.descriptionHtml}
               />
             ) : null}
