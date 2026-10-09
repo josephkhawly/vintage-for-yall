@@ -10,7 +10,7 @@ import { Fragment, useActionState, useEffect, useRef, useState } from 'react'
 import { createCartAndSetCookie, redirectToCheckout } from './actions'
 import { useCart } from './CartContext'
 import { DeleteItemButton } from './DeleteItemButton'
-import { HiOutlineShoppingCart, HiOutlineXMark, HiShoppingCart } from 'react-icons/hi2'
+import { HiOutlineXMark } from 'react-icons/hi2'
 
 type MerchandiseSearchParams = {
   [key: string]: string
@@ -18,22 +18,11 @@ type MerchandiseSearchParams = {
 
 function OpenCart({ quantity }: { quantity?: number }) {
   return (
-    <div className='relative flex size-11 items-center justify-center text-black transition-colors'>
-      <HiShoppingCart className='size-7' />
-
-      {quantity ? (
-        <div className='absolute right-0 top-0 -mr-1 -mt-1 size-4 rounded-sm bg-burnt-orange text-[11px] font-medium text-white'>
-          {quantity}
-        </div>
-      ) : null}
-    </div>
-  )
-}
-
-function CloseCart() {
-  return (
-    <div className='relative flex size-11 items-center justify-center text-black'>
-      <HiOutlineXMark className='size-8' />
+    <div className='flex h-11 items-center gap-2 rounded-full border border-black bg-teal/50 pr-1.5 pl-4 font-subheading text-sm uppercase tracking-wide text-black backdrop-blur-sm md:h-14 md:pr-2 md:pl-5 md:text-base'>
+      <span>Cart</span>
+      <span className='flex size-8 items-center justify-center rounded-full border border-black text-xs md:size-10 md:text-sm'>
+        {quantity ?? 0}
+      </span>
     </div>
   )
 }
@@ -70,11 +59,11 @@ export default function CartModal() {
 
   return (
     <>
-      <button aria-label='Open cart' onClick={openCart}>
+      <button aria-label='Open cart' className='cursor-pointer' onClick={openCart} type='button'>
         <OpenCart quantity={cart?.totalQuantity} />
       </button>
       <Transition show={isOpen}>
-        <Dialog onClose={closeCart} className='relative z-50'>
+        <Dialog className='relative z-50' onClose={closeCart}>
           <TransitionChild
             as={Fragment}
             enter='transition-all ease-in-out duration-300'
@@ -84,7 +73,7 @@ export default function CartModal() {
             leaveFrom='opacity-100 backdrop-blur-[.5px]'
             leaveTo='opacity-0 backdrop-blur-none'
           >
-            <div className='fixed inset-0 bg-black/30' aria-hidden='true' />
+            <div aria-hidden='true' className='fixed inset-0 bg-black/30' />
           </TransitionChild>
           <TransitionChild
             as={Fragment}
@@ -95,18 +84,21 @@ export default function CartModal() {
             leaveFrom='translate-x-0'
             leaveTo='translate-x-full'
           >
-            <DialogPanel className='fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px]'>
-              <div className='flex items-center justify-between'>
-                <p className='text-lg font-semibold'>My Cart</p>
-                <button aria-label='Close cart' onClick={closeCart}>
-                  <CloseCart />
+            <DialogPanel className='fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-black bg-teal/50 p-6 text-black backdrop-blur-sm md:w-[500px]'>
+              <div className='flex justify-end'>
+                <button
+                  aria-label='Close cart'
+                  className='cursor-pointer p-2 text-black'
+                  onClick={closeCart}
+                  type='button'
+                >
+                  <HiOutlineXMark className='size-8' />
                 </button>
               </div>
 
               {!cart || cart.lines.length === 0 ? (
                 <div className='mt-20 flex w-full flex-col items-center justify-center overflow-hidden'>
-                  <HiOutlineShoppingCart className='h-16 w-16' />
-                  <p className='mt-6 text-center text-2xl font-bold'>Your cart is empty.</p>
+                  <p className='text-center text-2xl font-bold'>Your cart is empty.</p>
                 </div>
               ) : (
                 <div className='flex h-full flex-col justify-between overflow-hidden p-1'>
@@ -185,9 +177,9 @@ export default function CartModal() {
                   </div>
                   <form action={submitAction}>
                     <button
-                      className='block w-full rounded-md bg-burnt-orange p-3 text-center text-md tracking-wide text-white hover:opacity-90'
-                      type='submit'
+                      className='block w-full cursor-pointer rounded-md bg-burnt-orange p-3 text-center text-md tracking-wide text-white hover:opacity-90 disabled:cursor-not-allowed'
                       disabled={isPending}
+                      type='submit'
                     >
                       Proceed to Checkout
                     </button>
