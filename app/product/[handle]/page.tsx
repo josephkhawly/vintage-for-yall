@@ -1,6 +1,7 @@
 import { AddToCart } from '@/components/cart/AddToCart'
 import { ImageGallery } from '@/components/ImageGallery'
 import Price from '@/components/Price'
+import { ProductAccordions } from '@/components/ProductAccordions'
 import { ProductProvider } from '@/components/ProductContext'
 import Prose from '@/components/Prose'
 import { HIDDEN_PRODUCT_TAG } from '@/lib/constants'
@@ -98,6 +99,12 @@ export default async function ProductPage(props: PageProps) {
             ) : null}
             <AddToCart product={product} />
           </div>
+          <ProductAccordions
+            condition={product.condition}
+            materials={product.materials}
+            measurements={product.measurements}
+            notes={product.notes}
+          />
         </div>
       </div>
     </ProductProvider>
