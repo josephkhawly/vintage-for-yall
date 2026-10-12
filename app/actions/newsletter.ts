@@ -93,10 +93,7 @@ export async function confirmNewsletterSubscription(
   }
 
   try {
-    const result = await confirmEmailMarketingSubscription(
-      payload.customerId,
-      payload.email,
-    )
+    const result = await confirmEmailMarketingSubscription(payload.customerId)
 
     switch (result) {
       case 'confirmed':

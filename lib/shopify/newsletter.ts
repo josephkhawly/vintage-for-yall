@@ -22,7 +22,6 @@ const CUSTOMER_BY_EMAIL_QUERY = /* GraphQL */ `
       edges {
         node {
           id
-          email
           emailMarketingConsent {
             marketingState
           }
@@ -36,7 +35,6 @@ const CUSTOMER_BY_ID_QUERY = /* GraphQL */ `
   query customerById($id: ID!) {
     customer(id: $id) {
       id
-      email
       emailMarketingConsent {
         marketingState
       }
@@ -74,7 +72,6 @@ type CustomerCreateData = {
 
 type CustomerNode = {
   id: string
-  email: string | null
   emailMarketingConsent: { marketingState: string } | null
 }
 
@@ -180,11 +177,6 @@ function isEmailTakenError(message: string): boolean {
   return lower.includes('email') && (lower.includes('taken') || lower.includes('already'))
 }
 
-function emailsMatch(a: string | null | undefined, b: string): boolean {
-  if (!a) return false
-  return normalizeEmail(a) === normalizeEmail(b)
-}
-
 async function findCustomerByEmail(email: string) {
   const normalized = normalizeEmail(email)
   const lookup = await adminFetch<CustomerByEmailData>({
@@ -194,12 +186,7 @@ async function findCustomerByEmail(email: string) {
     },
   })
 
-  const customer = lookup.customers.edges[0]?.node ?? null
-  if (!customer || !emailsMatch(customer.email, normalized)) {
-    return null
-  }
-
-  return customer
+  return lookup.customers.edges[0]?.node ?? null
 }
 
 async function getCustomerById(customerId: string) {
@@ -280,10 +267,9 @@ export async function subscribeEmailToNewsletter(
 
 export async function confirmEmailMarketingSubscription(
   customerId: string,
-  email: string,
 ): Promise<NewsletterConfirmResult> {
   const customer = await getCustomerById(customerId)
-  if (!customer || !emailsMatch(customer.email, email)) {
+  if (!customer) {
     return 'rejected'
   }
 
