@@ -50,7 +50,7 @@ export async function subscribeToNewsletter(
       const token = createNewsletterConfirmToken(email, result.customerId)
       await sendNewsletterConfirmationEmail({
         email,
-        confirmUrl: buildNewsletterConfirmUrl(token),
+        confirmUrl: await buildNewsletterConfirmUrl(token),
       })
     }
 

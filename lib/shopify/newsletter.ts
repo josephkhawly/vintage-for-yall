@@ -103,14 +103,9 @@ export type NewsletterConfirmResult =
   | 'already_subscribed'
   | 'rejected'
 
-const pendingConsent = {
-  marketingState: 'PENDING' as const,
-  marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
-}
-
 const subscribedConsent = {
   marketingState: 'SUBSCRIBED' as const,
-  marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
+  marketingOptInLevel: 'SINGLE_OPT_IN' as const,
 }
 
 function normalizeEmail(email: string): string {
@@ -155,17 +150,8 @@ async function adminFetch<T>({
 
   const body = (await response.json()) as AdminGraphqlResponse<T>
 
-  if (!response.ok) {
-    console.error('Shopify Admin API HTTP error:', response.status, body)
-    throw new Error('Failed to subscribe to newsletter')
-  }
-
-  if (body.errors?.length) {
-    console.error('Shopify Admin API GraphQL errors:', body.errors)
-    throw new Error('Failed to subscribe to newsletter')
-  }
-
-  if (!body.data) {
+  if (!response.ok || body.errors?.length || !body.data) {
+    console.error('Shopify Admin API error:', response.status, body)
     throw new Error('Failed to subscribe to newsletter')
   }
 
@@ -198,16 +184,13 @@ async function getCustomerById(customerId: string) {
   return lookup.customer
 }
 
-async function setCustomerConsent(
-  customerId: string,
-  emailMarketingConsent: typeof pendingConsent | typeof subscribedConsent,
-) {
+async function setCustomerSubscribed(customerId: string) {
   const update = await adminFetch<ConsentUpdateData>({
     query: CUSTOMER_EMAIL_MARKETING_CONSENT_UPDATE,
     variables: {
       input: {
         customerId,
-        emailMarketingConsent,
+        emailMarketingConsent: subscribedConsent,
       },
     },
   })
@@ -231,10 +214,6 @@ async function prepareExistingCustomer(
     return { status: 'already_subscribed', customerId: customer.id }
   }
 
-  if (customer.emailMarketingConsent?.marketingState !== 'PENDING') {
-    await setCustomerConsent(customer.id, pendingConsent)
-  }
-
   return { status: 'confirmation_required', customerId: customer.id }
 }
 
@@ -246,7 +225,6 @@ export async function subscribeEmailToNewsletter(
     variables: {
       input: {
         email: normalizeEmail(email),
-        emailMarketingConsent: pendingConsent,
       },
     },
   })
@@ -273,15 +251,10 @@ export async function confirmEmailMarketingSubscription(
     return 'rejected'
   }
 
-  const state = customer.emailMarketingConsent?.marketingState
-  if (state === 'SUBSCRIBED') {
+  if (customer.emailMarketingConsent?.marketingState === 'SUBSCRIBED') {
     return 'already_subscribed'
   }
 
-  if (state !== 'PENDING') {
-    return 'rejected'
-  }
-
-  await setCustomerConsent(customerId, subscribedConsent)
+  await setCustomerSubscribed(customerId)
   return 'confirmed'
 }

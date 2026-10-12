@@ -7,7 +7,7 @@ export default function Home() {
         <p className='mb-6 italic'>To my vintage-loving baddies,</p>
 
         <p className='mb-4 italic'>
-          Our first drop goes live <span className='font-bold'>October 2 at 12:00PM PST</span>.
+          Our first drop goes live <span className='font-bold'>October 16 at 12:00PM PST</span>.
           <br />
           Sign up below to get first dibs on this and future pieces, plus an exclusive
           welcome discount.

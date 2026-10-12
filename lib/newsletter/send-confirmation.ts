@@ -1,12 +1,17 @@
+import { headers } from 'next/headers'
 import { Resend } from 'resend'
 
-function getSiteUrl(): string {
+async function getSiteUrl(): Promise<string> {
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '')
   }
 
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL.replace(/\/$/, '')}`
+  const requestHeaders = await headers()
+  const host =
+    requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host')
+  if (host) {
+    const proto = requestHeaders.get('x-forwarded-proto') ?? 'https'
+    return `${proto}://${host}`
   }
 
   if (process.env.VERCEL_URL) {
@@ -106,8 +111,8 @@ export async function sendNewsletterConfirmationEmail({
   }
 }
 
-export function buildNewsletterConfirmUrl(token: string): string {
-  const siteUrl = getSiteUrl()
+export async function buildNewsletterConfirmUrl(token: string): Promise<string> {
+  const siteUrl = await getSiteUrl()
   assertPublicSiteUrl(siteUrl)
   return `${siteUrl}/newsletter/confirm?token=${encodeURIComponent(token)}`
 }
