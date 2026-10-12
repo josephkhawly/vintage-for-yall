@@ -10,10 +10,12 @@ export default async function Home() {
   return (
     <>
       <Hero
-        backgroundImage='/newsletter-stock.jpg'
-        backgroundImageAlt='Vintage clothing rack'
-        cta={{ href: '/shop', label: 'Shop now' }}
-        heading='Vintage that will make you hysterical'
+        backgroundImage='/hats.gif'
+        backgroundImageAlt='Vintage hats'
+        objectFit='contain'
+        overlayOpacity={0}
+        // cta={{ href: '/shop', label: 'Shop now' }}
+        // heading='Vintage that will make you hysterical'
       />
       <ProductCarousel heading='New arrivals' products={products.slice(0, 12)} />
       <ImageBanner backgroundImage='/newsletter-stock.jpg' />
