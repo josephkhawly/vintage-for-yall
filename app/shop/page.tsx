@@ -17,7 +17,7 @@ export default async function Shop() {
     <>
       <h1 className='mb-8 pt-16 text-center text-4xl sm:pt-24 sm:text-6xl'>Shop</h1>
       <div>
-        <ul className='grid grid-flow-row grid-cols-2 gap-x-0 gap-y-4 md:grid-cols-3 lg:grid-cols-4'>
+        <ul className='grid grid-flow-row grid-cols-2 gap-x-0 gap-y-4 md:grid-cols-3 lg:grid-cols-4 px-2'>
           {products.map((product: Product) => (
             <ProductCard key={product.handle} product={product} />
           ))}

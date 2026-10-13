@@ -41,7 +41,7 @@ export default async function CategoryPage(props: {
             {collectionData?.title || 'Shop'}
           </h1>
           <div>
-            <ul className='grid grid-flow-row grid-cols-2 gap-x-0 gap-y-4 md:grid-cols-3 lg:grid-cols-4'>
+            <ul className='grid grid-flow-row grid-cols-2 gap-x-0 gap-y-4 md:grid-cols-3 lg:grid-cols-4 px-2'>
               {products.map((product: Product) => (
                 <ProductCard key={product.handle} product={product} />
               ))}
