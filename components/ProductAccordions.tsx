@@ -33,7 +33,7 @@ export function ProductAccordions({
             <span>{section.title}</span>
             <HiChevronDown className='size-5 shrink-0 transition group-data-[open]:rotate-180' />
           </DisclosureButton>
-          <DisclosurePanel className='pb-4 whitespace-pre-wrap text-sm leading-relaxed text-espresso/80'>
+          <DisclosurePanel className='overflow-hidden pb-4 whitespace-pre-wrap break-words text-sm leading-relaxed text-espresso/80'>
             {section.body}
           </DisclosurePanel>
         </Disclosure>

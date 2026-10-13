@@ -35,7 +35,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
   const selectedImage = images[selectedIndex]
 
   return (
-    <>
+    <div className='w-full min-w-0'>
       <div className='flex gap-3 md:gap-4'>
         {images.length > 1 ? (
           <ThumbnailStrip
@@ -69,7 +69,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
         onSelect={setSelectedIndex}
         selectedIndex={selectedIndex}
       />
-    </>
+    </div>
   )
 }
 
