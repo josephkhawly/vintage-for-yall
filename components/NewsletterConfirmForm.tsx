@@ -29,14 +29,6 @@ export function ConfirmMessage({ title, body }: { title: string; body: string })
     <ConfirmShell>
       <h1 className='mb-4 not-italic text-2xl text-espresso'>{title}</h1>
       <p className='mb-8'>{body}</p>
-      <p>
-        <Link
-          href='/'
-          className='underline underline-offset-4 transition-colors hover:text-espresso'
-        >
-          Back home
-        </Link>
-      </p>
     </ConfirmShell>
   )
 }
