@@ -103,11 +103,12 @@ export type NewsletterConfirmResult =
   | 'already_subscribed'
   | 'rejected'
 
-const pendingConsent = {
-  marketingState: 'PENDING' as const,
-  marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
-}
-
+/**
+ * Do not set PENDING on signup. Connected ESPs (e.g. Klaviyo) treat Shopify
+ * PENDING as a subscribe signal and overwrite it to SUBSCRIBED + SINGLE_OPT_IN
+ * within seconds — before our Resend confirm click. Keep the customer
+ * NOT_SUBSCRIBED until confirm, then set SUBSCRIBED + CONFIRMED_OPT_IN.
+ */
 const subscribedConsent = {
   marketingState: 'SUBSCRIBED' as const,
   marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
@@ -189,16 +190,13 @@ async function getCustomerById(customerId: string) {
   return lookup.customer
 }
 
-async function setCustomerMarketingConsent(
-  customerId: string,
-  emailMarketingConsent: typeof pendingConsent | typeof subscribedConsent,
-) {
+async function setCustomerSubscribed(customerId: string) {
   const update = await adminFetch<ConsentUpdateData>({
     query: CUSTOMER_EMAIL_MARKETING_CONSENT_UPDATE,
     variables: {
       input: {
         customerId,
-        emailMarketingConsent,
+        emailMarketingConsent: subscribedConsent,
       },
     },
   })
@@ -222,10 +220,6 @@ async function prepareExistingCustomer(
     return { status: 'already_subscribed', customerId: customer.id }
   }
 
-  if (customer.emailMarketingConsent?.marketingState !== 'PENDING') {
-    await setCustomerMarketingConsent(customer.id, pendingConsent)
-  }
-
   return { status: 'confirmation_required', customerId: customer.id }
 }
 
@@ -237,7 +231,6 @@ export async function subscribeEmailToNewsletter(
     variables: {
       input: {
         email: normalizeEmail(email),
-        emailMarketingConsent: pendingConsent,
       },
     },
   })
@@ -264,15 +257,10 @@ export async function confirmEmailMarketingSubscription(
     return 'rejected'
   }
 
-  const state = customer.emailMarketingConsent?.marketingState
-  if (state === 'SUBSCRIBED') {
+  if (customer.emailMarketingConsent?.marketingState === 'SUBSCRIBED') {
     return 'already_subscribed'
   }
 
-  if (state !== 'PENDING') {
-    return 'rejected'
-  }
-
-  await setCustomerMarketingConsent(customerId, subscribedConsent)
+  await setCustomerSubscribed(customerId)
   return 'confirmed'
 }
