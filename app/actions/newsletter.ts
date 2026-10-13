@@ -1,5 +1,6 @@
 'use server'
 
+import { checkBotId } from 'botid/server'
 import {
   buildNewsletterConfirmUrl,
   sendNewsletterConfirmationEmail,
@@ -31,6 +32,14 @@ export async function subscribeToNewsletter(
   _prevState: NewsletterFormState,
   formData: FormData,
 ): Promise<NewsletterFormState> {
+  const verification = await checkBotId()
+  if (verification.isBot) {
+    return {
+      status: 'error',
+      message: 'Something went wrong. Please try again.',
+    }
+  }
+
   const email = String(formData.get('email') ?? '')
     .trim()
     .toLowerCase()
