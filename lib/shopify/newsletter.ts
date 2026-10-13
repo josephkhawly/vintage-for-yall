@@ -257,8 +257,15 @@ export async function confirmEmailMarketingSubscription(
     return 'rejected'
   }
 
-  if (customer.emailMarketingConsent?.marketingState === 'SUBSCRIBED') {
+  // New signups stay NOT_SUBSCRIBED until confirm (PENDING is unsafe with
+  // connected ESPs). Allow NOT_SUBSCRIBED / PENDING; refuse UNSUBSCRIBED and
+  // other states so an old link cannot restore withdrawn consent.
+  const state = customer.emailMarketingConsent?.marketingState ?? 'NOT_SUBSCRIBED'
+  if (state === 'SUBSCRIBED') {
     return 'already_subscribed'
+  }
+  if (state !== 'NOT_SUBSCRIBED' && state !== 'PENDING') {
+    return 'rejected'
   }
 
   await setCustomerSubscribed(customerId)

@@ -1,17 +1,14 @@
-import { headers } from 'next/headers'
 import { Resend } from 'resend'
 
-async function getSiteUrl(): Promise<string> {
+function getSiteUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) {
     return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '')
   }
 
-  const requestHeaders = await headers()
-  const host =
-    requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host')
-  if (host) {
-    const proto = requestHeaders.get('x-forwarded-proto') ?? 'https'
-    return `${proto}://${host}`
+  // Prefer deployment env over request Host / X-Forwarded-* headers so a
+  // client-supplied host cannot poison confirmation links.
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL.replace(/\/$/, '')}`
   }
 
   if (process.env.VERCEL_URL) {
@@ -26,6 +23,10 @@ function assertPublicSiteUrl(url: string): void {
   try {
     parsed = new URL(url)
   } catch {
+    throw new Error('Newsletter signup is not configured')
+  }
+
+  if (parsed.protocol !== 'https:') {
     throw new Error('Newsletter signup is not configured')
   }
 
@@ -92,13 +93,21 @@ export async function sendNewsletterConfirmationEmail({
     </div>
   `
 
-  const { error } = await resend.emails.send({
-    from: getFromAddress(),
-    to: [email],
-    subject,
-    text,
-    html,
-  })
+  // Deduplicate rapid repeat signups for the same address within a 5-minute window.
+  const idempotencyKey = `newsletter-confirm/${email}/${Math.floor(Date.now() / (1000 * 60 * 5))}`
+
+  const { error } = await resend.emails.send(
+    {
+      from: getFromAddress(),
+      to: [email],
+      subject,
+      text,
+      html,
+    },
+    {
+      idempotencyKey,
+    },
+  )
 
   if (error) {
     console.error('Resend confirmation email error:', error)
@@ -106,8 +115,8 @@ export async function sendNewsletterConfirmationEmail({
   }
 }
 
-export async function buildNewsletterConfirmUrl(token: string): Promise<string> {
-  const siteUrl = await getSiteUrl()
+export function buildNewsletterConfirmUrl(token: string): string {
+  const siteUrl = getSiteUrl()
   assertPublicSiteUrl(siteUrl)
   return `${siteUrl}/newsletter/confirm?token=${encodeURIComponent(token)}`
 }
