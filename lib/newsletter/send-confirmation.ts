@@ -5,8 +5,14 @@ function getSiteUrl(): string {
     return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '')
   }
 
-  // Prefer deployment env over request Host / X-Forwarded-* headers so a
-  // client-supplied host cannot poison confirmation links.
+  // Never use request Host / X-Forwarded-* — client-supplied hosts can poison
+  // confirmation links. On preview/dev, prefer this deployment's VERCEL_URL so
+  // links stay on the same environment (not production).
+  const vercelEnv = process.env.VERCEL_ENV
+  if (vercelEnv && vercelEnv !== 'production' && process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL.replace(/\/$/, '')}`
+  }
+
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
     return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL.replace(/\/$/, '')}`
   }
@@ -45,6 +51,18 @@ function getFromAddress(): string {
   return (
     process.env.RESEND_FROM_EMAIL ||
     'Ugly Cry Vintage <hello@uglycryvintage.com>'
+  )
+}
+
+function isIdempotencyConflict(error: unknown): boolean {
+  if (!error || typeof error !== 'object') return false
+  const record = error as { name?: string; message?: string; statusCode?: number }
+  const message = (record.message ?? '').toLowerCase()
+  return (
+    record.name === 'invalid_idempotent_request' ||
+    record.statusCode === 409 ||
+    message.includes('idempotency') ||
+    message.includes('idempotent')
   )
 }
 
@@ -94,6 +112,8 @@ export async function sendNewsletterConfirmationEmail({
   `
 
   // Deduplicate rapid repeat signups for the same address within a 5-minute window.
+  // Retries mint a new token/body; if Resend rejects the reused key, the first
+  // confirmation email already went out — treat that as success.
   const idempotencyKey = `newsletter-confirm/${email}/${Math.floor(Date.now() / (1000 * 60 * 5))}`
 
   const { error } = await resend.emails.send(
@@ -110,6 +130,9 @@ export async function sendNewsletterConfirmationEmail({
   )
 
   if (error) {
+    if (isIdempotencyConflict(error)) {
+      return
+    }
     console.error('Resend confirmation email error:', error)
     throw new Error('Failed to send confirmation email')
   }

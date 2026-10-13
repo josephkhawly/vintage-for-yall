@@ -108,7 +108,15 @@ export type NewsletterConfirmResult =
  * PENDING as a subscribe signal and overwrite it to SUBSCRIBED + SINGLE_OPT_IN
  * within seconds — before our Resend confirm click. Keep the customer
  * NOT_SUBSCRIBED until confirm, then set SUBSCRIBED + CONFIRMED_OPT_IN.
+ *
+ * If someone previously opted out (UNSUBSCRIBED) and signs up again, reset to
+ * NOT_SUBSCRIBED on signup so the new confirm link can complete. Confirm still
+ * rejects UNSUBSCRIBED so a stale link after opt-out cannot restore consent.
  */
+const notSubscribedConsent = {
+  marketingState: 'NOT_SUBSCRIBED' as const,
+}
+
 const subscribedConsent = {
   marketingState: 'SUBSCRIBED' as const,
   marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
@@ -190,13 +198,16 @@ async function getCustomerById(customerId: string) {
   return lookup.customer
 }
 
-async function setCustomerSubscribed(customerId: string) {
+async function setCustomerMarketingConsent(
+  customerId: string,
+  emailMarketingConsent: typeof notSubscribedConsent | typeof subscribedConsent,
+) {
   const update = await adminFetch<ConsentUpdateData>({
     query: CUSTOMER_EMAIL_MARKETING_CONSENT_UPDATE,
     variables: {
       input: {
         customerId,
-        emailMarketingConsent: subscribedConsent,
+        emailMarketingConsent,
       },
     },
   })
@@ -218,6 +229,11 @@ async function prepareExistingCustomer(
 
   if (customer.emailMarketingConsent?.marketingState === 'SUBSCRIBED') {
     return { status: 'already_subscribed', customerId: customer.id }
+  }
+
+  // Fresh re-opt-in after unsubscribe: clear UNSUBSCRIBED so confirm can proceed.
+  if (customer.emailMarketingConsent?.marketingState === 'UNSUBSCRIBED') {
+    await setCustomerMarketingConsent(customer.id, notSubscribedConsent)
   }
 
   return { status: 'confirmation_required', customerId: customer.id }
@@ -268,6 +284,6 @@ export async function confirmEmailMarketingSubscription(
     return 'rejected'
   }
 
-  await setCustomerSubscribed(customerId)
+  await setCustomerMarketingConsent(customerId, subscribedConsent)
   return 'confirmed'
 }
