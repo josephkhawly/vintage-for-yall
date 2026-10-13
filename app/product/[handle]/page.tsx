@@ -86,7 +86,7 @@ export default async function ProductPage(props: PageProps) {
           <ImageGallery images={product.images} />
         </div>
         <div className='min-w-0 w-full font-subheading'>
-          <h1 className='mb-2 font-body text-[1.75rem] tracking-wide lg:text-[2.125rem]'>
+          <h1 className='mb-1 font-body text-[1.75rem] tracking-wide lg:text-[2.125rem]'>
             {product.title}
           </h1>
           <Price
