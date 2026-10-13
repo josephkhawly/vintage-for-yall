@@ -273,8 +273,6 @@ export async function getCart(cartId: string | undefined): Promise<Cart | undefi
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
     variables: { cartId },
-    // Cache so updateTag(TAGS.cart) can expire and refresh immediately after mutations
-    cache: 'force-cache',
     tags: [TAGS.cart],
   })
 
