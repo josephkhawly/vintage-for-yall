@@ -107,7 +107,7 @@ export default function CartModal() {
                       .sort((a, b) =>
                         a.merchandise.product.title.localeCompare(b.merchandise.product.title),
                       )
-                      .map((item, i) => {
+                      .map((item) => {
                         const merchandiseSearchParams = {} as MerchandiseSearchParams
 
                         item.merchandise.selectedOptions.forEach(({ name, value }) => {
@@ -122,7 +122,10 @@ export default function CartModal() {
                         )
 
                         return (
-                          <li key={i} className='flex w-full flex-col border-b border-neutral-300'>
+                          <li
+                            key={item.merchandise.id}
+                            className='flex w-full flex-col border-b border-neutral-300'
+                          >
                             <div className='flex w-full flex-row justify-between px-1 py-4'>
                               <div className='flex flex-row'>
                                 <div className='relative h-24 w-24 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300'>
@@ -164,7 +167,7 @@ export default function CartModal() {
                   </ul>
                   <div className='py-4 text-sm text-neutral-500'>
                     <div className='mb-3 flex items-center justify-between pb-1 pt-1'>
-                      <p className='text-md'>Subtotal</p>
+                      <p className='text-md text-espresso'>Subtotal</p>
                       <Price
                         className='text-right text-base text-black'
                         amount={cart.cost.subtotalAmount.amount}
@@ -177,7 +180,7 @@ export default function CartModal() {
                   </div>
                   <form action={submitAction}>
                     <button
-                      className='block w-full cursor-pointer rounded-md bg-burnt-orange p-3 text-center text-md tracking-wide text-white hover:opacity-90 disabled:cursor-not-allowed'
+                      className='w-full cursor-pointer rounded-full border border-espresso bg-sandy-clay px-10 py-3.5 text-lg tracking-wide text-espresso uppercase hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60'
                       disabled={isPending}
                       type='submit'
                     >

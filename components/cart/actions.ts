@@ -2,7 +2,7 @@
 
 import { TAGS } from '@/lib/constants'
 import { addToCart, createCart, getCart, removeFromCart } from '@/lib/shopify'
-import { revalidateTag } from 'next/cache'
+import { updateTag } from 'next/cache'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -16,7 +16,7 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
 
   try {
     await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }])
-    revalidateTag(TAGS.cart, 'max')
+    updateTag(TAGS.cart)
   } catch (e) {
     console.error(e)
     return 'Error adding item to cart'
@@ -42,7 +42,7 @@ export async function removeItem(prevState: any, merchandiseId: string) {
 
     if (lineItem && lineItem.id) {
       await removeFromCart(cartId, [lineItem.id])
-      revalidateTag(TAGS.cart, 'max')
+      updateTag(TAGS.cart)
     } else {
       return 'Item not found in cart'
     }
