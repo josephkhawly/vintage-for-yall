@@ -103,8 +103,9 @@ export type NewsletterConfirmResult =
   | 'already_subscribed'
   | 'rejected'
 
-const unsubscribedConsent = {
-  marketingState: 'UNSUBSCRIBED' as const,
+const pendingConsent = {
+  marketingState: 'PENDING' as const,
+  marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
 }
 
 const subscribedConsent = {
@@ -190,7 +191,7 @@ async function getCustomerById(customerId: string) {
 
 async function setCustomerMarketingConsent(
   customerId: string,
-  emailMarketingConsent: typeof unsubscribedConsent | typeof subscribedConsent,
+  emailMarketingConsent: typeof pendingConsent | typeof subscribedConsent,
 ) {
   const update = await adminFetch<ConsentUpdateData>({
     query: CUSTOMER_EMAIL_MARKETING_CONSENT_UPDATE,
@@ -221,7 +222,10 @@ async function prepareExistingCustomer(
     return { status: 'already_subscribed', customerId: customer.id }
   }
 
-  await setCustomerMarketingConsent(customer.id, unsubscribedConsent)
+  if (customer.emailMarketingConsent?.marketingState !== 'PENDING') {
+    await setCustomerMarketingConsent(customer.id, pendingConsent)
+  }
+
   return { status: 'confirmation_required', customerId: customer.id }
 }
 
@@ -233,6 +237,7 @@ export async function subscribeEmailToNewsletter(
     variables: {
       input: {
         email: normalizeEmail(email),
+        emailMarketingConsent: pendingConsent,
       },
     },
   })
@@ -240,7 +245,6 @@ export async function subscribeEmailToNewsletter(
   const { customer, userErrors } = create.customerCreate
 
   if (customer && userErrors.length === 0) {
-    await setCustomerMarketingConsent(customer.id, unsubscribedConsent)
     return { status: 'confirmation_required', customerId: customer.id }
   }
 
@@ -260,8 +264,13 @@ export async function confirmEmailMarketingSubscription(
     return 'rejected'
   }
 
-  if (customer.emailMarketingConsent?.marketingState === 'SUBSCRIBED') {
+  const state = customer.emailMarketingConsent?.marketingState
+  if (state === 'SUBSCRIBED') {
     return 'already_subscribed'
+  }
+
+  if (state !== 'PENDING') {
+    return 'rejected'
   }
 
   await setCustomerMarketingConsent(customerId, subscribedConsent)
