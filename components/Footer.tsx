@@ -9,7 +9,7 @@ export default async function Footer() {
     <footer className='container mx-auto flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between md:p-12'>
       <div className='flex items-center gap-5'>
         {menu.map((item) => (
-          <a key={item.title} href={item.path} className='text-lg hover:underline'>
+          <a key={item.title} href={item.path} className='font-subheading text-lg hover:underline'>
             {item.title}
           </a>
         ))}
