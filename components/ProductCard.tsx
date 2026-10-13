@@ -33,11 +33,11 @@ export default function ProductCard({ product }: { product: Product }) {
             </div>
           )}
         </div>
-        <p className='mb-1 px-2 text-left text-sm'>{title}</p>
+        <p className='text-left text-md'>{title}</p>
         <Price
           amount={priceRange?.minVariantPrice.amount}
           currencyCode={priceRange?.minVariantPrice.currencyCode}
-          className='px-2 text-sm font-semibold'
+          className='text-sm font-semibold'
         />
       </Link>
     </li>
