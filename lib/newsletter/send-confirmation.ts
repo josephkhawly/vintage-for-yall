@@ -54,16 +54,32 @@ function getFromAddress(): string {
   )
 }
 
+function isCompletedIdempotentReplay(error: unknown): boolean {
+  if (!error || typeof error !== 'object') return false
+  const record = error as { name?: string; message?: string }
+  const message = (record.message ?? '').toLowerCase()
+  // Resend returns this when the key was already used with a *completed*
+  // request that had a different body. Concurrent in-flight 409s are not this.
+  return (
+    record.name === 'invalid_idempotent_request' ||
+    (message.includes('idempotency') && message.includes('different'))
+  )
+}
+
 function isIdempotencyConflict(error: unknown): boolean {
   if (!error || typeof error !== 'object') return false
+  if (isCompletedIdempotentReplay(error)) return true
   const record = error as { name?: string; message?: string; statusCode?: number }
   const message = (record.message ?? '').toLowerCase()
   return (
-    record.name === 'invalid_idempotent_request' ||
     record.statusCode === 409 ||
     message.includes('idempotency') ||
     message.includes('idempotent')
   )
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export async function sendNewsletterConfirmationEmail({
@@ -112,25 +128,28 @@ export async function sendNewsletterConfirmationEmail({
   `
 
   // Deduplicate rapid repeat signups for the same address within a 5-minute window.
-  // Retries mint a new token/body; if Resend rejects the reused key, the first
-  // confirmation email already went out — treat that as success.
+  // Retries mint a new token/body. Only treat a *completed* different-body replay
+  // as success (first email already accepted). Concurrent in-flight conflicts
+  // get one short retry so we do not report inbox success if the first send fails.
   const idempotencyKey = `newsletter-confirm/${email}/${Math.floor(Date.now() / (1000 * 60 * 5))}`
+  const payload = {
+    from: getFromAddress(),
+    to: [email],
+    subject,
+    text,
+    html,
+  }
+  const sendOptions = { idempotencyKey }
 
-  const { error } = await resend.emails.send(
-    {
-      from: getFromAddress(),
-      to: [email],
-      subject,
-      text,
-      html,
-    },
-    {
-      idempotencyKey,
-    },
-  )
+  let { error } = await resend.emails.send(payload, sendOptions)
+
+  if (error && isIdempotencyConflict(error) && !isCompletedIdempotentReplay(error)) {
+    await sleep(750)
+    ;({ error } = await resend.emails.send(payload, sendOptions))
+  }
 
   if (error) {
-    if (isIdempotencyConflict(error)) {
+    if (isCompletedIdempotentReplay(error)) {
       return
     }
     console.error('Resend confirmation email error:', error)
