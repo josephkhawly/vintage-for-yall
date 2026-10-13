@@ -12,6 +12,7 @@ export default async function Home() {
       <Hero
         backgroundImage='/hats.gif'
         backgroundImageAlt='Vintage hats'
+        href='/shop/new-arrivals'
         objectFit='contain'
         overlayOpacity={0}
         // cta={{ href: '/shop', label: 'Shop now' }}
