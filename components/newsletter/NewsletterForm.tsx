@@ -85,7 +85,7 @@ export function NewsletterForm({ variant }: NewsletterFormProps) {
       <button
         className={
           isModal
-            ? 'cursor-pointer rounded-full border border-espresso bg-sandy-clay px-10 py-3.5 text-lg tracking-wide text-espresso uppercase hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60'
+            ? 'cursor-pointer rounded-full border border-espresso bg-sandy-clay px-10 py-3.5 font-subheading text-lg tracking-wide text-espresso uppercase hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60'
             : 'shrink-0 cursor-pointer rounded-md bg-silver px-4 py-2 tracking-wide text-espresso hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60'
         }
         disabled={isPending}

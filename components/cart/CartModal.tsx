@@ -180,7 +180,7 @@ export default function CartModal() {
                   </div>
                   <form action={submitAction}>
                     <button
-                      className='w-full cursor-pointer rounded-full border border-espresso bg-sandy-clay px-10 py-3.5 text-lg tracking-wide text-espresso uppercase hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60'
+                      className='w-full cursor-pointer rounded-full border border-espresso bg-sandy-clay px-10 py-3.5 font-subheading text-lg tracking-wide text-espresso uppercase hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60'
                       disabled={isPending}
                       type='submit'
                     >
