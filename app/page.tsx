@@ -3,7 +3,7 @@ import NewsletterSignup from '@/components/NewsletterSignup'
 export default function Home() {
   return (
     <div className='flex min-h-[70vh] items-center justify-center'>
-      <article className='w-full max-w-xl text-left font-body text-lg leading-relaxed md:text-xl md:leading-relaxed'>
+      <article className='w-full max-w-xl text-left font-body text-lg leading-relaxed md:text-xl'>
         <p className='mb-6 italic'>To my vintage-loving baddies,</p>
 
         <p className='mb-4 italic'>

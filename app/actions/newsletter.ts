@@ -35,11 +35,7 @@ export async function subscribeToNewsletter(
     .trim()
     .toLowerCase()
 
-  if (!email) {
-    return { status: 'error', message: 'Please enter your email.' }
-  }
-
-  if (!EMAIL_REGEX.test(email)) {
+  if (!email || !EMAIL_REGEX.test(email)) {
     return { status: 'error', message: 'Please enter a valid email address.' }
   }
 

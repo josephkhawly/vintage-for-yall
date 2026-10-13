@@ -17,7 +17,7 @@ const initialState: NewsletterConfirmFormState = {
 function ConfirmShell({ children }: { children: ReactNode }) {
   return (
     <div className='flex min-h-[70vh] items-center justify-center px-6'>
-      <article className='w-full max-w-xl text-left font-body text-lg leading-relaxed italic md:text-xl md:leading-relaxed'>
+      <article className='w-full max-w-xl text-left font-body text-lg leading-relaxed italic md:text-xl'>
         {children}
       </article>
     </div>

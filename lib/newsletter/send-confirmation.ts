@@ -92,18 +92,13 @@ export async function sendNewsletterConfirmationEmail({
     </div>
   `
 
-  const { error } = await resend.emails.send(
-    {
-      from: getFromAddress(),
-      to: [email],
-      subject,
-      text,
-      html,
-    },
-    {
-      idempotencyKey: `newsletter-confirm/${email}/${Math.floor(Date.now() / (1000 * 60 * 5))}`,
-    },
-  )
+  const { error } = await resend.emails.send({
+    from: getFromAddress(),
+    to: [email],
+    subject,
+    text,
+    html,
+  })
 
   if (error) {
     console.error('Resend confirmation email error:', error)

@@ -103,9 +103,13 @@ export type NewsletterConfirmResult =
   | 'already_subscribed'
   | 'rejected'
 
+const unsubscribedConsent = {
+  marketingState: 'UNSUBSCRIBED' as const,
+}
+
 const subscribedConsent = {
   marketingState: 'SUBSCRIBED' as const,
-  marketingOptInLevel: 'SINGLE_OPT_IN' as const,
+  marketingOptInLevel: 'CONFIRMED_OPT_IN' as const,
 }
 
 function normalizeEmail(email: string): string {
@@ -184,13 +188,16 @@ async function getCustomerById(customerId: string) {
   return lookup.customer
 }
 
-async function setCustomerSubscribed(customerId: string) {
+async function setCustomerMarketingConsent(
+  customerId: string,
+  emailMarketingConsent: typeof unsubscribedConsent | typeof subscribedConsent,
+) {
   const update = await adminFetch<ConsentUpdateData>({
     query: CUSTOMER_EMAIL_MARKETING_CONSENT_UPDATE,
     variables: {
       input: {
         customerId,
-        emailMarketingConsent: subscribedConsent,
+        emailMarketingConsent,
       },
     },
   })
@@ -214,6 +221,7 @@ async function prepareExistingCustomer(
     return { status: 'already_subscribed', customerId: customer.id }
   }
 
+  await setCustomerMarketingConsent(customer.id, unsubscribedConsent)
   return { status: 'confirmation_required', customerId: customer.id }
 }
 
@@ -232,6 +240,7 @@ export async function subscribeEmailToNewsletter(
   const { customer, userErrors } = create.customerCreate
 
   if (customer && userErrors.length === 0) {
+    await setCustomerMarketingConsent(customer.id, unsubscribedConsent)
     return { status: 'confirmation_required', customerId: customer.id }
   }
 
@@ -255,6 +264,6 @@ export async function confirmEmailMarketingSubscription(
     return 'already_subscribed'
   }
 
-  await setCustomerSubscribed(customerId)
+  await setCustomerMarketingConsent(customerId, subscribedConsent)
   return 'confirmed'
 }
