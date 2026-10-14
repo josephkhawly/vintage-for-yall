@@ -3,6 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Kameron, Roboto } from "next/font/google";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { Suspense } from "react";
 
 import { AppShell } from "./app-shell";
@@ -43,6 +44,11 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${kameron.variable} ${frogmore.variable} overflow-x-clip font-body text-espresso`}
       >
+        <Script
+          src="https://cdn.shopify.com/storefront/standard-actions.js"
+          strategy="afterInteractive"
+          type="module"
+        />
         <Suspense fallback={null}>
           <AppShell>{children}</AppShell>
         </Suspense>

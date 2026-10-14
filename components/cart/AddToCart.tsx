@@ -71,7 +71,6 @@ export function AddToCart({ product }: { product: Product }) {
         },
         afterSubmit: () => {
           openCartDrawer();
-          void window.Shopify?.actions?.openCart?.();
         },
       })}
     >
