@@ -221,8 +221,30 @@ export async function getCollections(): Promise<Collection[]> {
   return collections
 }
 
+function toMenuPath(url: string | null | undefined, type: string, storeDomain: string): string {
+  if (!url) return '/'
+
+  const storeHost = new URL(ensureStartsWith(storeDomain, 'https://')).hostname
+    .replace(/^www\./i, '')
+    .toLowerCase()
+  const absolute = /^https?:\/\//i.test(url)
+  const parsed = new URL(url, 'https://store.local')
+  const urlHost = parsed.hostname.replace(/^www\./i, '').toLowerCase()
+
+  if (absolute && type === 'HTTP' && urlHost !== storeHost) return url
+
+  let pathname = parsed.pathname
+  if (pathname === '/collections' || pathname.startsWith('/collections/')) {
+    pathname = pathname.replace(/^\/collections/, '/shop')
+  } else if (pathname === '/pages' || pathname.startsWith('/pages/')) {
+    pathname = pathname.replace(/^\/pages/, '') || '/'
+  }
+
+  return `${pathname}${parsed.search}${parsed.hash}`
+}
+
 export async function getMenu(handle: string): Promise<Menu[]> {
-  const domain = ensureStartsWith(getPublicStoreDomain(), 'https://')
+  const storeDomain = getPublicStoreDomain()
   const data = await shopifyQuery(getMenuQuery, {
     tags: [TAGS.collections],
     variables: {
@@ -232,11 +254,8 @@ export async function getMenu(handle: string): Promise<Menu[]> {
 
   return (
     data?.menu?.items.map((item) => ({
+      path: toMenuPath(item.url, item.type, storeDomain),
       title: item.title,
-      path: (item.url ?? '')
-        .replace(domain, '')
-        .replace('/collections', '/shop')
-        .replace('/pages', ''),
     })) || []
   )
 }

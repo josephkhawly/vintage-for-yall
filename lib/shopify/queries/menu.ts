@@ -5,6 +5,7 @@ export const getMenuQuery = gql(`
     menu(handle: $handle) {
       items {
         title
+        type
         url
       }
     }
