@@ -172,6 +172,7 @@ function CartLinesBody({ onClose }: { onClose?: () => void }) {
   if (lines.length === 0) {
     return (
       <div className="mt-12 flex w-full flex-col items-center justify-center overflow-hidden">
+        <CartErrorBanner />
         <p className="text-center text-2xl font-bold">Your cart is empty.</p>
         {onClose ? (
           <button

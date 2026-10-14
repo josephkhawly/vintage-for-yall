@@ -45,7 +45,7 @@ export function CartDrawer() {
   return (
     <dialog
       aria-labelledby="cart-drawer-title"
-      className="cart-drawer flex flex-col border-l border-black bg-teal/50 text-black backdrop-blur-sm"
+      className="cart-drawer open:flex flex-col border-l border-black bg-teal/50 text-black backdrop-blur-sm"
       closedby="any"
       id={CART_DRAWER_ID}
     >
