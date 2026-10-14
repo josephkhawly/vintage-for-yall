@@ -1,0 +1,252 @@
+"use client";
+
+import type { CartLine } from "@shopify/hydrogen";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+
+import { useCart, useCartForm, useSuspenseCart } from "@/lib/cart";
+import { closeCartDrawer } from "@/lib/cart-drawer";
+import { DEFAULT_OPTION } from "@/lib/constants";
+import { formatPrice } from "@/lib/money";
+import { createUrl } from "@/lib/utils";
+
+function CartErrorBanner() {
+  const errors = useCart((state) => state.errors);
+  const messages = [
+    ...errors.network.map((error) => error.message),
+    ...errors.cart.userErrors.map((error) => error.message),
+  ].filter(Boolean);
+
+  if (messages.length === 0) return null;
+
+  return (
+    <div
+      className="mb-3 rounded-md border border-espresso/30 bg-sandy-clay/40 px-3 py-2 text-sm text-espresso"
+      role="alert"
+    >
+      {messages.map((message) => (
+        <p key={message}>{message}</p>
+      ))}
+    </div>
+  );
+}
+
+function LineItem({ line }: { line: CartLine }) {
+  const { formProps, register } = useCartForm();
+  const pendingLines = useCart((state) => state.pending.lines);
+  const lineErrors = useCart((state) => state.errors.lines);
+  const isPending = pendingLines.has(line.id);
+  const errorGroup = lineErrors.get(line.id);
+  const errorId = `cart-line-error-${line.id}`;
+  const merchandise = line.merchandise;
+  const selectedOptions = merchandise?.selectedOptions ?? [];
+  const product = merchandise?.product;
+  const image = merchandise?.image;
+
+  const merchandiseSearchParams: Record<string, string> = {};
+  selectedOptions.forEach(({ name, value }) => {
+    if (value !== DEFAULT_OPTION) {
+      merchandiseSearchParams[name.toLowerCase()] = value;
+    }
+  });
+
+  const merchandiseUrl = product?.handle
+    ? createUrl(
+        `/product/${product.handle}`,
+        new URLSearchParams(merchandiseSearchParams),
+      )
+    : null;
+
+  const title = product?.title ?? merchandise?.title ?? "Product";
+  const optionLabel = selectedOptions
+    .filter((option) => option.value !== DEFAULT_OPTION)
+    .map((option) => option.value)
+    .join(" / ");
+
+  return (
+    <li className="flex w-full flex-col border-b border-neutral-300">
+      <div className="flex w-full flex-row justify-between gap-3 px-1 py-4">
+        <div className="flex min-w-0 flex-row">
+          {image?.url ? (
+            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300">
+              <Image
+                alt={image.altText || title}
+                className="h-full w-full object-cover"
+                height={96}
+                src={image.url}
+                width={96}
+              />
+            </div>
+          ) : null}
+          <div className="ml-2 flex min-w-0 flex-1 flex-col text-base">
+            {merchandiseUrl ? (
+              <Link
+                className="leading-tight hover:underline"
+                href={merchandiseUrl}
+                onClick={closeCartDrawer}
+              >
+                {title}
+              </Link>
+            ) : (
+              <span className="leading-tight">{title}</span>
+            )}
+            {optionLabel ? (
+              <span className="mt-1 text-sm text-espresso/70">{optionLabel}</span>
+            ) : null}
+            <p className={`mt-2 text-sm ${isPending ? "opacity-30" : ""}`}>
+              {formatPrice(line.cost.totalAmount)}
+            </p>
+          </div>
+        </div>
+
+        <form {...formProps()} className="flex shrink-0 flex-col items-end gap-2">
+          <button {...register("set")} />
+          <input type="hidden" {...register("lineId", { value: line.id })} />
+          <div className="flex items-center gap-1">
+            <button
+              aria-label="Decrease quantity"
+              className="flex size-8 items-center justify-center rounded-full border border-espresso text-sm"
+              {...register("decrease")}
+            >
+              −
+            </button>
+            <input
+              aria-describedby={errorGroup ? errorId : undefined}
+              aria-invalid={errorGroup ? true : undefined}
+              aria-label="Quantity"
+              className={`w-10 border border-espresso bg-transparent text-center text-sm ${isPending ? "opacity-30" : ""}`}
+              {...register("quantity", {
+                value: line.quantity,
+                interactive: true,
+              })}
+            />
+            <button
+              aria-label="Increase quantity"
+              className="flex size-8 items-center justify-center rounded-full border border-espresso text-sm"
+              {...register("increase")}
+            >
+              +
+            </button>
+          </div>
+          <button
+            aria-label="Remove cart item"
+            className="text-sm text-espresso underline"
+            {...register("remove")}
+          >
+            Remove
+          </button>
+          {errorGroup?.userErrors.length ? (
+            <p
+              className="max-w-40 text-right text-xs text-burnt-orange"
+              id={errorId}
+              role="alert"
+            >
+              {errorGroup.userErrors.map((error) => error.message).join(" ")}
+            </p>
+          ) : null}
+        </form>
+      </div>
+    </li>
+  );
+}
+
+function CartTotals() {
+  const cart = useSuspenseCart((state) => state.data);
+  const totalsPending = useCart(
+    (state) => state.pending.cost === true || state.revalidating === true,
+  );
+  const checkoutUrl = cart.checkoutUrl;
+
+  return (
+    <div className="shrink-0 border-t border-black/20 pt-4">
+      <div className="mb-3 flex items-center justify-between pb-1 pt-1">
+        <p className="text-md text-espresso">Subtotal</p>
+        <p
+          className={`text-right text-base text-black ${totalsPending ? "opacity-30" : ""}`}
+        >
+          {formatPrice(cart.cost.subtotalAmount)}
+        </p>
+      </div>
+      <p className="mt-0.5 text-sm text-gray-500">
+        Shipping and taxes calculated at checkout.
+      </p>
+      {checkoutUrl ? (
+        <a
+          className="mt-4 flex w-full cursor-pointer items-center justify-center rounded-full border border-espresso bg-sandy-clay px-10 py-3.5 font-subheading text-lg tracking-wide text-espresso uppercase hover:opacity-90"
+          href={checkoutUrl}
+        >
+          Proceed to Checkout
+        </a>
+      ) : null}
+    </div>
+  );
+}
+
+function CartLinesBody({ onClose }: { onClose?: () => void }) {
+  const lines = useSuspenseCart((state) => state.data.lines.nodes);
+  const loading = useCart((state) => state.loading);
+
+  if (loading) {
+    return <p role="status">Loading cart…</p>;
+  }
+
+  if (lines.length === 0) {
+    return (
+      <div className="mt-12 flex w-full flex-col items-center justify-center overflow-hidden">
+        <p className="text-center text-2xl font-bold">Your cart is empty.</p>
+        {onClose ? (
+          <button
+            className="mt-4 font-subheading text-sm uppercase underline"
+            onClick={onClose}
+            type="button"
+          >
+            Continue shopping
+          </button>
+        ) : (
+          <Link
+            className="mt-4 font-subheading text-sm uppercase underline"
+            href="/shop"
+          >
+            Continue shopping
+          </Link>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex h-full min-h-0 flex-col justify-between overflow-hidden">
+      <CartErrorBanner />
+      <ul className="min-h-0 grow overflow-auto py-2">
+        {lines.map((line) => (
+          <LineItem key={line.id} line={line} />
+        ))}
+      </ul>
+      <CartTotals />
+    </div>
+  );
+}
+
+export function CartContent({
+  onClose,
+  variant = "drawer",
+}: {
+  onClose?: () => void;
+  variant?: "drawer" | "page";
+}) {
+  return (
+    <Suspense
+      fallback={
+        <p
+          className={variant === "page" ? "py-12 text-center" : ""}
+          role="status"
+        >
+          Loading cart…
+        </p>
+      }
+    >
+      <CartLinesBody onClose={onClose} />
+    </Suspense>
+  );
+}

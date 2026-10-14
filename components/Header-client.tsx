@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react'
 import { HiChevronDown, HiMagnifyingGlass, HiOutlineBars3 } from 'react-icons/hi2'
 import logo from '../public/logo.png'
 import { AnnouncementBar } from './AnnouncementBar'
-import CartModal from './cart/CartModal'
+import { CartTrigger } from './cart/CartModal'
 
 type Panel = 'menu' | 'search'
 
@@ -61,7 +61,7 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
     const trimmed = query.trim()
     close()
     setQuery('')
-    router.push(trimmed ? `/shop?q=${encodeURIComponent(trimmed)}` : '/shop')
+    router.push(trimmed ? `/search?q=${encodeURIComponent(trimmed)}` : '/search')
   }
 
   function onDrawerTransitionEnd(event: React.TransitionEvent<HTMLDivElement>) {
@@ -232,7 +232,13 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
                           )
                         })}
                       </ul>
-                      <div className='flex items-center justify-end border-t border-black px-5 py-4'>
+                      <div className='flex items-center justify-end gap-5 border-t border-black px-5 py-4'>
+                        <a
+                          className='font-subheading text-sm uppercase transition-colors hover:text-espresso'
+                          href='/account'
+                        >
+                          Account
+                        </a>
                         <a
                           className='font-subheading text-sm uppercase transition-colors hover:text-espresso'
                           href='https://uglycryvintage.substack.com/'
@@ -273,7 +279,7 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
           </div>
 
           <div className='absolute inset-y-0 right-0 z-30 flex items-center'>
-            <CartModal />
+            <CartTrigger />
           </div>
         </div>
       </div>
