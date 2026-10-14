@@ -100,37 +100,15 @@ function LineItem({ line }: { line: CartLine }) {
           </div>
         </div>
 
-        <form {...formProps()} className="flex shrink-0 flex-col items-end gap-2">
-          <button {...register("set")} />
+        <form
+          {...formProps()}
+          className={`flex shrink-0 flex-col items-end gap-2 ${isPending ? "opacity-30" : ""}`}
+        >
           <input type="hidden" {...register("lineId", { value: line.id })} />
-          <div className="flex items-center gap-1">
-            <button
-              aria-label="Decrease quantity"
-              className="flex size-8 items-center justify-center rounded-full border border-espresso text-sm"
-              {...register("decrease")}
-            >
-              −
-            </button>
-            <input
-              aria-describedby={errorGroup ? errorId : undefined}
-              aria-invalid={errorGroup ? true : undefined}
-              aria-label="Quantity"
-              className={`w-10 border border-espresso bg-transparent text-center text-sm ${isPending ? "opacity-30" : ""}`}
-              {...register("quantity", {
-                value: line.quantity,
-                interactive: true,
-              })}
-            />
-            <button
-              aria-label="Increase quantity"
-              className="flex size-8 items-center justify-center rounded-full border border-espresso text-sm"
-              {...register("increase")}
-            >
-              +
-            </button>
-          </div>
           <button
-            aria-label="Remove cart item"
+            aria-describedby={errorGroup ? errorId : undefined}
+            aria-invalid={errorGroup ? true : undefined}
+            aria-label={`Remove ${title} from cart`}
             className="text-sm text-espresso underline"
             {...register("remove")}
           >
