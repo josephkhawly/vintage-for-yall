@@ -11,7 +11,7 @@
 }
 
 @theme inline {
-  --font-body: var(--font-kameron);
+  --font-body: var(--font-roboto);
   --font-frogmore: var(--font-frogmore);
   --font-subheading: var(--font-roboto);
 }

@@ -1,7 +1,7 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Kameron, Roboto } from "next/font/google";
+import { Roboto } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
 import { Suspense } from "react";
@@ -22,13 +22,6 @@ const frogmore = localFont({
   variable: "--font-frogmore",
 });
 
-const kameron = Kameron({
-  weight: ["400"],
-  subsets: ["latin"],
-  style: ["normal"],
-  variable: "--font-kameron",
-});
-
 export const metadata: Metadata = {
   title: "Ugly Cry Vintage",
   description: "",
@@ -42,7 +35,7 @@ export default function RootLayout({
   return (
     <html className="overflow-x-clip scrollbar-gutter-stable" lang="en">
       <body
-        className={`${roboto.variable} ${kameron.variable} ${frogmore.variable} overflow-x-clip font-body text-espresso`}
+        className={`${roboto.variable} ${frogmore.variable} overflow-x-clip font-body text-espresso`}
       >
         <Script
           src="https://cdn.shopify.com/storefront/standard-actions.js"
