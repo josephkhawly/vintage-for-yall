@@ -67,8 +67,9 @@ export function AddToCart({ product }: { product: Product }) {
         beforeSubmit: (event) => {
           if (!selectedVariantId) {
             event.preventDefault();
-            return;
           }
+        },
+        afterSubmit: () => {
           openCartDrawer();
           void window.Shopify?.actions?.openCart?.();
         },
