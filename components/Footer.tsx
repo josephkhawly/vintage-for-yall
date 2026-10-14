@@ -13,9 +13,6 @@ export default async function Footer() {
             {item.title}
           </a>
         ))}
-        <a href='/cart' className='font-subheading text-lg hover:underline'>
-          Cart
-        </a>
         <a href='https://www.instagram.com/uglycryvintage' target='_blank'>
           <FaInstagram className='text-3xl text-espresso' />
         </a>

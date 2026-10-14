@@ -161,7 +161,7 @@ function CartTotals() {
   );
 }
 
-function CartLinesBody({ onClose }: { onClose?: () => void }) {
+function CartLinesBody({ variant }: { variant: "drawer" | "page" }) {
   const lines = useSuspenseCart((state) => state.data.lines.nodes);
   const loading = useCart((state) => state.loading);
 
@@ -174,22 +174,14 @@ function CartLinesBody({ onClose }: { onClose?: () => void }) {
       <div className="mt-12 flex w-full flex-col items-center justify-center overflow-hidden">
         <CartErrorBanner />
         <p className="text-center text-2xl font-bold">Your cart is empty.</p>
-        {onClose ? (
-          <button
-            className="mt-4 font-subheading text-sm uppercase underline"
-            onClick={onClose}
-            type="button"
-          >
-            Continue shopping
-          </button>
-        ) : (
+        {variant === "page" ? (
           <Link
             className="mt-4 font-subheading text-sm uppercase underline"
             href="/shop"
           >
             Continue shopping
           </Link>
-        )}
+        ) : null}
       </div>
     );
   }
@@ -208,10 +200,8 @@ function CartLinesBody({ onClose }: { onClose?: () => void }) {
 }
 
 export function CartContent({
-  onClose,
   variant = "drawer",
 }: {
-  onClose?: () => void;
   variant?: "drawer" | "page";
 }) {
   return (
@@ -225,7 +215,7 @@ export function CartContent({
         </p>
       }
     >
-      <CartLinesBody onClose={onClose} />
+      <CartLinesBody variant={variant} />
     </Suspense>
   );
 }

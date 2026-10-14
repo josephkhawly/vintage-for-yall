@@ -91,6 +91,8 @@ dialog#cart-drawer[open]::backdrop {
   }
 }
 
+html:has(dialog#cart-drawer[open]),
 body:has(dialog#cart-drawer[open]) {
   overflow: hidden;
+  overscroll-behavior: none;
 }

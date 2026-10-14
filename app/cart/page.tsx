@@ -22,12 +22,6 @@ export default function CartPage() {
           Continue shopping
         </Link>
       </div>
-      <noscript>
-        <p className="mb-6 text-sm text-espresso/80">
-          Your cart updates after you refresh this page. Enable JavaScript for
-          live quantity controls.
-        </p>
-      </noscript>
       <CartContent variant="page" />
     </div>
   );

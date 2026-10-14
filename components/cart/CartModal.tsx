@@ -63,7 +63,7 @@ export function CartDrawer() {
         </button>
       </div>
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-6 pb-6">
-        <CartContent onClose={closeCartDrawer} variant="drawer" />
+        <CartContent variant="drawer" />
       </div>
     </dialog>
   );

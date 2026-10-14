@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="overflow-x-clip" lang="en">
+    <html className="overflow-x-clip scrollbar-gutter-stable" lang="en">
       <body
         className={`${roboto.variable} ${kameron.variable} ${frogmore.variable} overflow-x-clip font-body text-espresso`}
       >
