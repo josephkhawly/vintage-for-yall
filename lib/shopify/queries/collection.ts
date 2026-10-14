@@ -1,7 +1,10 @@
-import productFragment from '../fragments/product';
-import seoFragment from '../fragments/seo';
+import { gql } from '@shopify/hydrogen'
 
-const collectionFragment = /* GraphQL */ `
+import { productFragment } from '../fragments/product'
+import { seoFragment } from '../fragments/seo'
+
+const collectionFragment = gql(
+  `
   fragment collection on Collection {
     handle
     title
@@ -11,19 +14,23 @@ const collectionFragment = /* GraphQL */ `
     }
     updatedAt
   }
-  ${seoFragment}
-`;
+`,
+  [seoFragment],
+)
 
-export const getCollectionQuery = /* GraphQL */ `
+export const getCollectionQuery = gql(
+  `
   query getCollection($handle: String!) {
     collection(handle: $handle) {
       ...collection
     }
   }
-  ${collectionFragment}
-`;
+`,
+  [collectionFragment],
+)
 
-export const getCollectionsQuery = /* GraphQL */ `
+export const getCollectionsQuery = gql(
+  `
   query getCollections {
     collections(first: 100, sortKey: TITLE) {
       edges {
@@ -33,10 +40,12 @@ export const getCollectionsQuery = /* GraphQL */ `
       }
     }
   }
-  ${collectionFragment}
-`;
+`,
+  [collectionFragment],
+)
 
-export const getCollectionProductsQuery = /* GraphQL */ `
+export const getCollectionProductsQuery = gql(
+  `
   query getCollectionProducts(
     $handle: String!
     $sortKey: ProductCollectionSortKeys
@@ -52,5 +61,6 @@ export const getCollectionProductsQuery = /* GraphQL */ `
       }
     }
   }
-  ${productFragment}
-`;
+`,
+  [productFragment],
+)

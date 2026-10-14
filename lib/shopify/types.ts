@@ -142,14 +142,14 @@ export type ShopifyProduct = {
   materials?: ShopifyMetafield | null;
   measurements?: ShopifyMetafield | null;
   notes?: ShopifyMetafield | null;
-  options: ProductOption[];
+  options?: ProductOption[];
   priceRange: {
     maxVariantPrice: Money;
     minVariantPrice: Money;
   };
   variants: Connection<ProductVariant>;
   featuredImage: Image;
-  images: Connection<Image>;
+  images?: Connection<Image>;
   media: Connection<ShopifyMedia>;
   seo: SEO;
   tags: string[];
@@ -255,7 +255,7 @@ export type ShopifyMenuOperation = {
 };
 
 export type ShopifyPageOperation = {
-  data: { pageByHandle: Page };
+  data: { page: Page };
   variables: { handle: string };
 };
 
