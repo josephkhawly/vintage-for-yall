@@ -145,6 +145,10 @@ function SignedOutPanel() {
       >
         Sign in
       </a>
+      <p className="mt-6 text-sm text-espresso/60">
+        Customer Account login requires HTTPS (including locally). Use a
+        public HTTPS tunnel or deploy a preview URL to complete OAuth.
+      </p>
     </AccountShell>
   );
 }

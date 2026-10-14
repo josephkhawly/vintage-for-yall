@@ -33,6 +33,13 @@ export function ShopifyScriptsClient({
   );
 
   return (
-    <ShopifyScripts shop={shop} i18n={i18n} routes={routes} navigate={navigate} />
+    <ShopifyScripts
+      analytics={{ channel: "headless" }}
+      consent={{ mode: "default-banner" }}
+      i18n={i18n}
+      navigate={navigate}
+      routes={routes}
+      shop={shop}
+    />
   );
 }

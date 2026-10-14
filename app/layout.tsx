@@ -5,6 +5,7 @@ import { Kameron, Roboto } from "next/font/google";
 import localFont from "next/font/local";
 import { Suspense } from "react";
 
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import { ShopifyScriptsClient } from "@/components/ShopifyScriptsClient";
 import { routeTemplates } from "@/lib/route-templates";
 import { getShopifyScriptsI18n, getShopifyScriptsShop } from "@/lib/shop";
@@ -51,6 +52,9 @@ export default function RootLayout({
         className={`${roboto.variable} ${kameron.variable} ${frogmore.variable} overflow-x-clip font-body text-espresso`}
       >
         <ShopifyScriptsClient i18n={i18n} routes={routeTemplates} shop={shop} />
+        <Suspense fallback={null}>
+          <AnalyticsTracker />
+        </Suspense>
         <Suspense fallback={null}>
           <AppShell>{children}</AppShell>
         </Suspense>
