@@ -1,68 +1,89 @@
-'use client'
+"use client";
 
-import clsx from 'clsx'
-import { addItem } from './actions'
-import { Product, ProductVariant } from '@/lib/shopify/types'
-import { useCart } from './CartContext'
-import { useProduct } from '../ProductContext'
-import { useActionState } from 'react'
+import clsx from "clsx";
+
+import { useProduct } from "@/components/ProductContext";
+import { useCartForm } from "@/lib/cart";
+import { openCartDrawer } from "@/lib/cart-drawer";
+import type { Product, ProductVariant } from "@/lib/shopify/types";
 
 function SubmitButton({
   availableForSale,
   selectedVariantId,
+  register,
 }: {
-  availableForSale: boolean
-  selectedVariantId: string | undefined
+  availableForSale: boolean;
+  selectedVariantId: string | undefined;
+  register: ReturnType<typeof useCartForm>["register"];
 }) {
   const buttonClasses =
-    'relative mx-auto flex w-full cursor-pointer items-center justify-center rounded-md bg-teal p-4 text-md tracking-wide text-white md:w-1/2'
-  const disabledClasses = 'cursor-not-allowed opacity-60 hover:opacity-60'
+    "relative mx-auto flex w-full cursor-pointer items-center justify-center rounded-md bg-teal p-4 text-md tracking-wide text-white md:w-1/2";
+  const disabledClasses = "cursor-not-allowed opacity-60 hover:opacity-60";
 
   if (!availableForSale) {
     return (
-      <button disabled className={clsx(buttonClasses, disabledClasses)}>
+      <button disabled className={clsx(buttonClasses, disabledClasses)} type="button">
         Out Of Stock
       </button>
-    )
+    );
+  }
+
+  if (!selectedVariantId) {
+    return (
+      <button disabled className={clsx(buttonClasses, disabledClasses)} type="button">
+        Add To Cart
+      </button>
+    );
   }
 
   return (
     <button
-      aria-label='Add to cart'
-      className={clsx(buttonClasses, {
-        'hover:opacity-90': true,
-      })}
+      aria-label="Add to cart"
+      className={clsx(buttonClasses, "hover:opacity-90")}
+      type="submit"
+      {...register("add")}
     >
       Add To Cart
     </button>
-  )
+  );
 }
 
 export function AddToCart({ product }: { product: Product }) {
-  const { variants, availableForSale } = product
-  const { addCartItem, cart } = useCart()
-  const { state } = useProduct()
-  const [message, formAction] = useActionState(addItem, null)
+  const { variants, availableForSale } = product;
+  const { state } = useProduct();
+  const { formProps, register } = useCartForm();
 
-  const variant = variants.find((variant: ProductVariant) =>
-    variant.selectedOptions.every((option) => option.value === state[option.name.toLowerCase()]),
-  )
-  const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined
-  const selectedVariantId = variant?.id || defaultVariantId
-  const actionWithVariant = formAction.bind(null, selectedVariantId)
-  const finalVariant = variants.find((variant) => variant.id === selectedVariantId)!
+  const variant = variants.find((candidate: ProductVariant) =>
+    candidate.selectedOptions.every(
+      (option) => option.value === state[option.name.toLowerCase()],
+    ),
+  );
+  const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
+  const selectedVariantId = variant?.id || defaultVariantId;
 
   return (
     <form
-      action={async () => {
-        addCartItem(finalVariant, product)
-        await actionWithVariant()
-      }}
+      {...formProps({
+        beforeSubmit: (event) => {
+          if (!selectedVariantId) {
+            event.preventDefault();
+            return;
+          }
+          openCartDrawer();
+          void window.Shopify?.actions?.openCart?.();
+        },
+      })}
     >
-      <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
-      <p aria-live='polite' className='sr-only' role='status'>
-        {message}
-      </p>
+      <input
+        type="hidden"
+        {...register("merchandiseId", { value: selectedVariantId ?? "" })}
+      />
+      <input type="hidden" {...register("quantity", { value: 1 })} />
+      <SubmitButton
+        availableForSale={availableForSale}
+        register={register}
+        selectedVariantId={selectedVariantId}
+      />
     </form>
-  )
+  );
 }
