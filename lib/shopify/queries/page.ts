@@ -1,33 +1,38 @@
-import seoFragment from '../fragments/seo';
+import { gql } from '@shopify/hydrogen'
 
-const pageFragment = /* GraphQL */ `
+import { seoFragment } from '../fragments/seo'
+
+const pageFragment = gql(
+  `
   fragment page on Page {
-    ... on Page {
-      id
-      title
-      handle
-      body
-      bodySummary
-      seo {
-        ...seo
-      }
-      createdAt
-      updatedAt
+    id
+    title
+    handle
+    body
+    bodySummary
+    seo {
+      ...seo
     }
+    createdAt
+    updatedAt
   }
-  ${seoFragment}
-`;
+`,
+  [seoFragment],
+)
 
-export const getPageQuery = /* GraphQL */ `
+export const getPageQuery = gql(
+  `
   query getPage($handle: String!) {
-    pageByHandle(handle: $handle) {
+    page(handle: $handle) {
       ...page
     }
   }
-  ${pageFragment}
-`;
+`,
+  [pageFragment],
+)
 
-export const getPagesQuery = /* GraphQL */ `
+export const getPagesQuery = gql(
+  `
   query getPages {
     pages(first: 100) {
       edges {
@@ -37,5 +42,6 @@ export const getPagesQuery = /* GraphQL */ `
       }
     }
   }
-  ${pageFragment}
-`;
+`,
+  [pageFragment],
+)

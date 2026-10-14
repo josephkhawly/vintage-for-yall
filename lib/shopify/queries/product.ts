@@ -1,6 +1,9 @@
-import productFragment from '../fragments/product';
+import { gql } from '@shopify/hydrogen'
 
-export const getProductQuery = /* GraphQL */ `
+import { productFragment } from '../fragments/product'
+
+export const getProductQuery = gql(
+  `
   query getProduct($handle: String!) {
     product(handle: $handle) {
       ...product
@@ -18,12 +21,14 @@ export const getProductQuery = /* GraphQL */ `
       }
     }
   }
-  ${productFragment}
-`
+`,
+  [productFragment],
+)
 
-export const getProductsQuery = /* GraphQL */ `
+export const getProductsQuery = gql(
+  `
   query getProducts($sortKey: ProductSortKeys, $reverse: Boolean, $query: String) {
-    products(sortKey: $sortKey, reverse: $reverse, query: $query, first: 100) {
+    products(sortKey: $sortKey, reverse: $reverse, first: 100, query: $query) {
       edges {
         node {
           ...product
@@ -31,14 +36,17 @@ export const getProductsQuery = /* GraphQL */ `
       }
     }
   }
-  ${productFragment}
-`;
+`,
+  [productFragment],
+)
 
-export const getProductRecommendationsQuery = /* GraphQL */ `
+export const getProductRecommendationsQuery = gql(
+  `
   query getProductRecommendations($productId: ID!) {
     productRecommendations(productId: $productId) {
       ...product
     }
   }
-  ${productFragment}
-`;
+`,
+  [productFragment],
+)
