@@ -42,10 +42,6 @@ async function readSessionFromCookieHeader(
   return { session, cookie };
 }
 
-/**
- * Cookie-backed WritableCustomerSessionManager for Hydrogen route handlers.
- * Uses a signed `__session` cookie, or `__Host-session` when the request is HTTPS.
- */
 export async function createSessionManager(
   request: Request,
 ): Promise<WritableCustomerSessionManager> {
@@ -82,10 +78,6 @@ export async function createSessionManager(
   };
 }
 
-/**
- * Read-only session view for Server Components / layouts.
- * Accepts a Cookie header string (e.g. from `cookies().toString()` or Request).
- */
 export async function createReadonlySessionManager(
   cookieHeader: string | null,
   options?: { secure?: boolean },
@@ -98,21 +90,16 @@ export async function createReadonlySessionManager(
   };
 }
 
-/**
- * Read-only session manager from a Request (tries HTTPS cookie name first).
- */
 export async function createReadonlySessionManagerFromRequest(
   request: Request,
 ): Promise<ReadonlyCustomerSessionManager> {
   const secure = isHttpsRequest(request);
   const cookieHeader = request.headers.get("Cookie");
 
-  // Prefer the cookie name that matches the request scheme.
   const primary = await createReadonlySessionManager(cookieHeader, { secure });
   if ((await primary.getSessionItem("customerAccount")) != null) {
     return primary;
   }
 
-  // Fall back to the alternate name in case scheme detection differs from when the cookie was set.
   return createReadonlySessionManager(cookieHeader, { secure: !secure });
 }

@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation'
 import Prose from '@/components/Prose'
 import { getPage } from '@/lib/shopify'
 
-/** Paths owned by Hydrogen handlers or dedicated app routes — never treat as CMS pages. */
 const RESERVED_PAGE_HANDLES = new Set([
   'admin',
   'account',

@@ -16,10 +16,6 @@ import {
 
 const DEFAULT_I18N = { country: "US", language: "EN" } as const;
 
-/**
- * Resolve a trusted buyer IP for private Storefront API clients.
- * Checks common proxy headers; falls back to 127.0.0.1 outside production.
- */
 export function getBuyerIp(headersList: Headers): string {
   for (const header of [
     "x-forwarded-for",
@@ -86,10 +82,6 @@ function createStorefrontClientFromParts(
   });
 }
 
-/**
- * Request-scoped Storefront client for App Router Server Components.
- * Prefer a private client when PRIVATE_STOREFRONT_API_TOKEN is set.
- */
 export const getStorefrontClient = cache(async () => {
   const requestHeaders = await headers();
   const privateToken = getPrivateStorefrontApiToken();
@@ -101,10 +93,6 @@ export const getStorefrontClient = cache(async () => {
   );
 });
 
-/**
- * Storefront client for proxy.ts / route handlers that have a real Request.
- * Preserves request URL, signal, and forwarded headers.
- */
 export function createStorefrontClientForRequest(request: Request) {
   const privateToken = getPrivateStorefrontApiToken();
   const buyerIp = privateToken ? getBuyerIp(request.headers) : undefined;

@@ -23,7 +23,6 @@ function OpenCart({ quantity }: { quantity?: number }) {
   );
 }
 
-/** Progressive cart trigger: `/cart` link; opens drawer after hydration. */
 export function CartTrigger() {
   const totalQuantity = useCart((state) => state.data.totalQuantity);
 
@@ -74,9 +73,4 @@ export function CartDrawer() {
       </div>
     </dialog>
   );
-}
-
-/** @deprecated Prefer CartTrigger in the header and CartDrawer in the shell. */
-export default function CartModal() {
-  return <CartTrigger />;
 }

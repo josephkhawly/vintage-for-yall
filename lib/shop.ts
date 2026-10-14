@@ -11,7 +11,6 @@ import {
   getShopId,
 } from "./env";
 
-/** Shop identifiers for ShopifyScripts / analytics (server-only). */
 export function getShopifyScriptsShop(): ShopifyScriptsShop {
   return {
     shopId: getShopId(),
@@ -20,7 +19,6 @@ export function getShopifyScriptsShop(): ShopifyScriptsShop {
   };
 }
 
-/** Default US/EN market for ShopifyScripts (server-only). */
 export function getShopifyScriptsI18n(): ShopifyScriptsI18n {
   return {
     country: "US",

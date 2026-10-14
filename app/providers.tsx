@@ -13,13 +13,10 @@ function CartAnalyticsInner() {
   return null;
 }
 
-/** Subscribes cart analytics when ShopifyScripts is available; no-ops otherwise. */
 function CartAnalytics() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
     const enableIfReady = () => {
       if (window.Shopify?.analytics) {
         setEnabled(true);

@@ -5,7 +5,6 @@ import { useEffect } from "react";
 
 import { AnalyticsEvent, getAnalytics } from "@/lib/analytics";
 
-/** Publishes PAGE_VIEWED on App Router navigations. */
 export function AnalyticsTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();

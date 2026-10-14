@@ -24,10 +24,6 @@ export {
   createReadonlySessionManagerFromRequest,
 };
 
-/**
- * Read-only customer session for RSC using Next.js `cookies()`.
- * Prefer this for header/account link UI that only needs `isLoggedIn()`.
- */
 export async function getReadonlyCustomerSessionManager(): Promise<ReadonlyCustomerSessionManager> {
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.toString();
@@ -38,7 +34,6 @@ export async function getReadonlyCustomerSessionManager(): Promise<ReadonlyCusto
   });
 }
 
-/** Whether the current RSC request has a refreshable customer session. */
 export async function isCustomerLoggedIn(): Promise<boolean> {
   const sessionManager = await getReadonlyCustomerSessionManager();
   const requestHeaders = await headers();
