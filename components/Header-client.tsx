@@ -235,12 +235,6 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
                       <div className='flex items-center justify-end gap-5 border-t border-black px-5 py-4'>
                         <a
                           className='font-subheading text-sm uppercase transition-colors hover:text-espresso'
-                          href='/account'
-                        >
-                          Account
-                        </a>
-                        <a
-                          className='font-subheading text-sm uppercase transition-colors hover:text-espresso'
                           href='https://uglycryvintage.substack.com/'
                           rel='noopener noreferrer'
                           target='_blank'

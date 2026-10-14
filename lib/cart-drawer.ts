@@ -1,8 +1,4 @@
 export const CART_DRAWER_ID = "cart-drawer";
-const STANDARD_ACTIONS_READY_EVENT = "DOMContentLoaded";
-
-let openCartActionConfigured = false;
-let openCartActionRetryQueued = false;
 
 function getCartDrawer() {
   if (typeof document === "undefined") return null;
@@ -20,33 +16,3 @@ export function openCartDrawer() {
 export function closeCartDrawer() {
   getCartDrawer()?.close();
 }
-
-function configureOpenCartActionNow() {
-  const openCart =
-    typeof window !== "undefined" ? window.Shopify?.actions?.openCart : undefined;
-  if (!openCart) return false;
-
-  openCart.configure({
-    handler: async () => openCartDrawer(),
-  });
-  openCartActionConfigured = true;
-  return true;
-}
-
-export function configureOpenCartAction() {
-  if (typeof document === "undefined" || openCartActionConfigured) return;
-  if (configureOpenCartActionNow()) return;
-  if (openCartActionRetryQueued || document.readyState !== "loading") return;
-
-  openCartActionRetryQueued = true;
-  document.addEventListener(
-    STANDARD_ACTIONS_READY_EVENT,
-    () => {
-      openCartActionRetryQueued = false;
-      configureOpenCartAction();
-    },
-    { once: true },
-  );
-}
-
-configureOpenCartAction();

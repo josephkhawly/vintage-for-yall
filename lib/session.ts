@@ -1,105 +1,17 @@
 import "server-only";
 
-import { createCookie } from "@remix-run/cookie";
-import type { Session } from "@remix-run/session";
-import { createCookieSessionStorage } from "@remix-run/session/cookie-storage";
-import type {
-  ReadonlyCustomerSessionManager,
-  WritableCustomerSessionManager,
-} from "@shopify/hydrogen/customer-account";
-
-import { getCustomerAccountSessionSecret } from "./env";
-
-const sessionStorage = createCookieSessionStorage();
-
-function isHttpsRequest(request: Request): boolean {
-  const url = new URL(request.url);
-  if (url.protocol === "https:") return true;
-
-  const forwardedProto = request.headers.get("x-forwarded-proto");
-  return forwardedProto?.split(",")[0]?.trim() === "https";
-}
-
-function createSessionCookie(secure: boolean) {
-  const name = secure ? "__Host-session" : "__session";
-
-  return createCookie(name, {
-    httpOnly: true,
-    path: "/",
-    sameSite: "Lax",
-    secrets: [getCustomerAccountSessionSecret()],
-    secure,
-  });
-}
-
-async function readSessionFromCookieHeader(
-  cookieHeader: string | null,
-  secure: boolean,
-): Promise<{ session: Session; cookie: ReturnType<typeof createCookie> }> {
-  const cookie = createSessionCookie(secure);
-  const value = await cookie.parse(cookieHeader);
-  const session = await sessionStorage.read(value);
-  return { session, cookie };
-}
-
-export async function createSessionManager(
-  request: Request,
-): Promise<WritableCustomerSessionManager> {
-  const secure = isHttpsRequest(request);
-  const { session, cookie } = await readSessionFromCookieHeader(
-    request.headers.get("Cookie"),
-    secure,
-  );
+export function createEphemeralSessionManager(request: Request) {
+  const data = new Map<string, unknown>();
   const origin = new URL(request.url).origin;
 
   return {
     getSessionOrigin: () => origin,
-    getSessionItem: (key) => session.get(key),
-    setSessionItem: (key, value) => {
-      session.set(key, value);
+    getSessionItem: (key: string) => data.get(key),
+    setSessionItem: (key: string, value: unknown) => {
+      data.set(key, value);
     },
-    removeSessionItem: (key) => {
-      session.unset(key);
-    },
-    commit: async () => {
-      const stored = await sessionStorage.save(session);
-      if (stored == null) return;
-
-      if (stored === "") {
-        return {
-          "Set-Cookie": await cookie.serialize("", { maxAge: 0 }),
-        };
-      }
-
-      return {
-        "Set-Cookie": await cookie.serialize(stored),
-      };
+    removeSessionItem: (key: string) => {
+      data.delete(key);
     },
   };
-}
-
-export async function createReadonlySessionManager(
-  cookieHeader: string | null,
-  options?: { secure?: boolean },
-): Promise<ReadonlyCustomerSessionManager> {
-  const secure = options?.secure ?? true;
-  const { session } = await readSessionFromCookieHeader(cookieHeader, secure);
-
-  return {
-    getSessionItem: (key) => session.get(key),
-  };
-}
-
-export async function createReadonlySessionManagerFromRequest(
-  request: Request,
-): Promise<ReadonlyCustomerSessionManager> {
-  const secure = isHttpsRequest(request);
-  const cookieHeader = request.headers.get("Cookie");
-
-  const primary = await createReadonlySessionManager(cookieHeader, { secure });
-  if ((await primary.getSessionItem("customerAccount")) != null) {
-    return primary;
-  }
-
-  return createReadonlySessionManager(cookieHeader, { secure: !secure });
 }

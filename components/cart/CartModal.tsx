@@ -1,14 +1,12 @@
 "use client";
 
 import { HiOutlineXMark } from "react-icons/hi2";
-import { useEffect } from "react";
 
 import { CartContent } from "@/components/cart/CartLines";
 import { useCart } from "@/lib/cart";
 import {
   CART_DRAWER_ID,
   closeCartDrawer,
-  configureOpenCartAction,
   openCartDrawer,
 } from "@/lib/cart-drawer";
 
@@ -44,10 +42,6 @@ export function CartTrigger() {
 }
 
 export function CartDrawer() {
-  useEffect(() => {
-    configureOpenCartAction();
-  }, []);
-
   return (
     <dialog
       aria-labelledby="cart-drawer-title"

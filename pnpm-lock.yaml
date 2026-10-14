@@ -14,12 +14,6 @@ importers:
       '@headlessui/react':
         specifier: ^2.2.9
         version: 2.2.10(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@remix-run/cookie':
-        specifier: ^1.0.0
-        version: 1.0.0
-      '@remix-run/session':
-        specifier: ^1.0.0
-        version: 1.0.0
       '@shopify/hydrogen':
         specifier: ^2026.10.1
         version: 2026.10.1(graphql@17.0.2)(react@19.2.7)(typescript@5.9.3)
@@ -575,15 +569,6 @@ packages:
     resolution: {integrity: sha512-iNWvuzEwANttpQpdlu8nPBtdHb0mcCMj1ZTH//iRB5E/14IAnyRlR25rxH7pNLyzHINsPGEKnWvpwDMCT6vziQ==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
-
-  '@remix-run/cookie@1.0.0':
-    resolution: {integrity: sha512-aEUXEL/rqilD8Z+0Ob31YmUYAtffZO3f9dvsNck9e7yJaxkPPYWnCf347seNmN5FubP71TKbIY1Rp/r5W8iM3g==}
-
-  '@remix-run/headers@1.0.0':
-    resolution: {integrity: sha512-EhZ8V2eqrRWZym4FwGRaEw21w9b8EgwnZ5NA8RCY/V4X/COKTyoEthUcH/w0wVgzIn+PeWgp+YLHq+9r4pqEUQ==}
-
-  '@remix-run/session@1.0.0':
-    resolution: {integrity: sha512-SS8V9KWt72OmHt5BeEHpUMi+RXzUmTDbQyieG7+zk9Kxsw3GFfJicoBkOFwOQNvJ13LiX24kXjh3JHS7Gvb/mA==}
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -2749,14 +2734,6 @@ snapshots:
   '@react-types/shared@3.35.0(react@19.2.7)':
     dependencies:
       react: 19.2.7
-
-  '@remix-run/cookie@1.0.0':
-    dependencies:
-      '@remix-run/headers': 1.0.0
-
-  '@remix-run/headers@1.0.0': {}
-
-  '@remix-run/session@1.0.0': {}
 
   '@rtsao/scc@1.1.0': {}
 

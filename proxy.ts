@@ -2,15 +2,14 @@ import { handleShopifyRoutes } from "@shopify/hydrogen";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { cartHandlers } from "./lib/cart-handlers";
-import { customerAccountHandlers } from "./lib/customer-account-handlers";
 import { routeTemplates } from "./lib/route-templates";
-import { createSessionManager } from "./lib/session";
+import { createEphemeralSessionManager } from "./lib/session";
 import { createStorefrontClientForRequest } from "./lib/storefront";
 
 export async function proxy(request: NextRequest) {
   const storefrontClient = createStorefrontClientForRequest(request);
   const requestContext = storefrontClient.requestContext;
-  const sessionManager = await createSessionManager(request);
+  const sessionManager = createEphemeralSessionManager(request);
 
   const shopifyRoute = handleShopifyRoutes({
     request,
@@ -18,7 +17,7 @@ export async function proxy(request: NextRequest) {
     sessionManager,
     storefrontClient,
     routeTemplates,
-    handlers: [cartHandlers, customerAccountHandlers],
+    handlers: [cartHandlers],
   });
   if (shopifyRoute) return shopifyRoute;
 

@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
-    "@remix-run/cookie": "^1.0.0",
-    "@remix-run/session": "^1.0.0",
     "@shopify/hydrogen": "^2026.10.1",
     "@vercel/analytics": "^1.6.1",
     "@vercel/functions": "^1.6.0",
