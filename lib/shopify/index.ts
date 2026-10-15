@@ -7,6 +7,7 @@ import { HIDDEN_PRODUCT_TAG, TAGS } from '../constants'
 import { getPublicStoreDomain } from '../env'
 import { getStorefrontClient } from '../storefront'
 import { ensureStartsWith, sortProductsByAvailability } from '../utils'
+import { reshapeColors, reshapeSizes } from './category-attributes'
 import {
   getCollectionProductsQuery,
   getCollectionQuery,
@@ -121,15 +122,18 @@ const reshapeProduct = (
     return undefined
   }
 
-  const { condition, materials, measurements, media, notes, variants, ...rest } = product
+  const { color, condition, materials, measurements, media, notes, size, variants, ...rest } =
+    product
 
   return {
     ...rest,
+    colors: reshapeColors(color),
     condition: metafieldValue(condition),
     images: reshapeImages(media, product.title),
     materials: metafieldValue(materials),
     measurements: metafieldValue(measurements),
     notes: metafieldValue(notes),
+    sizes: reshapeSizes(size),
     variants: removeEdgesAndNodes(variants),
   }
 }

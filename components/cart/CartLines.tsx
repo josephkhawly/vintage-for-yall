@@ -9,7 +9,17 @@ import { useCart, useCartForm, useSuspenseCart } from "@/lib/cart";
 import { closeCartDrawer } from "@/lib/cart-drawer";
 import { DEFAULT_OPTION } from "@/lib/constants";
 import { formatPrice } from "@/lib/money";
+import {
+  reshapeColors,
+  reshapeSizes,
+  type ShopifyCategoryMetafield,
+} from "@/lib/shopify/category-attributes";
 import { createUrl } from "@/lib/utils";
+
+type CartProductWithAttributes = NonNullable<CartLine["merchandise"]>["product"] & {
+  color?: ShopifyCategoryMetafield;
+  size?: ShopifyCategoryMetafield;
+};
 
 function CartErrorBanner() {
   const errors = useCart((state) => state.errors);
@@ -41,8 +51,10 @@ function LineItem({ line }: { line: CartLine }) {
   const errorId = `cart-line-error-${line.id}`;
   const merchandise = line.merchandise;
   const selectedOptions = merchandise?.selectedOptions ?? [];
-  const product = merchandise?.product;
+  const product = merchandise?.product as CartProductWithAttributes | undefined;
   const image = merchandise?.image;
+  const colors = reshapeColors(product?.color);
+  const sizes = reshapeSizes(product?.size);
 
   const merchandiseSearchParams: Record<string, string> = {};
   selectedOptions.forEach(({ name, value }) => {
@@ -93,6 +105,16 @@ function LineItem({ line }: { line: CartLine }) {
             )}
             {optionLabel ? (
               <span className="mt-1 text-sm text-espresso/70">{optionLabel}</span>
+            ) : null}
+            {colors.length > 0 || sizes.length > 0 ? (
+              <div className="mt-1 flex flex-col text-sm text-espresso/70">
+                {colors.map((color) => (
+                  <span key={color.label}>Color: {color.label}</span>
+                ))}
+                {sizes.map((size) => (
+                  <span key={size}>Size: {size}</span>
+                ))}
+              </div>
             ) : null}
             <p className={`mt-2 text-sm ${isPending ? "opacity-30" : ""}`}>
               {formatPrice(line.cost.totalAmount)}

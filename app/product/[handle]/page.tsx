@@ -2,6 +2,7 @@ import { AddToCart } from '@/components/cart/AddToCart'
 import { ImageGallery } from '@/components/ImageGallery'
 import Price from '@/components/Price'
 import { ProductAccordions } from '@/components/ProductAccordions'
+import { ProductAttributes } from '@/components/ProductAttributes'
 import { ProductProvider } from '@/components/ProductContext'
 import Prose from '@/components/Prose'
 import { HIDDEN_PRODUCT_TAG } from '@/lib/constants'
@@ -92,8 +93,9 @@ export default async function ProductPage(props: PageProps) {
           <Price
             amount={priceRange.minVariantPrice.amount}
             currencyCode={priceRange.minVariantPrice.currencyCode}
-            className='mb-6 text-sm text-espresso lg:text-base'
+            className='mb-3 text-sm text-espresso lg:text-base'
           />
+          <ProductAttributes colors={product.colors} sizes={product.sizes} />
           <div className='flex flex-col-reverse md:flex-col'>
             {product.descriptionHtml ? (
               <Prose

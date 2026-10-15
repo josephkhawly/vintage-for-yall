@@ -1,3 +1,5 @@
+import type { ProductColor, ShopifyCategoryMetafield } from './category-attributes'
+
 export type Maybe<T> = T | null;
 
 export type Connection<T> = {
@@ -70,13 +72,23 @@ export type Page = {
 
 export type Product = Omit<
   ShopifyProduct,
-  'condition' | 'images' | 'materials' | 'measurements' | 'media' | 'notes' | 'variants'
+  | 'color'
+  | 'condition'
+  | 'images'
+  | 'materials'
+  | 'measurements'
+  | 'media'
+  | 'notes'
+  | 'size'
+  | 'variants'
 > & {
+  colors: ProductColor[];
   condition: string | null;
   images: Image[];
   materials: string | null;
   measurements: string | null;
   notes: string | null;
+  sizes: string[];
   variants: ProductVariant[];
 };
 
@@ -138,6 +150,7 @@ export type ShopifyProduct = {
   title: string;
   description: string;
   descriptionHtml: string;
+  color?: ShopifyCategoryMetafield;
   condition?: ShopifyMetafield | null;
   materials?: ShopifyMetafield | null;
   measurements?: ShopifyMetafield | null;
@@ -147,6 +160,7 @@ export type ShopifyProduct = {
     maxVariantPrice: Money;
     minVariantPrice: Money;
   };
+  size?: ShopifyCategoryMetafield;
   variants: Connection<ProductVariant>;
   featuredImage: Image;
   images?: Connection<Image>;
