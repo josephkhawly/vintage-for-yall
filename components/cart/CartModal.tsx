@@ -10,17 +10,6 @@ import {
   openCartDrawer,
 } from "@/lib/cart-drawer";
 
-function OpenCart({ quantity }: { quantity?: number }) {
-  return (
-    <div className="flex h-11 items-center gap-2 rounded-full border border-black bg-teal/50 pr-1.5 pl-4 font-subheading text-sm uppercase tracking-wide text-black backdrop-blur-sm md:h-14 md:pr-2 md:pl-5 md:text-base">
-      <span>Cart</span>
-      <span className="flex size-8 items-center justify-center rounded-full border border-black text-xs md:size-10 md:text-sm">
-        {quantity ?? 0}
-      </span>
-    </div>
-  );
-}
-
 export function CartTrigger() {
   const totalQuantity = useCart((state) => state.data.totalQuantity);
 
@@ -29,14 +18,14 @@ export function CartTrigger() {
       aria-controls={CART_DRAWER_ID}
       aria-haspopup="dialog"
       aria-label="Open cart"
-      className="cursor-pointer"
+      className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-black font-subheading text-sm md:size-14 md:text-base"
       href="/cart"
       onClick={(event) => {
         event.preventDefault();
         openCartDrawer();
       }}
     >
-      <OpenCart quantity={totalQuantity} />
+      {totalQuantity}
     </a>
   );
 }
