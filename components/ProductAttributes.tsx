@@ -12,7 +12,6 @@ export function ProductAttributes({ colors, sizes }: ProductAttributesProps) {
     <div className='mb-6 flex flex-col gap-3 text-sm text-espresso lg:text-base'>
       {colors.map((color) => (
         <div className='flex items-center gap-3' key={color.label}>
-          <span>Color</span>
           <span
             aria-hidden
             className='size-5 shrink-0 rounded-full border border-espresso/50'
