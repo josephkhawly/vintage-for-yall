@@ -5,10 +5,12 @@
 **/.pnp.*
 **/.svn
 **/.yarn/**
+.agents/skills/**
 **/build
 **/dist/**
 **/node_modules
 **/temp
 **/docs/**
+pnpm-lock.yaml
 tsconfig.json
 

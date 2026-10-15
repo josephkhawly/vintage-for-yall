@@ -13,14 +13,14 @@ export function ProductAccordions({ details }: ProductAccordionsProps) {
   if (details.length === 0) return null
 
   return (
-    <div className='mt-8 divide-y divide-espresso/15 border-y border-espresso/15'>
+    <div className='divide-espresso/15 border-espresso/15 mt-8 divide-y border-y'>
       {details.map((detail) => (
         <Disclosure as='div' key={detail.key}>
-          <DisclosureButton className='group flex w-full cursor-pointer items-center justify-between gap-4 py-4 text-left font-medium tracking-wide text-espresso'>
+          <DisclosureButton className='group text-espresso flex w-full cursor-pointer items-center justify-between gap-4 py-4 text-left font-medium tracking-wide'>
             <span>{detail.title}</span>
             <HiChevronDown className='size-5 shrink-0 transition group-data-[open]:rotate-180' />
           </DisclosureButton>
-          <DisclosurePanel className='overflow-hidden pb-4 whitespace-pre-wrap break-words text-sm leading-relaxed text-espresso/80'>
+          <DisclosurePanel className='text-espresso/80 overflow-hidden pb-4 text-sm leading-relaxed break-words whitespace-pre-wrap'>
             {detail.value}
           </DisclosurePanel>
         </Disclosure>

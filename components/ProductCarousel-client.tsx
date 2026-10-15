@@ -26,13 +26,13 @@ export function ProductCarouselClient({ heading, products }: ProductCarouselClie
     <section className='py-12 md:py-16'>
       <PageContainer>
         <div className='mb-6 flex items-center justify-between gap-4 md:mb-8'>
-          <h2 className='font-frogmore text-3xl capitalize tracking-wide text-espresso md:text-5xl'>
+          <h2 className='font-frogmore text-espresso text-3xl tracking-wide capitalize md:text-5xl'>
             {heading}
           </h2>
           <div className='flex shrink-0 gap-2'>
             <button
               aria-label='Scroll products left'
-              className='cursor-pointer p-2 text-espresso'
+              className='text-espresso cursor-pointer p-2'
               onClick={() => scroll(-1)}
               type='button'
             >
@@ -40,7 +40,7 @@ export function ProductCarouselClient({ heading, products }: ProductCarouselClie
             </button>
             <button
               aria-label='Scroll products right'
-              className='cursor-pointer p-2 text-espresso'
+              className='text-espresso cursor-pointer p-2'
               onClick={() => scroll(1)}
               type='button'
             >
@@ -49,7 +49,7 @@ export function ProductCarouselClient({ heading, products }: ProductCarouselClie
           </div>
         </div>
         <ul
-          className='flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] scrollbar-none md:gap-6 [&::-webkit-scrollbar]:hidden [&_li]:w-44 [&_li]:shrink-0 [&_li]:snap-start md:[&_li]:w-56'
+          className='flex snap-x snap-mandatory scrollbar-none gap-4 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] md:gap-6 [&_li]:w-44 [&_li]:shrink-0 [&_li]:snap-start md:[&_li]:w-56 [&::-webkit-scrollbar]:hidden'
           ref={scrollerRef}
         >
           {products.map((product) => (

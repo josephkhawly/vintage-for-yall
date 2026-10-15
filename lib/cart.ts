@@ -1,6 +1,6 @@
-import { createCartComponents } from "@shopify/hydrogen/react";
+import { createCartComponents } from '@shopify/hydrogen/react'
 
-import type { cartHandlers } from "./cart-handlers";
+import type { cartHandlers } from './cart-handlers'
 
 export const {
   CartProvider,
@@ -9,4 +9,4 @@ export const {
   useOptionalCart,
   useCartActions,
   useCartForm,
-} = createCartComponents<typeof cartHandlers>();
+} = createCartComponents<typeof cartHandlers>()

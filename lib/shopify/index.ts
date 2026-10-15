@@ -18,7 +18,10 @@ import {
 import { getStorefrontClient } from '../storefront'
 import { ensureStartsWith, sortProductsByAvailability } from '../utils'
 import { reshapeColors, reshapeSizes } from './category-attributes'
-import { PRODUCT_DETAIL_METAFIELD_IDENTIFIERS, PRODUCT_DETAIL_METAFIELDS } from './product-metafields'
+import {
+  PRODUCT_DETAIL_METAFIELD_IDENTIFIERS,
+  PRODUCT_DETAIL_METAFIELDS,
+} from './product-metafields'
 import {
   getCollectionProductsQuery,
   getCollectionQuery,

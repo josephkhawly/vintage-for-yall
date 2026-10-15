@@ -12,8 +12,7 @@ export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`
 
 export const validateEnvironmentVariables = () => {
-  const storeDomain =
-    process.env.PUBLIC_STORE_DOMAIN ?? process.env.SHOPIFY_STORE_DOMAIN
+  const storeDomain = process.env.PUBLIC_STORE_DOMAIN ?? process.env.SHOPIFY_STORE_DOMAIN
   const storefrontToken =
     process.env.PUBLIC_STOREFRONT_API_TOKEN ??
     process.env.PRIVATE_STOREFRONT_API_TOKEN ??

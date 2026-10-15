@@ -19,18 +19,14 @@ export function AnnouncementBar() {
   }, [])
 
   return (
-    <div
-      aria-label='Announcement'
-      className='w-full bg-espresso text-white'
-      role='region'
-    >
+    <div aria-label='Announcement' className='bg-espresso w-full text-white' role='region'>
       {reduceMotion ? (
-        <p className='px-4 py-2 text-center uppercase font-subheading text-xs tracking-wide md:text-sm'>
+        <p className='font-subheading px-4 py-2 text-center text-xs tracking-wide uppercase md:text-sm'>
           {ANNOUNCEMENT_TEXT}
         </p>
       ) : (
         <Marquee autoFill pauseOnHover speed={35}>
-          <span className='mx-8 inline-block uppercase py-2 font-subheading text-xs tracking-wide md:text-sm'>
+          <span className='font-subheading mx-8 inline-block py-2 text-xs tracking-wide uppercase md:text-sm'>
             {ANNOUNCEMENT_TEXT}
           </span>
         </Marquee>

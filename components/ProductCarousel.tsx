@@ -13,7 +13,5 @@ export async function ProductCarousel({ collection }: ProductCarouselProps) {
 
   if (!collectionData) return null
 
-  return (
-    <ProductCarouselClient heading={collectionData.title} products={products.slice(0, 12)} />
-  )
+  return <ProductCarouselClient heading={collectionData.title} products={products.slice(0, 12)} />
 }

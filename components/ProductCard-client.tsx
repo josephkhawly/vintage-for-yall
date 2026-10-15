@@ -12,7 +12,7 @@ export function ProductCardQuickAdd({ size, variantId }: ProductCardQuickAddProp
   const { formProps, register } = useCartForm()
 
   return (
-    <div className='absolute inset-x-0 bottom-0 z-10 flex h-12 translate-y-full items-center justify-between gap-3 bg-teal/50 px-3 text-sm text-espresso backdrop-blur-sm transition-transform duration-300 ease-out group-hover:translate-y-0'>
+    <div className='bg-teal/50 text-espresso absolute inset-x-0 bottom-0 z-10 flex h-12 translate-y-full items-center justify-between gap-3 px-3 text-sm backdrop-blur-sm transition-transform duration-300 ease-out group-hover:translate-y-0'>
       {size ? <span>Size {size}</span> : <span />}
       <form
         {...formProps({

@@ -114,7 +114,7 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
 
           <div
             className={clsx(
-              'absolute inset-x-0 top-0 overflow-hidden rounded-[50px] border border-black bg-teal/50 text-black backdrop-blur-sm',
+              'bg-teal/50 absolute inset-x-0 top-0 overflow-hidden rounded-[50px] border border-black text-black backdrop-blur-sm',
               content && 'z-30',
             )}
             ref={panelRef}
@@ -138,12 +138,7 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
               </button>
 
               <Link className='justify-self-center' href='/' onClick={close} prefetch={true}>
-                <Image
-                  alt='Ugly Cry Vintage'
-                  className='h-10 w-auto md:h-20'
-                  priority
-                  src={logo}
-                />
+                <Image alt='Ugly Cry Vintage' className='h-10 w-auto md:h-20' priority src={logo} />
               </Link>
 
               <div className='flex items-center gap-2 justify-self-end'>
@@ -184,7 +179,7 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
                             <li className='border-t border-black' key={item.title}>
                               <button
                                 aria-expanded={shopOpen}
-                                className='flex w-full cursor-pointer items-center justify-center gap-2 py-4 font-subheading text-2xl italic tracking-wide transition-colors hover:text-espresso md:text-3xl'
+                                className='font-subheading hover:text-espresso flex w-full cursor-pointer items-center justify-center gap-2 py-4 text-2xl tracking-wide italic transition-colors md:text-3xl'
                                 onClick={() => setShopOpen((open) => !open)}
                                 type='button'
                               >
@@ -206,7 +201,7 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
                                   {collections.map((collection) => (
                                     <li key={collection.handle || 'all'}>
                                       <Link
-                                        className='block py-1.5 text-center font-subheading text-lg italic tracking-wide transition-colors hover:text-white data-[active=true]:text-espresso md:text-xl'
+                                        className='font-subheading data-[active=true]:text-espresso block py-1.5 text-center text-lg tracking-wide italic transition-colors hover:text-white md:text-xl'
                                         data-active={pathname === collection.path}
                                         href={collection.path}
                                         onClick={close}
@@ -225,7 +220,7 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
                         return (
                           <li className='border-t border-black' key={item.title}>
                             <Link
-                              className='block py-4 text-center font-subheading text-2xl italic tracking-wide transition-colors hover:text-espresso data-[active=true]:text-espresso md:text-3xl'
+                              className='font-subheading hover:text-espresso data-[active=true]:text-espresso block py-4 text-center text-2xl tracking-wide italic transition-colors md:text-3xl'
                               data-active={pathname === item.path}
                               href={item.path}
                               onClick={close}
@@ -239,7 +234,7 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
                     </ul>
                     <div className='flex items-center justify-end gap-5 border-t border-black px-5 py-4'>
                       <a
-                        className='font-subheading text-sm uppercase transition-colors hover:text-espresso'
+                        className='font-subheading hover:text-espresso text-sm uppercase transition-colors'
                         href='https://uglycryvintage.substack.com/'
                         rel='noopener noreferrer'
                         target='_blank'
@@ -256,7 +251,7 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
                     onSubmit={submitSearch}
                   >
                     <input
-                      className='w-full bg-transparent font-subheading text-sm uppercase outline-none placeholder:text-black/40'
+                      className='font-subheading w-full bg-transparent text-sm uppercase outline-none placeholder:text-black/40'
                       onChange={(event) => setQuery(event.target.value)}
                       placeholder='Type to search'
                       ref={searchInputRef}
@@ -264,7 +259,7 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
                       value={query}
                     />
                     <button
-                      className='shrink-0 font-subheading text-sm uppercase text-black/40 transition-colors hover:text-black'
+                      className='font-subheading shrink-0 text-sm text-black/40 uppercase transition-colors hover:text-black'
                       onClick={() => setQuery('')}
                       type='button'
                     >

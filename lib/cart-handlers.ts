@@ -1,8 +1,8 @@
-import "server-only";
+import 'server-only'
 
-import { createCartServerHandlers, gql } from "@shopify/hydrogen";
+import { createCartServerHandlers, gql } from '@shopify/hydrogen'
 
-import { categoryAttributesFragment } from "./shopify/category-attributes";
+import { categoryAttributesFragment } from './shopify/category-attributes'
 
 const cartFragment = gql(
   `
@@ -21,6 +21,6 @@ const cartFragment = gql(
   }
 `,
   [categoryAttributesFragment],
-);
+)
 
-export const cartHandlers = createCartServerHandlers({ fragment: cartFragment });
+export const cartHandlers = createCartServerHandlers({ fragment: cartFragment })

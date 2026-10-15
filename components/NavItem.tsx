@@ -12,7 +12,7 @@ export default function NavItem({ item }: { item: Menu }) {
         prefetch={true}
         className={`${
           pathname === item.path ? 'text-espresso' : ''
-        } md:text-lg hover:text-espresso transition-colors duration-300`}
+        } hover:text-espresso transition-colors duration-300 md:text-lg`}
         href={item.path}
       >
         {item.title}

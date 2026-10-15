@@ -71,14 +71,14 @@ export function ProductListingToolbar({
       <button
         aria-controls={FILTER_DRAWER_ID}
         aria-haspopup='dialog'
-        className='cursor-pointer font-subheading text-sm uppercase tracking-wide underline underline-offset-4'
+        className='font-subheading cursor-pointer text-sm tracking-wide uppercase underline underline-offset-4'
         onClick={openDrawer}
         type='button'
       >
         {active ? 'Filters' : 'Filter'}
       </button>
 
-      <label className='flex items-center gap-2 font-subheading text-sm uppercase tracking-wide'>
+      <label className='font-subheading flex items-center gap-2 text-sm tracking-wide uppercase'>
         <span className='sr-only'>Sort</span>
         <select
           className='cursor-pointer border border-black bg-transparent px-3 py-2'
@@ -96,13 +96,13 @@ export function ProductListingToolbar({
 
       <dialog
         aria-labelledby='filter-drawer-title'
-        className='filter-drawer open:flex flex-col border-r border-black bg-teal/50 text-black backdrop-blur-sm'
+        className='filter-drawer bg-teal/50 flex-col border-r border-black text-black backdrop-blur-sm open:flex'
         closedby='any'
         id={FILTER_DRAWER_ID}
         ref={dialogRef}
       >
         <div className='flex shrink-0 items-center justify-between gap-4 p-6 pb-2'>
-          <h2 className='font-subheading text-xl uppercase tracking-wide' id='filter-drawer-title'>
+          <h2 className='font-subheading text-xl tracking-wide uppercase' id='filter-drawer-title'>
             Filter
           </h2>
           <button
@@ -115,10 +115,7 @@ export function ProductListingToolbar({
           </button>
         </div>
 
-        <form
-          className='flex min-h-0 flex-1 flex-col overflow-hidden'
-          onSubmit={applyFilters}
-        >
+        <form className='flex min-h-0 flex-1 flex-col overflow-hidden' onSubmit={applyFilters}>
           {sort && sort !== defaultSortSlug() ? (
             <input name='sort' type='hidden' value={sort} />
           ) : null}
@@ -131,14 +128,14 @@ export function ProductListingToolbar({
 
           <div className='flex shrink-0 gap-3 border-t border-black/20 p-6'>
             <button
-              className='flex-1 cursor-pointer rounded-full border border-black px-4 py-3 font-subheading text-sm uppercase tracking-wide'
+              className='font-subheading flex-1 cursor-pointer rounded-full border border-black px-4 py-3 text-sm tracking-wide uppercase'
               onClick={clearFilters}
               type='button'
             >
               Clear
             </button>
             <button
-              className='flex-1 cursor-pointer rounded-full border border-black bg-black px-4 py-3 font-subheading text-sm uppercase tracking-wide text-white'
+              className='font-subheading flex-1 cursor-pointer rounded-full border border-black bg-black px-4 py-3 text-sm tracking-wide text-white uppercase'
               type='submit'
             >
               Apply
@@ -173,7 +170,7 @@ function FilterGroup({ name, options, selected, title }: FilterGroupProps) {
 
   return (
     <fieldset>
-      <legend className='mb-3 font-subheading text-sm uppercase tracking-wide'>{title}</legend>
+      <legend className='font-subheading mb-3 text-sm tracking-wide uppercase'>{title}</legend>
       <ul className='flex flex-wrap gap-2'>
         {options.map((option) => (
           <li key={option}>
@@ -200,7 +197,7 @@ function ColorFilterGroup({ options, selected }: ColorFilterGroupProps) {
 
   return (
     <fieldset>
-      <legend className='mb-3 font-subheading text-sm uppercase tracking-wide'>Color</legend>
+      <legend className='font-subheading mb-3 text-sm tracking-wide uppercase'>Color</legend>
       <ul className='flex flex-wrap gap-2'>
         {options.map((color) => (
           <li key={color.label}>

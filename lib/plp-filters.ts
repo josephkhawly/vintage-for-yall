@@ -31,7 +31,10 @@ const EMPTY_FACETS: PlpFacets = {
 export function paramList(value: string | string[] | undefined): string[] {
   if (!value) return []
   const values = Array.isArray(value) ? value : [value]
-  return values.flatMap((entry) => entry.split(',')).map((entry) => entry.trim()).filter(Boolean)
+  return values
+    .flatMap((entry) => entry.split(','))
+    .map((entry) => entry.trim())
+    .filter(Boolean)
 }
 
 export function parsePlpFilters(searchParams: {
@@ -130,7 +133,9 @@ export function toStorefrontQuery(filters: PlpFilters, collectionId?: string): s
   if (collectionId) clauses.push(`collection_id:${collectionId}`)
 
   if (filters.type.length > 0) {
-    clauses.push(`(${filters.type.map((type) => `product_type:${quoteQueryValue(type)}`).join(' OR ')})`)
+    clauses.push(
+      `(${filters.type.map((type) => `product_type:${quoteQueryValue(type)}`).join(' OR ')})`,
+    )
   }
 
   if (filters.era.length > 0) {
