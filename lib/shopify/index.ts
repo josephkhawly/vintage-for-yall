@@ -5,6 +5,16 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { HIDDEN_PRODUCT_TAG, TAGS } from '../constants'
 import { getPublicStoreDomain } from '../env'
+import {
+  emptyFacets,
+  filterProductsBySizeColor,
+  getFilterFacets,
+  hasActiveFilters,
+  type PlpFacets,
+  type PlpFilters,
+  shopifyGidToId,
+  toStorefrontQuery,
+} from '../plp-filters'
 import { getStorefrontClient } from '../storefront'
 import { ensureStartsWith, sortProductsByAvailability } from '../utils'
 import { reshapeColors, reshapeSizes } from './category-attributes'
@@ -195,6 +205,53 @@ export async function getCollectionProducts({
   )
 }
 
+/** PLP fetch: type/era via Storefront search query; size/color post-filtered. */
+export async function getPlpListing({
+  collectionHandle,
+  filters,
+  reverse,
+  sortKey,
+}: {
+  collectionHandle?: string
+  filters: PlpFilters
+  reverse?: boolean
+  sortKey?: string
+}): Promise<{
+  collection?: Collection
+  facets: PlpFacets
+  products: Product[]
+}> {
+  const collection = collectionHandle ? await getCollection(collectionHandle) : undefined
+
+  if (collectionHandle && !collection) {
+    return { facets: emptyFacets(), products: [] }
+  }
+
+  const collectionId = collection?.id ? shopifyGidToId(collection.id) : undefined
+
+  if (!hasActiveFilters(filters)) {
+    const products = collectionHandle
+      ? await getCollectionProducts({ collection: collectionHandle, reverse, sortKey })
+      : await getProducts({ reverse, sortKey })
+
+    return { collection, facets: getFilterFacets(products), products }
+  }
+
+  const facetQuery = collectionId ? `collection_id:${collectionId}` : undefined
+  const listingQuery = toStorefrontQuery(filters, collectionId) ?? facetQuery
+
+  const [facetProducts, products] = await Promise.all([
+    getProducts({ query: facetQuery }),
+    getProducts({ query: listingQuery, reverse, sortKey }),
+  ])
+
+  return {
+    collection,
+    facets: getFilterFacets(facetProducts),
+    products: filterProductsBySizeColor(products, filters),
+  }
+}
+
 export async function getCollections(): Promise<Collection[]> {
   const data = await shopifyQuery(getCollectionsQuery, {
     tags: [TAGS.collections],
@@ -204,14 +261,15 @@ export async function getCollections(): Promise<Collection[]> {
   )
   const collections = [
     {
-      handle: '',
-      title: 'All',
       description: 'All products',
-      seo: {
-        title: 'All',
-        description: 'All products',
-      },
+      handle: '',
+      id: '',
       path: '/shop',
+      seo: {
+        description: 'All products',
+        title: 'All',
+      },
+      title: 'All',
       updatedAt: new Date().toISOString(),
     },
     // Filter out the `hidden` collections.

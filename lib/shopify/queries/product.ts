@@ -28,7 +28,7 @@ export const getProductQuery = gql(
 export const getProductsQuery = gql(
   `
   query getProducts($sortKey: ProductSortKeys, $reverse: Boolean, $query: String) {
-    products(sortKey: $sortKey, reverse: $reverse, first: 100, query: $query) {
+    products(sortKey: $sortKey, reverse: $reverse, first: 250, query: $query) {
       edges {
         node {
           ...product

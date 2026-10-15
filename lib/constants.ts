@@ -1,30 +1,30 @@
 export type SortFilterItem = {
-  title: string;
-  slug: string | null;
-  sortKey: 'RELEVANCE' | 'BEST_SELLING' | 'CREATED_AT' | 'PRICE';
-  reverse: boolean;
-};
+  reverse: boolean
+  slug: string | null
+  sortKey: 'CREATED_AT' | 'PRICE' | 'TITLE'
+  title: string
+}
 
 export const defaultSort: SortFilterItem = {
-  title: 'Relevance',
-  slug: null,
-  sortKey: 'RELEVANCE',
-  reverse: false
-};
+  reverse: true,
+  slug: 'latest-desc',
+  sortKey: 'CREATED_AT',
+  title: 'Newest',
+}
 
 export const sorting: SortFilterItem[] = [
   defaultSort,
-  { title: 'Trending', slug: 'trending-desc', sortKey: 'BEST_SELLING', reverse: false }, // asc
-  { title: 'Latest arrivals', slug: 'latest-desc', sortKey: 'CREATED_AT', reverse: true },
-  { title: 'Price: Low to high', slug: 'price-asc', sortKey: 'PRICE', reverse: false }, // asc
-  { title: 'Price: High to low', slug: 'price-desc', sortKey: 'PRICE', reverse: true }
-];
+  { reverse: false, slug: 'title-asc', sortKey: 'TITLE', title: 'A–Z' },
+  { reverse: true, slug: 'title-desc', sortKey: 'TITLE', title: 'Z–A' },
+  { reverse: false, slug: 'price-asc', sortKey: 'PRICE', title: 'Price: Low to high' },
+  { reverse: true, slug: 'price-desc', sortKey: 'PRICE', title: 'Price: High to low' },
+]
 
 export const TAGS = {
+  cart: 'cart',
   collections: 'collections',
   products: 'products',
-  cart: 'cart'
-};
+}
 
-export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';
-export const DEFAULT_OPTION = 'Default Title';
+export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden'
+export const DEFAULT_OPTION = 'Default Title'

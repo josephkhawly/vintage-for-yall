@@ -13,6 +13,7 @@ export const productFragment = gql(
     description
     descriptionHtml
     availableForSale
+    productType
     ...categoryAttributes
     priceRange {
       maxVariantPrice {

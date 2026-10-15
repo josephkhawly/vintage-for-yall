@@ -6,6 +6,7 @@ import { seoFragment } from '../fragments/seo'
 const collectionFragment = gql(
   `
   fragment collection on Collection {
+    id
     handle
     title
     description
@@ -52,7 +53,7 @@ export const getCollectionProductsQuery = gql(
     $reverse: Boolean
   ) {
     collection(handle: $handle) {
-      products(sortKey: $sortKey, reverse: $reverse, first: 100) {
+      products(sortKey: $sortKey, reverse: $reverse, first: 250) {
         edges {
           node {
             ...product

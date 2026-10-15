@@ -131,10 +131,11 @@ export type ShopifyCart = {
 };
 
 export type ShopifyCollection = {
-  handle: string;
-  title: string;
   description: string;
+  handle: string;
+  id: string;
   seo: SEO;
+  title: string;
   updatedAt: string;
 };
 
@@ -160,6 +161,7 @@ export type ShopifyProduct = {
     maxVariantPrice: Money;
     minVariantPrice: Money;
   };
+  productType: string;
   size?: ShopifyCategoryMetafield;
   variants: Connection<ProductVariant>;
   featuredImage: Image;
