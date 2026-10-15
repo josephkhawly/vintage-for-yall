@@ -18,7 +18,7 @@ function SubmitButton({
   register: ReturnType<typeof useCartForm>["register"];
 }) {
   const buttonClasses =
-    "relative flex w-full cursor-pointer items-center justify-center rounded-md bg-teal p-4 text-md tracking-wide text-white";
+    "relative flex w-full cursor-pointer items-center justify-center rounded-md bg-sandy-clay p-2 text-lg tracking-wide text-espresso border border-espresso uppercase";
   const disabledClasses = "cursor-not-allowed opacity-60 hover:opacity-60";
 
   if (!availableForSale) {

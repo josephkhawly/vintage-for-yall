@@ -35,7 +35,7 @@ export default function ProductCard({ product }: { product: Product }) {
           </Link>
           {!availableForSale ? (
             <div className='absolute inset-0 z-10 flex items-center justify-center bg-white/50 p-1 text-lg'>
-              <span className='rounded-full bg-sandy-clay p-3 text-white'>Sold Out</span>
+              <span className='rounded-full bg-espresso p-3 text-white'>Sold Out</span>
             </div>
           ) : variantId ? (
             <ProductCardQuickAdd size={size} variantId={variantId} />
@@ -43,11 +43,13 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
         <Link className='flex flex-col items-start' href={`/product/${handle}`}>
           <p className='text-left text-md'>{title}</p>
-          <Price
-            amount={priceRange?.minVariantPrice.amount}
-            currencyCode={priceRange?.minVariantPrice.currencyCode}
-            className='text-sm font-semibold'
-          />
+          {availableForSale ? (
+            <Price
+              amount={priceRange?.minVariantPrice.amount}
+              currencyCode={priceRange?.minVariantPrice.currencyCode}
+              className='text-sm font-semibold'
+            />
+          ) : null}
         </Link>
       </div>
     </li>
