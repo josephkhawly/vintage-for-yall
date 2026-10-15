@@ -1,5 +1,6 @@
 import { gql } from '@shopify/hydrogen'
 
+import { categoryAttributesFragment } from '../category-attributes'
 import { mediaFragment } from './image'
 import { seoFragment } from './seo'
 
@@ -12,6 +13,7 @@ export const productFragment = gql(
     description
     descriptionHtml
     availableForSale
+    ...categoryAttributes
     priceRange {
       maxVariantPrice {
         amount
@@ -60,5 +62,5 @@ export const productFragment = gql(
     updatedAt
   }
 `,
-  [mediaFragment, seoFragment],
+  [categoryAttributesFragment, mediaFragment, seoFragment],
 )

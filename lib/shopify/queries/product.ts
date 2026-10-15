@@ -1,6 +1,5 @@
 import { gql } from '@shopify/hydrogen'
 
-import { categoryAttributesFragment } from '../category-attributes'
 import { productFragment } from '../fragments/product'
 
 export const getProductQuery = gql(
@@ -8,7 +7,6 @@ export const getProductQuery = gql(
   query getProduct($handle: String!) {
     product(handle: $handle) {
       ...product
-      ...categoryAttributes
       condition: metafield(namespace: "custom", key: "condition") {
         value
       }
@@ -24,7 +22,7 @@ export const getProductQuery = gql(
     }
   }
 `,
-  [categoryAttributesFragment, productFragment],
+  [productFragment],
 )
 
 export const getProductsQuery = gql(
