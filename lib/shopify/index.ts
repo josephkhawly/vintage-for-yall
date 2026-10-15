@@ -18,6 +18,7 @@ import {
 import { getStorefrontClient } from '../storefront'
 import { ensureStartsWith, sortProductsByAvailability } from '../utils'
 import { reshapeColors, reshapeSizes } from './category-attributes'
+import { PRODUCT_DETAIL_METAFIELD_IDENTIFIERS, PRODUCT_DETAIL_METAFIELDS } from './product-metafields'
 import {
   getCollectionProductsQuery,
   getCollectionQuery,
@@ -36,6 +37,7 @@ import {
   Menu,
   Page,
   Product,
+  ProductDetail,
   ShopifyCollection,
   ShopifyMedia,
   ShopifyMetafield,
@@ -120,8 +122,18 @@ const reshapeImages = (images: Connection<ShopifyMedia>, productTitle: string) =
   })
 }
 
-function metafieldValue(metafield?: ShopifyMetafield | null) {
-  return metafield?.value.trim() || null
+function reshapeProductDetails(metafields?: (ShopifyMetafield | null)[]): ProductDetail[] {
+  const byKey = Object.fromEntries(
+    (metafields ?? []).flatMap((metafield) => {
+      const value = metafield?.value.trim()
+      return metafield && value ? [[metafield.key, value]] : []
+    }),
+  )
+
+  return PRODUCT_DETAIL_METAFIELDS.flatMap(({ key, title }) => {
+    const value = byKey[key]
+    return value ? [{ key, title, value }] : []
+  })
 }
 
 const reshapeProduct = (
@@ -132,17 +144,13 @@ const reshapeProduct = (
     return undefined
   }
 
-  const { color, condition, materials, measurements, media, notes, size, variants, ...rest } =
-    product
+  const { color, media, metafields, size, variants, ...rest } = product
 
   return {
     ...rest,
     colors: reshapeColors(color),
-    condition: metafieldValue(condition),
+    details: reshapeProductDetails(metafields),
     images: reshapeImages(media, product.title),
-    materials: metafieldValue(materials),
-    measurements: metafieldValue(measurements),
-    notes: metafieldValue(notes),
     sizes: reshapeSizes(size),
     variants: removeEdgesAndNodes(variants),
   }
@@ -341,6 +349,7 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
     tags: [TAGS.products],
     variables: {
       handle,
+      identifiers: PRODUCT_DETAIL_METAFIELD_IDENTIFIERS,
     },
   })
 

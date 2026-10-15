@@ -105,12 +105,7 @@ export default async function ProductPage(props: PageProps) {
             ) : null}
             <AddToCart product={product} />
           </div>
-          <ProductAccordions
-            condition={product.condition}
-            materials={product.materials}
-            measurements={product.measurements}
-            notes={product.notes}
-          />
+          <ProductAccordions details={product.details} />
         </div>
       </div>
     </ProductProvider>

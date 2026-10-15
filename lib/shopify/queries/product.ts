@@ -4,19 +4,11 @@ import { productFragment } from '../fragments/product'
 
 export const getProductQuery = gql(
   `
-  query getProduct($handle: String!) {
+  query getProduct($handle: String!, $identifiers: [HasMetafieldsIdentifier!]!) {
     product(handle: $handle) {
       ...product
-      condition: metafield(namespace: "custom", key: "condition") {
-        value
-      }
-      materials: metafield(namespace: "custom", key: "materials") {
-        value
-      }
-      measurements: metafield(namespace: "custom", key: "measurements") {
-        value
-      }
-      notes: metafield(namespace: "custom", key: "notes") {
+      metafields(identifiers: $identifiers) {
+        key
         value
       }
     }

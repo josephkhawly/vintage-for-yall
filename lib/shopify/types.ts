@@ -73,26 +73,27 @@ export type Page = {
 export type Product = Omit<
   ShopifyProduct,
   | 'color'
-  | 'condition'
   | 'images'
-  | 'materials'
-  | 'measurements'
   | 'media'
-  | 'notes'
+  | 'metafields'
   | 'size'
   | 'variants'
 > & {
   colors: ProductColor[];
-  condition: string | null;
+  details: ProductDetail[];
   images: Image[];
-  materials: string | null;
-  measurements: string | null;
-  notes: string | null;
   sizes: string[];
   variants: ProductVariant[];
 };
 
+export type ProductDetail = {
+  key: string;
+  title: string;
+  value: string;
+};
+
 export type ShopifyMetafield = {
+  key: string;
   value: string;
 };
 
@@ -152,10 +153,7 @@ export type ShopifyProduct = {
   description: string;
   descriptionHtml: string;
   color?: ShopifyCategoryMetafield;
-  condition?: ShopifyMetafield | null;
-  materials?: ShopifyMetafield | null;
-  measurements?: ShopifyMetafield | null;
-  notes?: ShopifyMetafield | null;
+  metafields?: (ShopifyMetafield | null)[];
   options?: ProductOption[];
   priceRange: {
     maxVariantPrice: Money;
