@@ -370,6 +370,9 @@ export async function getProductRecommendations(productId: string): Promise<Prod
   return reshapeProducts(asShopifyProducts(data?.productRecommendations ?? []))
 }
 
+const PRODUCTS_PAGE_SIZE = 250
+const MAX_PRODUCT_PAGES = 20
+
 export async function getProducts({
   query,
   reverse,
@@ -379,18 +382,35 @@ export async function getProducts({
   reverse?: boolean
   sortKey?: string
 }): Promise<Product[]> {
-  const data = await shopifyQuery(getProductsQuery, {
-    tags: [TAGS.products],
-    variables: {
-      query,
-      reverse,
-      sortKey,
-    },
-  })
+  const nodes: ShopifyProduct[] = []
+  let after: string | undefined
 
-  return reshapeProducts(
-    asShopifyProducts(removeEdgesAndNodes(data!.products as Connection<unknown>)),
-  )
+  for (let page = 0; page < MAX_PRODUCT_PAGES; page++) {
+    const data = await shopifyQuery(getProductsQuery, {
+      tags: [TAGS.products],
+      variables: {
+        after,
+        query,
+        reverse,
+        sortKey,
+      },
+    })
+
+    const connection = data!.products as Connection<unknown>
+    nodes.push(...asShopifyProducts(removeEdgesAndNodes(connection)))
+
+    if (!connection.pageInfo?.hasNextPage || !connection.pageInfo.endCursor) {
+      break
+    }
+
+    after = connection.pageInfo.endCursor
+
+    if (connection.edges.length < PRODUCTS_PAGE_SIZE) {
+      break
+    }
+  }
+
+  return reshapeProducts(nodes)
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

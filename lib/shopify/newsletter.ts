@@ -1,3 +1,4 @@
+import { getPublicStoreDomain } from '../env'
 import { ensureStartsWith } from '../utils'
 
 const ADMIN_API_VERSION = '2024-07'
@@ -122,11 +123,7 @@ function escapeShopifySearchPhrase(value: string): string {
 }
 
 function getAdminEndpoint(): string {
-  const domain = process.env.SHOPIFY_STORE_DOMAIN
-  if (!domain) {
-    throw new Error('Newsletter signup is not configured')
-  }
-
+  const domain = getPublicStoreDomain()
   const base = ensureStartsWith(domain, 'https://')
   return `${base}/admin/api/${ADMIN_API_VERSION}/graphql.json`
 }

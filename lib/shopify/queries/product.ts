@@ -19,12 +19,21 @@ export const getProductQuery = gql(
 
 export const getProductsQuery = gql(
   `
-  query getProducts($sortKey: ProductSortKeys, $reverse: Boolean, $query: String) {
-    products(sortKey: $sortKey, reverse: $reverse, first: 250, query: $query) {
+  query getProducts(
+    $after: String
+    $query: String
+    $reverse: Boolean
+    $sortKey: ProductSortKeys
+  ) {
+    products(after: $after, first: 250, query: $query, reverse: $reverse, sortKey: $sortKey) {
       edges {
         node {
           ...product
         }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }

@@ -34,7 +34,7 @@ export default function ProductCard({ product }: { product: Product }) {
             ) : null}
           </Link>
           {!availableForSale ? (
-            <div className='absolute inset-0 z-10 flex items-center justify-center bg-white/50 p-1 text-lg'>
+            <div className='pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-white/50 p-1 text-lg'>
               <span className='bg-espresso rounded-full p-3 text-white uppercase'>Sold Out</span>
             </div>
           ) : variantId ? (
@@ -42,7 +42,7 @@ export default function ProductCard({ product }: { product: Product }) {
           ) : null}
         </div>
         <Link className='flex flex-col items-start' href={`/product/${handle}`}>
-          <p className='text-md text-left'>{title}</p>
+          <p className='text-sm md:text-md text-left'>{title}</p>
           {availableForSale ? (
             <Price
               amount={priceRange?.minVariantPrice.amount}

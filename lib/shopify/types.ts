@@ -4,6 +4,10 @@ export type Maybe<T> = T | null
 
 export type Connection<T> = {
   edges: Array<Edge<T>>
+  pageInfo?: {
+    endCursor: string | null
+    hasNextPage: boolean
+  }
 }
 
 export type Edge<T> = {

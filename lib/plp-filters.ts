@@ -31,10 +31,7 @@ const EMPTY_FACETS: PlpFacets = {
 export function paramList(value: string | string[] | undefined): string[] {
   if (!value) return []
   const values = Array.isArray(value) ? value : [value]
-  return values
-    .flatMap((entry) => entry.split(','))
-    .map((entry) => entry.trim())
-    .filter(Boolean)
+  return values.map((entry) => entry.trim()).filter(Boolean)
 }
 
 export function parsePlpFilters(searchParams: {
@@ -118,6 +115,11 @@ function quoteQueryValue(value: string) {
   return /[\s:]/.test(value) ? `"${value.replaceAll('"', '\\"')}"` : value
 }
 
+/** Facet labels normalize `y2k` → `00s`; search must still match the original tag. */
+function eraQueryTerms(era: string): string[] {
+  return era === '00s' ? ['00s', 'y2k'] : [era]
+}
+
 /** Numeric id from `gid://shopify/Collection/123`. */
 export function shopifyGidToId(gid: string): string {
   return gid.slice(gid.lastIndexOf('/') + 1)
@@ -140,7 +142,8 @@ export function toStorefrontQuery(filters: PlpFilters, collectionId?: string): s
 
   if (filters.era.length > 0) {
     const eraClause = filters.era
-      .flatMap((era) => [`tag:${quoteQueryValue(era)}`, `title:${era}*`])
+      .flatMap((era) => eraQueryTerms(era))
+      .flatMap((term) => [`tag:${quoteQueryValue(term)}`, `title:${term}*`])
       .join(' OR ')
     clauses.push(`(${eraClause})`)
   }
