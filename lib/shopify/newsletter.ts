@@ -103,16 +103,7 @@ export type NewsletterConfirmResult =
   | 'already_subscribed'
   | 'rejected'
 
-/**
- * Do not set PENDING on signup. Connected ESPs (e.g. Klaviyo) treat Shopify
- * PENDING as a subscribe signal and overwrite it to SUBSCRIBED + SINGLE_OPT_IN
- * within seconds — before our Resend confirm click. Keep the customer
- * NOT_SUBSCRIBED until confirm, then set SUBSCRIBED + CONFIRMED_OPT_IN.
- *
- * If someone previously opted out (UNSUBSCRIBED) and signs up again, reset to
- * NOT_SUBSCRIBED on signup so the new confirm link can complete. Confirm still
- * rejects UNSUBSCRIBED so a stale link after opt-out cannot restore consent.
- */
+// Stay NOT_SUBSCRIBED until confirm — Klaviyo treats Shopify PENDING as subscribe and races Resend.
 const notSubscribedConsent = {
   marketingState: 'NOT_SUBSCRIBED' as const,
 }
@@ -231,7 +222,7 @@ async function prepareExistingCustomer(
     return { status: 'already_subscribed', customerId: customer.id }
   }
 
-  // Fresh re-opt-in after unsubscribe: clear UNSUBSCRIBED so confirm can proceed.
+  // Clear UNSUBSCRIBED on re-opt-in so the new confirm link can complete.
   if (customer.emailMarketingConsent?.marketingState === 'UNSUBSCRIBED') {
     await setCustomerMarketingConsent(customer.id, notSubscribedConsent)
   }
@@ -273,9 +264,7 @@ export async function confirmEmailMarketingSubscription(
     return 'rejected'
   }
 
-  // New signups stay NOT_SUBSCRIBED until confirm (PENDING is unsafe with
-  // connected ESPs). Allow NOT_SUBSCRIBED / PENDING; refuse UNSUBSCRIBED and
-  // other states so an old link cannot restore withdrawn consent.
+  // Allow NOT_SUBSCRIBED/PENDING; refuse UNSUBSCRIBED so a stale link cannot restore consent.
   const state = customer.emailMarketingConsent?.marketingState ?? 'NOT_SUBSCRIBED'
   if (state === 'SUBSCRIBED') {
     return 'already_subscribed'

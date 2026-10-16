@@ -1,11 +1,14 @@
 'use client'
 
 import { useActionState, useEffect, useRef } from 'react'
-import { subscribeNewsletterAction } from '@/components/newsletter/actions'
+import {
+  subscribeToNewsletter,
+  type NewsletterFormState,
+} from '@/app/actions/newsletter'
 
-const INITIAL_STATE = {
+const INITIAL_STATE: NewsletterFormState = {
   message: '',
-  status: 'idle' as const,
+  status: 'idle',
 }
 
 interface NewsletterFormProps {
@@ -13,7 +16,7 @@ interface NewsletterFormProps {
 }
 
 export function NewsletterForm({ variant }: NewsletterFormProps) {
-  const [state, formAction, isPending] = useActionState(subscribeNewsletterAction, INITIAL_STATE)
+  const [state, formAction, isPending] = useActionState(subscribeToNewsletter, INITIAL_STATE)
   const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
@@ -35,30 +38,18 @@ export function NewsletterForm({ variant }: NewsletterFormProps) {
       ref={formRef}
     >
       {isModal ? (
-        <label
-          className='font-body text-espresso/80 flex cursor-pointer items-start gap-3 text-left text-sm'
-          htmlFor='newsletter-modal-substack'
-        >
-          <input
-            className='accent-espresso mt-0.5 size-4 shrink-0 cursor-pointer'
-            id='newsletter-modal-substack'
-            name='substack'
-            type='checkbox'
-            value='1'
-          />
-          <span>
-            Also sign me up for UCV&apos;s{' '}
-            <a
-              className='cursor-pointer underline underline-offset-2 hover:opacity-70'
-              href='https://uglycryvintage.substack.com/?utm_campaign=profile_chips'
-              rel='noopener noreferrer'
-              target='_blank'
-            >
-              Secondhand Hysteria
-            </a>{' '}
-            on Substack
-          </span>
-        </label>
+        <p className='font-body text-espresso/80 text-left text-sm'>
+          Also check out UCV&apos;s{' '}
+          <a
+            className='cursor-pointer underline underline-offset-2 hover:opacity-70'
+            href='https://uglycryvintage.substack.com/?utm_campaign=profile_chips'
+            rel='noopener noreferrer'
+            target='_blank'
+          >
+            Secondhand Hysteria
+          </a>{' '}
+          on Substack
+        </p>
       ) : null}
 
       <label className='sr-only' htmlFor={isModal ? 'newsletter-modal-email' : 'newsletter-email'}>
