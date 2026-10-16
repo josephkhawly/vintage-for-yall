@@ -35,7 +35,7 @@ export default function ProductCard({ product }: { product: Product }) {
           </Link>
           {!availableForSale ? (
             <div className='absolute inset-0 z-10 flex items-center justify-center bg-white/50 p-1 text-lg'>
-              <span className='bg-espresso rounded-full p-3 text-white'>Sold Out</span>
+              <span className='bg-espresso rounded-full p-3 text-white uppercase'>Sold Out</span>
             </div>
           ) : variantId ? (
             <ProductCardQuickAdd size={size} variantId={variantId} />
@@ -47,7 +47,7 @@ export default function ProductCard({ product }: { product: Product }) {
             <Price
               amount={priceRange?.minVariantPrice.amount}
               currencyCode={priceRange?.minVariantPrice.currencyCode}
-              className='text-sm font-semibold'
+              className='text-xs font-normal'
             />
           ) : null}
         </Link>
