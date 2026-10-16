@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { fetchSubstackPosts, extractPreview } from '@/lib/substack'
+import { extractPreview, fetchSubstackPosts } from '@/lib/substack'
 
 function ReadMoreLink({ href }: { href: string }) {
   return (
@@ -7,28 +7,22 @@ function ReadMoreLink({ href }: { href: string }) {
       href={href}
       target='_blank'
       rel='noopener noreferrer'
-      className='inline-flex items-center font-medium text-blue-600 hover:text-blue-800'
+      className='bg-sandy-clay text-espresso inline-block w-fit cursor-pointer rounded-md px-4 py-2 tracking-wide hover:opacity-90'
     >
       Read More
-      <svg className='ml-1 size-4' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-        <path
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          strokeWidth={2}
-          d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14'
-        />
-      </svg>
     </a>
   )
 }
 
 export default async function BlogPage() {
-  const posts = await fetchSubstackPosts()
+  const posts = (await fetchSubstackPosts()).filter((post) => post.title !== 'Coming soon')
   const [featured, ...rest] = posts
 
   return (
     <div className='mx-auto max-w-6xl px-4 py-12'>
-      <h1 className='mb-8 text-3xl font-bold'>From the Blog</h1>
+      <h1 className='font-frogmore text-espresso mb-8 text-center text-4xl tracking-wide sm:text-6xl'>
+        From the Blog
+      </h1>
 
       {featured ? (
         <article
