@@ -8,9 +8,9 @@ export default async function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className='container mx-auto flex flex-col gap-6 p-6 md:flex-row md:items-stretch md:justify-between md:p-12'>
-      <div className='contents md:flex md:flex-col md:justify-between md:gap-6'>
-        <div className='order-1 flex flex-col items-start gap-3 md:order-none md:flex-row md:items-center md:gap-5'>
+    <footer className='container mx-auto flex flex-col gap-6 p-6 lg:flex-row lg:items-stretch lg:justify-between lg:p-12'>
+      <div className='contents lg:flex lg:flex-col lg:justify-between lg:gap-6'>
+        <div className='order-1 flex flex-col items-start gap-3 lg:order-none lg:flex-row lg:items-center lg:gap-5'>
           {menu.map((item) => (
             <a
               key={item.title}
@@ -39,11 +39,11 @@ export default async function Footer() {
             </a>
           </div>
         </div>
-        <p className='font-body text-espresso/60 order-3 text-xs md:order-none'>
+        <p className='font-body text-espresso/60 order-3 text-xs lg:order-none'>
           © {year} Ugly Cry Vintage
         </p>
       </div>
-      <div className='order-2 flex flex-col gap-2 md:order-none'>
+      <div className='order-2 flex flex-col gap-2 lg:order-none'>
         <h2 className='font-frogmore text-espresso text-5xl tracking-wide'>Join the list</h2>
         <p className='font-body text-espresso/80 max-w-xs text-sm'>
           New drops, shop updates, and stories from the rack.
