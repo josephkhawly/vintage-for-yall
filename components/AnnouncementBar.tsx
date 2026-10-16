@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Marquee from 'react-fast-marquee'
 
-const ANNOUNCEMENT_TEXT = 'Relik Vintage Fest Feb 27, 2027 Ridgefield, WA'
+const ANNOUNCEMENT_TEXT = 'Drop 01 is here 🤍'
 
 export function AnnouncementBar() {
   const [reduceMotion, setReduceMotion] = useState(false)
