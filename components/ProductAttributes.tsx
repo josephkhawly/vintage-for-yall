@@ -9,15 +9,15 @@ export function ProductAttributes({ colors, sizes }: ProductAttributesProps) {
   if (colors.length === 0 && sizes.length === 0) return null
 
   return (
-    <div className='text-espresso mb-6 flex flex-col gap-3 text-sm lg:text-base'>
+    <div className='text-espresso mb-6 flex flex-row items-start gap-6 text-sm lg:text-base'>
       {colors.map((color) => (
-        <div className='flex items-center gap-3' key={color.label}>
+        <div className='flex flex-col items-center gap-1.5' key={color.label}>
+          <span className='text-xs'>{color.label}</span>
           <span
             aria-hidden
             className='border-espresso/50 size-5 shrink-0 rounded-full border'
             style={color.hex ? { backgroundColor: color.hex } : undefined}
           />
-          <span>{color.label}</span>
         </div>
       ))}
       {sizes.map((size) => (
