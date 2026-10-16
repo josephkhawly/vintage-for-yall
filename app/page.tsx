@@ -13,7 +13,6 @@ export default function Home() {
         overlayOpacity={0}
       />
       <ProductCarousel collection='new-arrivals' />
-      <ImageBanner backgroundImage='/newsletter-stock.jpg' />
     </>
   )
 }
