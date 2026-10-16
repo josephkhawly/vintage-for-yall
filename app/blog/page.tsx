@@ -43,7 +43,7 @@ export default async function BlogPage() {
           ) : null}
           <div className='flex grow flex-col p-8 md:p-10'>
             <div className='mb-4 flex flex-wrap items-center gap-3'>
-              <span className='rounded-md bg-blue-50 px-2.5 py-1 text-xs font-semibold tracking-wider text-blue-700 uppercase'>
+              <span className='bg-teal/50 text-espresso rounded-md px-2.5 py-1 text-xs font-semibold tracking-wider uppercase'>
                 Latest
               </span>
               <time className='text-sm text-gray-500'>
