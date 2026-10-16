@@ -126,7 +126,6 @@ function LineItem({ line }: { line: CartLine }) {
           <input type='hidden' {...register('lineId', { value: line.id })} />
           <button
             aria-describedby={errorGroup ? errorId : undefined}
-            aria-invalid={errorGroup ? true : undefined}
             aria-label={`Remove ${title} from cart`}
             className='text-espresso text-sm underline'
             {...register('remove')}
@@ -159,7 +158,7 @@ function CartTotals() {
           {formatPrice(cart.cost.subtotalAmount)}
         </p>
       </div>
-      <p className='mt-0.5 text-sm text-gray-500'>Shipping and taxes calculated at checkout.</p>
+      <p className='mt-0.5 text-sm text-espresso/90'>Shipping and taxes calculated at checkout.</p>
       {checkoutUrl ? (
         <a
           className='border-espresso bg-sandy-clay font-subheading text-espresso mt-4 flex w-full cursor-pointer items-center justify-center rounded-full border px-10 py-3.5 text-lg tracking-wide uppercase hover:opacity-90'

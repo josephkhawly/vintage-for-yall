@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html className='scrollbar-gutter-stable overflow-x-clip' lang='en'>
       <body
-        className={`${roboto.variable} ${frogmore.variable} font-body text-espresso overflow-x-clip`}
+        className={`${roboto.variable} ${frogmore.variable} bg-white font-body text-espresso overflow-x-clip`}
       >
         <Script
           src='https://cdn.shopify.com/storefront/standard-actions.js'

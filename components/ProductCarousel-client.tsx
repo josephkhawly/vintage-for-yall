@@ -32,7 +32,7 @@ export function ProductCarouselClient({ heading, products }: ProductCarouselClie
           <div className='flex shrink-0 gap-2'>
             <button
               aria-label='Scroll products left'
-              className='text-espresso cursor-pointer p-2'
+              className='text-espresso flex size-11 cursor-pointer items-center justify-center'
               onClick={() => scroll(-1)}
               type='button'
             >
@@ -40,7 +40,7 @@ export function ProductCarouselClient({ heading, products }: ProductCarouselClie
             </button>
             <button
               aria-label='Scroll products right'
-              className='text-espresso cursor-pointer p-2'
+              className='text-espresso flex size-11 cursor-pointer items-center justify-center'
               onClick={() => scroll(1)}
               type='button'
             >

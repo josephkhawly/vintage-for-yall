@@ -21,10 +21,20 @@ export default async function Footer() {
             </a>
           ))}
           <div className='flex items-center gap-5'>
-            <a href='https://www.instagram.com/uglycryvintage' target='_blank'>
+            <a
+              aria-label='Instagram'
+              href='https://www.instagram.com/uglycryvintage'
+              rel='noopener noreferrer'
+              target='_blank'
+            >
               <FaInstagram className='text-espresso text-3xl' />
             </a>
-            <a href='https://uglycryvintage.substack.com/' target='_blank'>
+            <a
+              aria-label='Substack'
+              href='https://uglycryvintage.substack.com/'
+              rel='noopener noreferrer'
+              target='_blank'
+            >
               <BsSubstack className='text-espresso size-6 text-3xl' />
             </a>
           </div>

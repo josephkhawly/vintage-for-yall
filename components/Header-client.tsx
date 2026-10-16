@@ -8,7 +8,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import type * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { HiChevronDown, HiMagnifyingGlass, HiOutlineBars3 } from 'react-icons/hi2'
-import logo from '../public/logo.png'
+import logo from '../public/logo.webp'
 import { AnnouncementBar } from './AnnouncementBar'
 import { CartTrigger } from './cart/CartModal'
 
@@ -76,17 +76,17 @@ export function HeaderClient({ items, shopItems }: HeaderClientProps) {
       if (event.key === 'Escape') close()
     }
 
-    function onPointerDown(event: MouseEvent) {
+    function onPointerDown(event: PointerEvent) {
       if (panelRef.current && !panelRef.current.contains(event.target as Node)) {
         close()
       }
     }
 
     document.addEventListener('keydown', onKeyDown)
-    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('pointerdown', onPointerDown)
     return () => {
       document.removeEventListener('keydown', onKeyDown)
-      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('pointerdown', onPointerDown)
     }
   }, [expanded])
 
@@ -95,7 +95,7 @@ export function HeaderClient({ items, shopItems }: HeaderClientProps) {
   }, [expanded, panel])
 
   return (
-    <header className='sticky top-0 z-20'>
+    <header className='sticky top-0 z-20 pt-[env(safe-area-inset-top)]'>
       <AnnouncementBar />
       <div className='px-3 pt-3 md:px-6 md:pt-5'>
         <div className='relative mx-auto w-full max-w-130'>
@@ -251,7 +251,7 @@ export function HeaderClient({ items, shopItems }: HeaderClientProps) {
                     onSubmit={submitSearch}
                   >
                     <input
-                      className='font-subheading w-full bg-transparent text-sm uppercase outline-none placeholder:text-black/40'
+                      className='font-subheading w-full bg-transparent text-sm uppercase outline-none placeholder:text-black/40 focus-visible:ring-2 focus-visible:ring-black/40'
                       onChange={(event) => setQuery(event.target.value)}
                       placeholder='Type to search'
                       ref={searchInputRef}

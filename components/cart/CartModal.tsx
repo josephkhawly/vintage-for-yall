@@ -5,12 +5,13 @@ import { HiOutlineXMark } from 'react-icons/hi2'
 import { CartContent } from '@/components/cart/CartLines'
 import { useCart } from '@/lib/cart'
 import { CART_DRAWER_ID, closeCartDrawer, openCartDrawer } from '@/lib/cart-drawer'
+import Link from 'next/link'
 
 export function CartTrigger() {
   const totalQuantity = useCart((state) => state.data.totalQuantity)
 
   return (
-    <a
+    <Link
       aria-controls={CART_DRAWER_ID}
       aria-haspopup='dialog'
       aria-label='Open cart'
@@ -22,7 +23,7 @@ export function CartTrigger() {
       }}
     >
       {totalQuantity}
-    </a>
+    </Link>
   )
 }
 
