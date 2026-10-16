@@ -1,6 +1,6 @@
 'use client'
 
-import type { Collection, Menu } from '@/lib/shopify/types'
+import type { Menu } from '@/lib/shopify/types'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,11 +15,11 @@ import { CartTrigger } from './cart/CartModal'
 type Panel = 'menu' | 'search'
 
 interface HeaderClientProps {
-  collections: Collection[]
   items: Menu[]
+  shopItems: Menu[]
 }
 
-export function HeaderClient({ collections, items }: HeaderClientProps) {
+export function HeaderClient({ items, shopItems }: HeaderClientProps) {
   const [panel, setPanel] = useState<Panel | null>(null)
   const [content, setContent] = useState<Panel | null>(null)
   const [expanded, setExpanded] = useState(false)
@@ -198,16 +198,16 @@ export function HeaderClient({ collections, items }: HeaderClientProps) {
                                 )}
                               >
                                 <ul className='min-h-0 overflow-hidden'>
-                                  {collections.map((collection) => (
-                                    <li key={collection.handle || 'all'}>
+                                  {shopItems.map((shopItem) => (
+                                    <li key={shopItem.path}>
                                       <Link
                                         className='font-subheading data-[active=true]:text-espresso block py-1.5 text-center text-lg tracking-wide italic transition-colors hover:text-white md:text-xl'
-                                        data-active={pathname === collection.path}
-                                        href={collection.path}
+                                        data-active={pathname === shopItem.path}
+                                        href={shopItem.path}
                                         onClick={close}
                                         prefetch={true}
                                       >
-                                        {collection.title}
+                                        {shopItem.title}
                                       </Link>
                                     </li>
                                   ))}
