@@ -1,67 +1,24 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import logo1 from '../public/logo.png'
-import { getMenu, getCollections } from '@/lib/shopify'
-import NavItem from './NavItem'
-// import CartModal from './cart/CartModal'
-// import NavDropdown from './NavDropdown'
+import { getCollections, getMenu } from '@/lib/shopify'
+import { HeaderClient } from './Header-client'
 
 const hardcodedMenu = [
   {
-    title: 'Shop',
     path: '/shop',
+    title: 'Shop',
   },
-  // {
-  //   title: 'About',
-  //   path: '/about',
-  // },
   {
-    title: 'Blog',
     path: '/blog',
-  },
-  {
-    title: 'Press',
-    path: '/press',
+    title: 'Blog',
   },
 ]
 
-// function AnnouncementBanner() {
-//   return (
-//     <div className='w-full bg-bubblegum-pink text-white py-1 md:py-2 text-center text-xs md:text-base'>
-//       Come see us at the Silverlake Flea July 4-6!
-//     </div>
-//   )
-// }
+const excludedTitles = new Set(['home', 'press', 'shop'])
 
 export default async function Header() {
-  const menu = await getMenu('main-menu')
-  const collections = await getCollections()
+  const [collections, menu] = await Promise.all([getCollections(), getMenu('main-menu')])
+  const filteredMenu = menu.filter((item) => !excludedTitles.has(item.title.toLowerCase()))
 
-  // Filter out any "Shop" items from the menu to avoid duplication
-  const filteredMenu = menu.filter((item) => item.title.toLowerCase() !== 'shop')
+  const items = [...hardcodedMenu, ...filteredMenu]
 
-  return (
-    <>
-      {/* <AnnouncementBanner /> */}
-      <header className='container mx-auto p-5 md:p-12 flex items-center justify-between'>
-        <Link href='/' prefetch={true}>
-          <Image src={logo1} alt='logo' className='w-20 md:w-37.5' />
-        </Link>
-        {/* <nav>
-          <ul className='flex gap-4 items-center'>
-            <NavItem item={{ title: 'Home', path: '/' }} />
-            {hardcodedMenu.map((item) => (
-              <NavItem key={item.title} item={item} />
-            ))}
-            {filteredMenu.map((item) => (
-              <NavItem key={item.title} item={item} />
-            ))}
-            <li className='ml-8'>
-              <CartModal />
-            </li>
-          </ul>
-        </nav> */}
-      </header>
-    </>
-  )
+  return <HeaderClient collections={collections} items={items} />
 }

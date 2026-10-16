@@ -41,6 +41,7 @@ import {
   ShopifyCreateCartOperation,
   ShopifyMedia,
   ShopifyMenuOperation,
+  ShopifyMetafield,
   ShopifyPageOperation,
   ShopifyPagesOperation,
   ShopifyProduct,
@@ -172,16 +173,24 @@ const reshapeImages = (images: Connection<ShopifyMedia>, productTitle: string) =
   })
 }
 
+function metafieldValue(metafield?: ShopifyMetafield | null) {
+  return metafield?.value.trim() || null
+}
+
 const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
   if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
     return undefined
   }
 
-  const { media, variants, ...rest } = product
+  const { condition, materials, measurements, media, notes, variants, ...rest } = product
 
   return {
     ...rest,
+    condition: metafieldValue(condition),
     images: reshapeImages(media, product.title),
+    materials: metafieldValue(materials),
+    measurements: metafieldValue(measurements),
+    notes: metafieldValue(notes),
     variants: removeEdgesAndNodes(variants),
   }
 }

@@ -2,15 +2,18 @@ const mediaFragment = /* GraphQL */ `
   fragment mediaFieldsByType on Media {
     ... on MediaImage {
       image {
+        altText
+        height
         url
+        width
       }
     }
     ... on Video {
       sources {
-        url
-        mimeType
         format
         height
+        mimeType
+        url
         width
       }
     }

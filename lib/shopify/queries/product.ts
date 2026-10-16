@@ -4,10 +4,22 @@ export const getProductQuery = /* GraphQL */ `
   query getProduct($handle: String!) {
     product(handle: $handle) {
       ...product
+      condition: metafield(namespace: "custom", key: "condition") {
+        value
+      }
+      materials: metafield(namespace: "custom", key: "materials") {
+        value
+      }
+      measurements: metafield(namespace: "custom", key: "measurements") {
+        value
+      }
+      notes: metafield(namespace: "custom", key: "notes") {
+        value
+      }
     }
   }
   ${productFragment}
-`;
+`
 
 export const getProductsQuery = /* GraphQL */ `
   query getProducts($sortKey: ProductSortKeys, $reverse: Boolean, $query: String) {

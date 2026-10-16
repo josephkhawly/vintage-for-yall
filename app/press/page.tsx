@@ -1,6 +1,7 @@
 import { pressClippings } from '@/lib/writingSamples'
 import Image from 'next/image'
 import type { Metadata } from 'next'
+import { PageContainer } from '@/components/PageContainer'
 
 export const metadata: Metadata = {
   title: "Press | Ugly Cry Vintage",
@@ -9,9 +10,11 @@ export const metadata: Metadata = {
 
 export default function Press() {
   return (
-    <>
-      <div className='lg:flex justify-between items-start'>
-        <h1 className='text-6xl lg:text-9xl mb-8 font-frogmore text-espresso tracking-wide'>Published Press</h1>
+    <PageContainer>
+      <div className='items-start justify-between lg:flex'>
+        <h1 className='mb-8 font-frogmore text-6xl tracking-wide text-espresso lg:text-9xl'>
+          Published Press
+        </h1>
         <div>
           {pressClippings.map((clipping) => (
             <div key={clipping.url} className='mb-4'>
@@ -22,6 +25,6 @@ export default function Press() {
           ))}
         </div>
       </div>
-    </>
+    </PageContainer>
   )
 }

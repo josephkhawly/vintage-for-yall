@@ -1,32 +1,27 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { getProducts } from '@/lib/shopify'
+import { defaultSort } from '@/lib/constants'
+import { Product } from '@/lib/shopify/types'
+import ProductCard from '@/components/ProductCard'
 
 export const metadata: Metadata = {
   title: "Shop | Ugly Cry Vintage",
   description: '',
 }
 
-export default function Shop() {
+export default async function Shop() {
+  const { sortKey, reverse } = defaultSort
+  const products = await getProducts({ sortKey, reverse })
+
   return (
     <>
-      <h1 className='text-4xl sm:text-6xl mb-8 font-frogmore text-espresso tracking-wide'>Coming soon...</h1>
+      <h1 className='mb-8 pt-16 text-center text-4xl sm:pt-24 sm:text-6xl'>Everything</h1>
       <div>
-        <p>We're still working on the shop. In the meantime, you can buy from us on{' '}
-          <Link
-            href="https://www.depop.com/uglycryvintage/"
-            className="text-espresso underline underline-offset-2"
-          >
-            Depop
-          </Link>{' '}
-          or{' '}
-          <Link
-            href="https://www.etsy.com/shop/UglyCryVintage"
-            className="text-espresso underline underline-offset-2"
-          >
-            Etsy
-          </Link>
-          .
-        </p>
+        <ul className='grid grid-flow-row grid-cols-2 gap-x-0 gap-y-4 md:grid-cols-3 lg:grid-cols-4 px-2'>
+          {products.map((product: Product) => (
+            <ProductCard key={product.handle} product={product} />
+          ))}
+        </ul>
       </div>
     </>
   )
