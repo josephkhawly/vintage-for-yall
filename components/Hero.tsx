@@ -39,25 +39,27 @@ export function Hero({
         src={backgroundImage}
       />
       {overlayOpacity > 0 ? (
-        <div className='absolute inset-0 bg-espresso' style={{ opacity: overlayOpacity }} />
+        <div className='bg-espresso absolute inset-0' style={{ opacity: overlayOpacity }} />
       ) : null}
       <div className='relative flex h-full flex-col items-center justify-center px-6 text-center md:px-12'>
         {heading ? (
-          <h1 className='max-w-4xl font-frogmore text-5xl tracking-wide text-white md:text-7xl'>
+          <h1 className='font-frogmore max-w-4xl text-5xl tracking-wide text-white md:text-7xl'>
             {heading}
           </h1>
         ) : null}
         {supportingText ? (
-          <p className='mt-4 max-w-xl font-body text-lg text-white/90 md:text-xl'>{supportingText}</p>
+          <p className='font-body mt-4 max-w-xl text-lg text-white/90 md:text-xl'>
+            {supportingText}
+          </p>
         ) : null}
         {cta ? (
           href ? (
-            <span className='mt-5 rounded-md bg-silver px-6 py-3 tracking-wide text-espresso'>
+            <span className='bg-silver text-espresso mt-5 rounded-md px-6 py-3 tracking-wide'>
               {cta.label}
             </span>
           ) : (
             <Link
-              className='mt-5 cursor-pointer rounded-md bg-silver px-6 py-3 tracking-wide text-espresso hover:opacity-90'
+              className='bg-silver text-espresso mt-5 cursor-pointer rounded-md px-6 py-3 tracking-wide hover:opacity-90'
               href={cta.href}
             >
               {cta.label}

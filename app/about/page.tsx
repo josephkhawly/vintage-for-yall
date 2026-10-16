@@ -5,7 +5,7 @@ import { PageContainer } from '@/components/PageContainer'
 export default function About() {
   return (
     <PageContainer>
-      <h1 className='mb-8 font-frogmore text-4xl tracking-widest sm:text-6xl'>ABOUT</h1>
+      <h1 className='font-frogmore mb-8 text-4xl tracking-widest sm:text-6xl'>ABOUT</h1>
       <div className='items-start gap-8 lg:flex'>
         <Image src={bioImage} alt='Photo of Ariel Khawly' width={600} className='mb-5 lg:mb-0' />
         <div>

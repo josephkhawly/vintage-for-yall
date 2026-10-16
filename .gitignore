@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Hydrogen GraphQL generated ambient types
+storefront-graphql-env.d.ts
+customer-account-graphql-env.d.ts

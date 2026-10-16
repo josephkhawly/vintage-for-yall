@@ -1,5 +1,8 @@
-const mediaFragment = /* GraphQL */ `
+import { gql } from '@shopify/hydrogen'
+
+export const mediaFragment = gql(`
   fragment mediaFieldsByType on Media {
+    __typename
     ... on MediaImage {
       image {
         altText
@@ -18,6 +21,4 @@ const mediaFragment = /* GraphQL */ `
       }
     }
   }
-`
-
-export default mediaFragment
+`)

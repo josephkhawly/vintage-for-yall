@@ -1,7 +1,11 @@
-import mediaFragment from './image'
-import seoFragment from './seo'
+import { gql } from '@shopify/hydrogen'
 
-const productFragment = /* GraphQL */ `
+import { categoryAttributesFragment } from '../category-attributes'
+import { mediaFragment } from './image'
+import { seoFragment } from './seo'
+
+export const productFragment = gql(
+  `
   fragment product on Product {
     id
     handle
@@ -9,6 +13,8 @@ const productFragment = /* GraphQL */ `
     description
     descriptionHtml
     availableForSale
+    productType
+    ...categoryAttributes
     priceRange {
       maxVariantPrice {
         amount
@@ -19,7 +25,7 @@ const productFragment = /* GraphQL */ `
         currencyCode
       }
     }
-    variants(first: 2) {
+    variants(first: 100) {
       edges {
         node {
           id
@@ -37,7 +43,7 @@ const productFragment = /* GraphQL */ `
       }
     }
     featuredImage {
-      url 
+      url
       altText
       width
       height
@@ -56,8 +62,6 @@ const productFragment = /* GraphQL */ `
     tags
     updatedAt
   }
-  ${mediaFragment}
-  ${seoFragment}
-`
-
-export default productFragment
+`,
+  [categoryAttributesFragment, mediaFragment, seoFragment],
+)

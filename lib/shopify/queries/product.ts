@@ -1,44 +1,53 @@
-import productFragment from '../fragments/product';
+import { gql } from '@shopify/hydrogen'
 
-export const getProductQuery = /* GraphQL */ `
-  query getProduct($handle: String!) {
+import { productFragment } from '../fragments/product'
+
+export const getProductQuery = gql(
+  `
+  query getProduct($handle: String!, $identifiers: [HasMetafieldsIdentifier!]!) {
     product(handle: $handle) {
       ...product
-      condition: metafield(namespace: "custom", key: "condition") {
-        value
-      }
-      materials: metafield(namespace: "custom", key: "materials") {
-        value
-      }
-      measurements: metafield(namespace: "custom", key: "measurements") {
-        value
-      }
-      notes: metafield(namespace: "custom", key: "notes") {
+      metafields(identifiers: $identifiers) {
+        key
         value
       }
     }
   }
-  ${productFragment}
-`
+`,
+  [productFragment],
+)
 
-export const getProductsQuery = /* GraphQL */ `
-  query getProducts($sortKey: ProductSortKeys, $reverse: Boolean, $query: String) {
-    products(sortKey: $sortKey, reverse: $reverse, query: $query, first: 100) {
+export const getProductsQuery = gql(
+  `
+  query getProducts(
+    $after: String
+    $query: String
+    $reverse: Boolean
+    $sortKey: ProductSortKeys
+  ) {
+    products(after: $after, first: 250, query: $query, reverse: $reverse, sortKey: $sortKey) {
       edges {
         node {
           ...product
         }
       }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
-  ${productFragment}
-`;
+`,
+  [productFragment],
+)
 
-export const getProductRecommendationsQuery = /* GraphQL */ `
+export const getProductRecommendationsQuery = gql(
+  `
   query getProductRecommendations($productId: ID!) {
     productRecommendations(productId: $productId) {
       ...product
     }
   }
-  ${productFragment}
-`;
+`,
+  [productFragment],
+)

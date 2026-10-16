@@ -25,22 +25,22 @@ export default function NavDropdown({ collections }: { collections: Collection[]
     <div className='relative' ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className='flex items-center transition duration-150 ease-in-out focus:outline-none text-md lg:text-lg'
+        className='text-md flex items-center transition duration-150 ease-in-out focus:outline-none lg:text-lg'
         aria-expanded={isOpen}
       >
         Shop
         <HiChevronDown
-          className={`size-4 ml-1 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`ml-1 size-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
       {isOpen && (
-        <div className='absolute z-50 left-0 mt-2 py-2 w-56 bg-white rounded-md shadow-lg border border-gray-100 max-h-80 overflow-y-auto'>
+        <div className='absolute left-0 z-50 mt-2 max-h-80 w-56 overflow-y-auto rounded-md border border-gray-100 bg-white py-2 shadow-lg'>
           {collections.map((collection) => (
             <Link
               key={collection.handle}
               href={collection.path}
-              className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition duration-150 ease-in-out'
+              className='block px-4 py-2 text-sm text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100'
               onClick={() => setIsOpen(false)}
             >
               {collection.title}

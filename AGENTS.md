@@ -1,5 +1,11 @@
 # Ugly Cry Vintage
 
+Ugly Cry Vintage is a Next.js storefront for Shopify, deployed to Vercel, with agent skills in `.agents/skills/`.
+
+## About this store
+
+- Ugly Cry Vintage is a vintage clothing store. There is only one of each product available in one size and color. This means that certain elements that are typical in other e-commerce stores, such as quantity selectors, are unnecessary.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know
@@ -37,11 +43,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ### Tailwind & Styling
 
-- **Solve it the Tailwind way, not in `globals.css`.** When you reach for new styling, the first move is a Tailwind utility on the element — not a rule in `app/globals.css`. If the value isn't already a token, register it in `@theme` (e.g. `--font-display: var(--font-bricolage)`) so it becomes a real utility (`font-display`) you can apply per element. Reserve `globals.css` for things that genuinely can't be expressed as a per-element class: theme tokens (`@theme`), CSS resets in `@layer base`, `@keyframes`, and one-off utilities under `@layer utilities` that compose into many components. Adding global element rules (`h1, h2, h3 { ... }`, `a { ... }`) couples styling to markup invisibly and is almost always avoidable.
-- **Watch out for `@theme inline`**: with the `inline` keyword Tailwind inlines the value into utility-class declarations rather than emitting a `:root` CSS variable. So `@theme inline { --font-display: var(--font-bricolage) }` produces a working `font-display` utility but does **not** make `var(--font-display)` resolvable from arbitrary CSS. Reference the underlying variable (`var(--font-bricolage)`) directly if you need it outside a utility.
-- Prefer `data-[attr=value]` selectors over conditional class assembly.
-- Use `data-slot` attributes as stable styling hooks on compound components.
-- Interactive elements (buttons, clickable links, CTAs) must use `cursor-pointer`. Disabled interactive elements must use `cursor-not-allowed`.
+- Style with utilities, not `app/globals.css`. Register new values in `@theme`; keep `globals.css` to tokens, resets, keyframes, and shared utilities, with no global element rules.
+- `@theme inline` does not emit `:root` variables; outside utilities, reference the underlying variable.
+- Prefer scale utilities (`h-18`, `top-1/2`) to arbitrary values, which are for off-scale values such as `calc()` or grid templates.
+- Prefer `data-[attr=value]` selectors to conditional classes; use `cn()` when classes must be conditional, `data-slot` as styling hooks, and `cva` for variants.
+- Interactive elements use `cursor-pointer`; disabled ones use `cursor-not-allowed`.
 
 ### Exports
 
@@ -50,24 +56,4 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ### Comments
 
-Default to writing none. Well-named identifiers, types, and tests already document WHAT the code does. Add a comment only when removing it would leave a future reader genuinely confused — and the reason is something they couldn't recover by reading the surrounding code.
-
-A comment earns its place when it captures one of:
-
-- A hidden constraint (e.g. "cookies can't be set during stream").
-- A workaround for a specific upstream/library bug.
-- A non-obvious algorithmic choice or invariant.
-- A cross-system quirk (e.g. "Shopify's `productFilters` only affects facet counts, not results").
-
-**One line max.** If you can't say it in a single line, the code probably needs renaming, splitting, or extracting a constant — not more prose. Long-form context belongs in the PR description, not the source file.
-
-Don't write:
-
-- JSDoc that restates the function name (`/** Verify webhook signature */` over `verifyWebhook()`). Either drop it or replace it with the WHY.
-- Inline comments that narrate the next line (`// fetch products` above `fetchProducts()`).
-- References to current work (`// added for cart refactor`, `// part of issue #123`, `// new`). That belongs in the PR description.
-- File-top banner comments and `// ── Section ──`-style dividers. If a file is large enough that you reach for one, split the file instead.
-- Bare `// TODO` without an owner or actionable reason. Either write `// TODO(handle): explain blocker` or fix the thing now.
-- Multi-paragraph docstrings on simple functions. If the JSDoc fits on one line, inline it; if you reach for multiple paragraphs, that's a signal to split or rename, not to write more prose.
-
-Keep `// eslint-disable-*`, `// @ts-expect-error`, `// biome-ignore`, and other tooling directives — those are not prose comments.
+Default to none. A comment is one line stating a hidden constraint, an upstream workaround, a non-obvious invariant, or a cross-system quirk, and survives only if an agent would otherwise break behavior. Never restate names, narrate code, reference current work or PRs, add banners, leave a `TODO` without `TODO(handle): reason`, or write multi-line prose. Keep tooling directives and generated or license headers.

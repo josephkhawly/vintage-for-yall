@@ -30,7 +30,13 @@ export default function ImageBlock({
         ${price}
       </p>
       <p>
-        <Image alt={alt} src={src} width={imgWidth ?? 353} height={imgHeight ?? 529} className='mb-3 mx-auto' />
+        <Image
+          alt={alt}
+          src={src}
+          width={imgWidth ?? 353}
+          height={imgHeight ?? 529}
+          className='mx-auto mb-3'
+        />
       </p>
       <p className='mb-[15px]'>{description}</p>
     </>

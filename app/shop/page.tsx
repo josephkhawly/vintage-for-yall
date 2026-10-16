@@ -1,28 +1,31 @@
 import type { Metadata } from 'next'
-import { getProducts } from '@/lib/shopify'
-import { defaultSort } from '@/lib/constants'
-import { Product } from '@/lib/shopify/types'
-import ProductCard from '@/components/ProductCard'
+
+import { ProductListing, resolveSort } from '@/components/ProductListing'
+import { parsePlpFilters } from '@/lib/plp-filters'
+import { getPlpListing } from '@/lib/shopify'
 
 export const metadata: Metadata = {
-  title: "Shop | Ugly Cry Vintage",
   description: '',
+  title: 'Shop | Ugly Cry Vintage',
 }
 
-export default async function Shop() {
-  const { sortKey, reverse } = defaultSort
-  const products = await getProducts({ sortKey, reverse })
+export default async function Shop(props: {
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const searchParams = (await props.searchParams) ?? {}
+  const sortParam = typeof searchParams.sort === 'string' ? searchParams.sort : undefined
+  const { reverse, sortKey } = resolveSort(sortParam)
+  const filters = parsePlpFilters(searchParams)
+  const { facets, products } = await getPlpListing({ filters, reverse, sortKey })
 
   return (
-    <>
-      <h1 className='mb-8 pt-16 text-center text-4xl sm:pt-24 sm:text-6xl'>Everything</h1>
-      <div>
-        <ul className='grid grid-flow-row grid-cols-2 gap-x-0 gap-y-4 md:grid-cols-3 lg:grid-cols-4 px-2'>
-          {products.map((product: Product) => (
-            <ProductCard key={product.handle} product={product} />
-          ))}
-        </ul>
-      </div>
-    </>
+    <ProductListing
+      actionPath='/shop'
+      facets={facets}
+      filters={filters}
+      products={products}
+      sort={sortParam ?? null}
+      title='Everything'
+    />
   )
 }

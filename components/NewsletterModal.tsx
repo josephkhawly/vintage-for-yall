@@ -45,11 +45,11 @@ export function NewsletterModal() {
             leaveFrom='opacity-100 scale-100'
             leaveTo='opacity-0 scale-95'
           >
-            <DialogPanel className="relative flex min-h-48 w-full max-w-2xl items-center justify-center overflow-hidden rounded-3xl bg-[url('/background-texture.jpg')] bg-cover bg-no-repeat text-espresso shadow-lg md:min-h-114">
+            <DialogPanel className="text-espresso relative flex min-h-48 w-full max-w-2xl items-center justify-center overflow-hidden rounded-3xl bg-[url('/background-texture.jpg')] bg-cover bg-no-repeat shadow-lg md:min-h-114">
               <div className='relative flex w-full flex-col items-center justify-center px-8 py-14 text-center md:px-10 md:py-16'>
                 <button
                   aria-label='Close newsletter signup'
-                  className='absolute right-3 top-3 cursor-pointer text-espresso hover:opacity-70'
+                  className='text-espresso absolute top-3 right-3 cursor-pointer hover:opacity-70'
                   onClick={closeModal}
                   type='button'
                 >
@@ -59,7 +59,7 @@ export function NewsletterModal() {
                 <DialogTitle className='font-frogmore text-5xl tracking-wide md:text-6xl'>
                   Join the list
                 </DialogTitle>
-                <p className='mt-4 max-w-sm font-body text-lg text-espresso/80 md:text-xl'>
+                <p className='font-body text-espresso/80 mt-4 max-w-sm text-lg md:text-xl'>
                   Get first dibs on upcoming vintage drops and event news plus an exclusive welcome
                   discount.
                 </p>

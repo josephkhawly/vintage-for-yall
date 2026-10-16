@@ -90,7 +90,7 @@ function ThumbnailStrip({ images, onSelect, selectedIndex }: ThumbnailStripProps
     <div className='flex w-16 shrink-0 flex-col items-center gap-1 sm:w-20'>
       <button
         aria-label='Previous image'
-        className='cursor-pointer p-1.5 text-espresso'
+        className='text-espresso cursor-pointer p-1.5'
         onClick={() => step(-1)}
         type='button'
       >
@@ -98,14 +98,14 @@ function ThumbnailStrip({ images, onSelect, selectedIndex }: ThumbnailStripProps
       </button>
 
       <div
-        className='flex max-h-80 w-full flex-col gap-2 overflow-y-auto overscroll-contain [scrollbar-width:none] sm:max-h-96 [&::-webkit-scrollbar]:hidden'
+        className='flex max-h-80 w-full [scrollbar-width:none] flex-col gap-2 overflow-y-auto overscroll-contain sm:max-h-96 [&::-webkit-scrollbar]:hidden'
         ref={listRef}
       >
         {images.map((image, index) => (
           <button
             aria-current={index === selectedIndex ? 'true' : undefined}
             aria-label={`View product image ${index + 1}`}
-            className='w-full shrink-0 cursor-pointer border border-transparent p-0 data-[selected=true]:border-espresso'
+            className='data-[selected=true]:border-espresso w-full shrink-0 cursor-pointer border border-transparent p-0'
             data-selected={index === selectedIndex}
             key={`${image.url}-${index}`}
             onClick={() => onSelect(index)}
@@ -125,7 +125,7 @@ function ThumbnailStrip({ images, onSelect, selectedIndex }: ThumbnailStripProps
 
       <button
         aria-label='Next image'
-        className='cursor-pointer p-1.5 text-espresso'
+        className='text-espresso cursor-pointer p-1.5'
         onClick={() => step(1)}
         type='button'
       >
@@ -135,13 +135,7 @@ function ThumbnailStrip({ images, onSelect, selectedIndex }: ThumbnailStripProps
   )
 }
 
-function ImageLightbox({
-  images,
-  isOpen,
-  onClose,
-  onSelect,
-  selectedIndex,
-}: ImageLightboxProps) {
+function ImageLightbox({ images, isOpen, onClose, onSelect, selectedIndex }: ImageLightboxProps) {
   const selectedImage = images[selectedIndex]
 
   return (
@@ -160,7 +154,7 @@ function ImageLightbox({
             <DialogPanel className='relative flex size-full flex-col bg-white'>
               <button
                 aria-label='Close image gallery'
-                className='absolute right-3 top-3 z-10 cursor-pointer p-2 text-espresso hover:opacity-70 md:right-5 md:top-5'
+                className='text-espresso absolute top-3 right-3 z-10 cursor-pointer p-2 hover:opacity-70 md:top-5 md:right-5'
                 onClick={onClose}
                 type='button'
               >

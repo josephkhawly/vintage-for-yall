@@ -1,3 +1,5 @@
+import { formatPrice } from '@/lib/money'
+
 const Price = ({
   amount,
   className,
@@ -8,11 +10,7 @@ const Price = ({
   currencyCode: string
 } & React.ComponentProps<'p'>) => (
   <p suppressHydrationWarning={true} className={className}>
-    {`${new Intl.NumberFormat(undefined, {
-      style: 'currency',
-      currency: currencyCode,
-      currencyDisplay: 'narrowSymbol',
-    }).format(parseFloat(amount))}`}
+    {formatPrice({ amount, currencyCode })}
   </p>
 )
 

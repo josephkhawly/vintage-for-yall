@@ -1,11 +1,14 @@
 'use client'
 
 import { useActionState, useEffect, useRef } from 'react'
-import { subscribeNewsletterAction } from '@/components/newsletter/actions'
+import {
+  subscribeToNewsletter,
+  type NewsletterFormState,
+} from '@/app/actions/newsletter'
 
-const INITIAL_STATE = {
+const INITIAL_STATE: NewsletterFormState = {
   message: '',
-  status: 'idle' as const,
+  status: 'idle',
 }
 
 interface NewsletterFormProps {
@@ -13,10 +16,7 @@ interface NewsletterFormProps {
 }
 
 export function NewsletterForm({ variant }: NewsletterFormProps) {
-  const [state, formAction, isPending] = useActionState(
-    subscribeNewsletterAction,
-    INITIAL_STATE,
-  )
+  const [state, formAction, isPending] = useActionState(subscribeToNewsletter, INITIAL_STATE)
   const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
@@ -38,30 +38,18 @@ export function NewsletterForm({ variant }: NewsletterFormProps) {
       ref={formRef}
     >
       {isModal ? (
-        <label
-          className='flex cursor-pointer items-start gap-3 text-left font-body text-sm text-espresso/80'
-          htmlFor='newsletter-modal-substack'
-        >
-          <input
-            className='mt-0.5 size-4 shrink-0 cursor-pointer accent-espresso'
-            id='newsletter-modal-substack'
-            name='substack'
-            type='checkbox'
-            value='1'
-          />
-          <span>
-            Also sign me up for UCV&apos;s{' '}
-            <a
-              className='cursor-pointer underline underline-offset-2 hover:opacity-70'
-              href='https://uglycryvintage.substack.com/?utm_campaign=profile_chips'
-              rel='noopener noreferrer'
-              target='_blank'
-            >
-              Secondhand Hysteria
-            </a>{' '}
-            on Substack
-          </span>
-        </label>
+        <p className='font-body text-espresso/80 text-left text-sm'>
+          Also check out UCV&apos;s{' '}
+          <a
+            className='cursor-pointer underline underline-offset-2 hover:opacity-70'
+            href='https://uglycryvintage.substack.com/?utm_campaign=profile_chips'
+            rel='noopener noreferrer'
+            target='_blank'
+          >
+            Secondhand Hysteria
+          </a>{' '}
+          on Substack
+        </p>
       ) : null}
 
       <label className='sr-only' htmlFor={isModal ? 'newsletter-modal-email' : 'newsletter-email'}>
@@ -72,8 +60,8 @@ export function NewsletterForm({ variant }: NewsletterFormProps) {
         autoComplete='email'
         className={
           isModal
-            ? 'w-full rounded-md border border-espresso/20 bg-white px-4 py-3 text-espresso placeholder:text-espresso/40'
-            : 'min-w-0 flex-1 rounded-md border border-espresso/20 bg-white px-3 py-2 text-espresso placeholder:text-espresso/50 md:w-56 md:flex-none'
+            ? 'border-espresso/20 text-espresso placeholder:text-espresso/40 w-full rounded-md border bg-white px-4 py-3'
+            : 'border-espresso/20 text-espresso placeholder:text-espresso/50 min-w-0 flex-1 rounded-md border bg-white px-3 py-2 md:w-56 md:flex-none'
         }
         disabled={isPending}
         id={isModal ? 'newsletter-modal-email' : 'newsletter-email'}
@@ -85,8 +73,8 @@ export function NewsletterForm({ variant }: NewsletterFormProps) {
       <button
         className={
           isModal
-            ? 'cursor-pointer rounded-full border border-espresso bg-sandy-clay px-10 py-3.5 font-subheading text-lg tracking-wide text-espresso uppercase hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60'
-            : 'shrink-0 cursor-pointer rounded-md bg-silver px-4 py-2 tracking-wide text-espresso hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60'
+            ? 'border-espresso bg-sandy-clay font-subheading text-espresso cursor-pointer rounded-full border px-10 py-3.5 text-lg tracking-wide uppercase hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60'
+            : 'bg-silver text-espresso shrink-0 cursor-pointer rounded-md px-4 py-2 tracking-wide hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60'
         }
         disabled={isPending}
         type='submit'
@@ -97,8 +85,8 @@ export function NewsletterForm({ variant }: NewsletterFormProps) {
         aria-live='polite'
         className={
           isModal
-            ? 'min-h-5 font-body text-sm text-espresso'
-            : 'basis-full font-body text-sm text-espresso'
+            ? 'font-body text-espresso min-h-5 text-sm'
+            : 'font-body text-espresso basis-full text-sm'
         }
         id={`${variant}-newsletter-message`}
         role='status'

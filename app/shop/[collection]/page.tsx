@@ -1,7 +1,6 @@
-import ProductCard from '@/components/ProductCard'
-import { defaultSort, sorting } from '@/lib/constants'
-import { getCollection, getCollectionProducts } from '@/lib/shopify'
-import { Product } from '@/lib/shopify/types'
+import { ProductListing, resolveSort } from '@/components/ProductListing'
+import { parsePlpFilters } from '@/lib/plp-filters'
+import { getCollection, getPlpListing } from '@/lib/shopify'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
@@ -14,9 +13,9 @@ export async function generateMetadata(props: {
   if (!collection) return notFound()
 
   return {
-    title: `${collection.seo?.title || collection.title} | Ugly Cry Vintage`,
     description:
       collection.seo?.description || collection.description || `${collection.title} products`,
+    title: `${collection.seo?.title || collection.title} | Ugly Cry Vintage`,
   }
 }
 
@@ -24,31 +23,28 @@ export default async function CategoryPage(props: {
   params: Promise<{ collection: string }>
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const searchParams = await props.searchParams
+  const searchParams = (await props.searchParams) ?? {}
   const params = await props.params
-  const { sort } = searchParams as { [key: string]: string }
-  const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort
-  const products = await getCollectionProducts({ collection: params.collection, sortKey, reverse })
-  const collectionData = await getCollection(params.collection)
+  const sortParam = typeof searchParams.sort === 'string' ? searchParams.sort : undefined
+  const { reverse, sortKey } = resolveSort(sortParam)
+  const filters = parsePlpFilters(searchParams)
+  const { collection, facets, products } = await getPlpListing({
+    collectionHandle: params.collection,
+    filters,
+    reverse,
+    sortKey,
+  })
+
+  if (!collection) return notFound()
 
   return (
-    <section>
-      {products.length === 0 ? (
-        <p className='py-3 text-lg'>{`No products found in this collection`}</p>
-      ) : (
-        <>
-          <h1 className='mb-8 pt-16 text-center text-4xl sm:pt-24 sm:text-6xl'>
-            {collectionData?.title || 'Shop'}
-          </h1>
-          <div>
-            <ul className='grid grid-flow-row grid-cols-2 gap-x-0 gap-y-4 md:grid-cols-3 lg:grid-cols-4 px-2'>
-              {products.map((product: Product) => (
-                <ProductCard key={product.handle} product={product} />
-              ))}
-            </ul>
-          </div>
-        </>
-      )}
-    </section>
+    <ProductListing
+      actionPath={`/shop/${params.collection}`}
+      facets={facets}
+      filters={filters}
+      products={products}
+      sort={sortParam ?? null}
+      title={collection.title}
+    />
   )
 }

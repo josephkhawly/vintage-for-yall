@@ -1,5 +1,5 @@
-import { XMLParser } from "fast-xml-parser"
-import { decode } from "html-entities"
+import { XMLParser } from 'fast-xml-parser'
+import { decode } from 'html-entities'
 
 interface SubstackPost {
   title: string

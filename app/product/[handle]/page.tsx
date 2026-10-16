@@ -2,6 +2,7 @@ import { AddToCart } from '@/components/cart/AddToCart'
 import { ImageGallery } from '@/components/ImageGallery'
 import Price from '@/components/Price'
 import { ProductAccordions } from '@/components/ProductAccordions'
+import { ProductAttributes } from '@/components/ProductAttributes'
 import { ProductProvider } from '@/components/ProductContext'
 import Prose from '@/components/Prose'
 import { HIDDEN_PRODUCT_TAG } from '@/lib/constants'
@@ -81,34 +82,30 @@ export default async function ProductPage(props: PageProps) {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className='container mx-auto grid grid-cols-1 grid-flow-row items-start gap-6 px-6 pb-12 pt-16 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:gap-8 md:px-12 sm:pt-24'>
-        <div className='min-w-0 w-full'>
+      <div className='container mx-auto grid grid-flow-row grid-cols-1 items-start gap-6 px-6 pt-16 pb-12 sm:pt-24 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:gap-8 md:px-12'>
+        <div className='w-full min-w-0'>
           <ImageGallery images={product.images} />
         </div>
-        <div className='min-w-0 w-full font-subheading'>
-          <h1 className='mb-1 font-body text-[1.75rem] tracking-wide lg:text-[2.125rem]'>
+        <div className='font-subheading w-full min-w-0'>
+          <h1 className='font-body mb-1 text-[1.75rem] tracking-wide lg:text-[2.125rem]'>
             {product.title}
           </h1>
           <Price
             amount={priceRange.minVariantPrice.amount}
             currencyCode={priceRange.minVariantPrice.currencyCode}
-            className='mb-6 text-sm text-espresso lg:text-base'
+            className='text-espresso mb-3 text-sm lg:text-base'
           />
+          <ProductAttributes colors={product.colors} sizes={product.sizes} />
           <div className='flex flex-col-reverse md:flex-col'>
             {product.descriptionHtml ? (
               <Prose
-                className='mb-6 mt-6 font-subheading text-md leading-tight md:mt-0'
+                className='font-subheading text-md mt-6 mb-6 leading-tight md:mt-0'
                 html={product.descriptionHtml}
               />
             ) : null}
             <AddToCart product={product} />
           </div>
-          <ProductAccordions
-            condition={product.condition}
-            materials={product.materials}
-            measurements={product.measurements}
-            notes={product.notes}
-          />
+          <ProductAccordions details={product.details} />
         </div>
       </div>
     </ProductProvider>

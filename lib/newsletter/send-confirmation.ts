@@ -5,9 +5,7 @@ function getSiteUrl(): string {
     return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '')
   }
 
-  // Never use request Host / X-Forwarded-* — client-supplied hosts can poison
-  // confirmation links. On preview/dev, prefer this deployment's VERCEL_URL so
-  // links stay on the same environment (not production).
+  // Prefer VERCEL_URL on preview/dev; never trust request Host (link poisoning).
   const vercelEnv = process.env.VERCEL_ENV
   if (vercelEnv && vercelEnv !== 'production' && process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL.replace(/\/$/, '')}`
@@ -58,8 +56,7 @@ function isCompletedIdempotentReplay(error: unknown): boolean {
   if (!error || typeof error !== 'object') return false
   const record = error as { name?: string; message?: string }
   const message = (record.message ?? '').toLowerCase()
-  // Resend returns this when the key was already used with a *completed*
-  // request that had a different body. Concurrent in-flight 409s are not this.
+  // Completed Resend idempotent replay with a different body — already sent.
   return (
     record.name === 'invalid_idempotent_request' ||
     (message.includes('idempotency') && message.includes('different'))
@@ -127,10 +124,7 @@ export async function sendNewsletterConfirmationEmail({
     </div>
   `
 
-  // Deduplicate rapid repeat signups for the same address within a 5-minute window.
-  // Retries mint a new token/body. Only treat a *completed* different-body replay
-  // as success (first email already accepted). Concurrent in-flight conflicts
-  // get one short retry so we do not report inbox success if the first send fails.
+  // 5-min idempotency window; completed different-body replay = success; in-flight 409 retries once.
   const idempotencyKey = `newsletter-confirm/${email}/${Math.floor(Date.now() / (1000 * 60 * 5))}`
   const payload = {
     from: getFromAddress(),

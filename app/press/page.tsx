@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { PageContainer } from '@/components/PageContainer'
 
 export const metadata: Metadata = {
-  title: "Press | Ugly Cry Vintage",
+  title: 'Press | Ugly Cry Vintage',
   description: '',
 }
 
@@ -12,7 +12,7 @@ export default function Press() {
   return (
     <PageContainer>
       <div className='items-start justify-between lg:flex'>
-        <h1 className='mb-8 font-frogmore text-6xl tracking-wide text-espresso lg:text-9xl'>
+        <h1 className='font-frogmore text-espresso mb-8 text-6xl tracking-wide lg:text-9xl'>
           Published Press
         </h1>
         <div>
