@@ -7,7 +7,6 @@ import { ImageGallery } from '@/components/ImageGallery'
 import Price from '@/components/Price'
 import { ProductAccordions } from '@/components/ProductAccordions'
 import { ProductAttributes } from '@/components/ProductAttributes'
-import { ProductProvider } from '@/components/ProductContext'
 import Prose from '@/components/Prose'
 import { HIDDEN_PRODUCT_TAG } from '@/lib/constants'
 import { getProduct } from '@/lib/shopify'
@@ -77,10 +76,10 @@ async function ProductDetails({ params }: PageProps) {
   }
 
   return (
-    <ProductProvider>
+    <>
       <script
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(productJsonLd),
+          __html: JSON.stringify(productJsonLd).replace(/</g, '\\u003c'),
         }}
         type='application/ld+json'
       />
@@ -110,7 +109,7 @@ async function ProductDetails({ params }: PageProps) {
           <ProductAccordions details={product.details} />
         </div>
       </div>
-    </ProductProvider>
+    </>
   )
 }
 
