@@ -3,7 +3,6 @@ import { ImageGallery } from '@/components/ImageGallery'
 import Price from '@/components/Price'
 import { ProductAccordions } from '@/components/ProductAccordions'
 import { ProductAttributes } from '@/components/ProductAttributes'
-import { ProductProvider } from '@/components/ProductContext'
 import Prose from '@/components/Prose'
 import { HIDDEN_PRODUCT_TAG } from '@/lib/constants'
 import { getProduct } from '@/lib/shopify'
@@ -75,11 +74,11 @@ export default async function ProductPage(props: PageProps) {
   }
 
   return (
-    <ProductProvider>
+    <>
       <script
         type='application/ld+json'
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(productJsonLd),
+          __html: JSON.stringify(productJsonLd).replace(/</g, '\\u003c'),
         }}
       />
       <div className='container mx-auto grid grid-flow-row grid-cols-1 items-start gap-6 px-6 pt-16 pb-12 sm:pt-24 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-8 lg:px-12'>
@@ -108,6 +107,6 @@ export default async function ProductPage(props: PageProps) {
           <ProductAccordions details={product.details} />
         </div>
       </div>
-    </ProductProvider>
+    </>
   )
 }
