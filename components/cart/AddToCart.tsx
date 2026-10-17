@@ -64,7 +64,7 @@ export function AddToCart({ product }: { product: Product }) {
   const selectedVariantId = variant?.id || defaultVariantId
 
   return (
-    <div className='mx-auto flex w-full flex-col gap-3 md:w-1/2'>
+    <div className='mx-auto flex w-full flex-col gap-3 lg:w-1/2'>
       <form
         {...formProps({
           beforeSubmit: (event) => {
