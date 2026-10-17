@@ -56,7 +56,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
             className='object-contain'
             fill
             priority
-            sizes='(max-width: 768px) 100vw, 50vw'
+            sizes='(max-width: 1023px) 100vw, 50vw'
             src={selectedImage.url}
           />
         </button>
