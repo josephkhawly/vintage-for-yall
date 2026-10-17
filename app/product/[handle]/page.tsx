@@ -84,7 +84,7 @@ async function ProductDetails({ params }: PageProps) {
         }}
         type='application/ld+json'
       />
-      <div className='container mx-auto grid grid-flow-row grid-cols-1 items-start gap-6 px-6 pt-16 pb-12 sm:pt-24 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:gap-8 md:px-12'>
+      <div className='container mx-auto grid grid-flow-row grid-cols-1 items-start gap-6 px-6 pt-16 pb-12 sm:pt-24 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-8 lg:px-12'>
         <div className='w-full min-w-0'>
           <ImageGallery images={product.images} />
         </div>
@@ -98,10 +98,10 @@ async function ProductDetails({ params }: PageProps) {
             currencyCode={priceRange.minVariantPrice.currencyCode}
           />
           <ProductAttributes colors={product.colors} sizes={product.sizes} />
-          <div className='flex flex-col-reverse md:flex-col'>
+          <div className='flex flex-col-reverse lg:flex-col'>
             {product.descriptionHtml ? (
               <Prose
-                className='font-subheading text-md mt-6 mb-6 leading-tight md:mt-0'
+                className='font-subheading text-md mt-6 mb-6 leading-tight lg:mt-0'
                 html={product.descriptionHtml}
               />
             ) : null}

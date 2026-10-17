@@ -33,7 +33,7 @@ export function NewsletterForm({ variant }: NewsletterFormProps) {
       className={
         isModal
           ? 'mt-6 flex w-full max-w-sm flex-col items-center gap-4'
-          : 'mt-1 flex w-full flex-wrap items-center gap-2 md:w-auto'
+          : 'mt-1 flex w-full flex-wrap items-center gap-2 lg:w-auto'
       }
       ref={formRef}
     >
@@ -61,7 +61,7 @@ export function NewsletterForm({ variant }: NewsletterFormProps) {
         className={
           isModal
             ? 'border-espresso/20 text-espresso placeholder:text-espresso/40 w-full rounded-md border bg-white px-4 py-3'
-            : 'border-espresso/20 text-espresso placeholder:text-espresso/50 min-w-0 flex-1 rounded-md border bg-white px-3 py-2 md:w-56 md:flex-none'
+            : 'border-espresso/20 text-espresso placeholder:text-espresso/50 min-w-0 flex-1 rounded-md border bg-white px-3 py-2 lg:w-56 lg:flex-none'
         }
         disabled={isPending}
         id={isModal ? 'newsletter-modal-email' : 'newsletter-email'}
