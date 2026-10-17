@@ -3,10 +3,9 @@
 import { ShopPayButton } from '@shopify/hydrogen/react'
 import clsx from 'clsx'
 
-import { useProduct } from '@/components/ProductContext'
 import { useCart, useCartForm } from '@/lib/cart'
 import { openCartDrawer } from '@/lib/cart-drawer'
-import type { Product, ProductVariant } from '@/lib/shopify/types'
+import type { Product } from '@/lib/shopify/types'
 
 function SubmitButton({
   availableForSale,
@@ -50,18 +49,12 @@ function SubmitButton({
 }
 
 export function AddToCart({ product }: { product: Product }) {
-  const { variants, availableForSale } = product
-  const { state } = useProduct()
+  const variant = product.variants[0]
   const { formProps, register } = useCartForm()
   const cartPending = useCart(
     (cartState) => cartState.pending.lines.size > 0 || cartState.pending.cost === true,
   )
-
-  const variant = variants.find((candidate: ProductVariant) =>
-    candidate.selectedOptions.every((option) => option.value === state[option.name.toLowerCase()]),
-  )
-  const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined
-  const selectedVariantId = variant?.id || defaultVariantId
+  const selectedVariantId = variant?.id
 
   return (
     <div className='mx-auto flex w-full flex-col gap-3 lg:w-1/2'>
@@ -80,7 +73,7 @@ export function AddToCart({ product }: { product: Product }) {
         <input type='hidden' {...register('merchandiseId', { value: selectedVariantId ?? '' })} />
         <input type='hidden' {...register('quantity', { value: 1 })} />
         <SubmitButton
-          availableForSale={availableForSale}
+          availableForSale={variant?.availableForSale ?? false}
           register={register}
           selectedVariantId={selectedVariantId}
         />
@@ -88,7 +81,7 @@ export function AddToCart({ product }: { product: Product }) {
       {selectedVariantId ? (
         <ShopPayButton
           borderRadius='6px'
-          disabled={!availableForSale || cartPending}
+          disabled={!variant.availableForSale || cartPending}
           variants={[{ id: selectedVariantId, quantity: 1 }]}
           width='100%'
         />
