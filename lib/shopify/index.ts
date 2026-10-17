@@ -1,5 +1,5 @@
 import type { StorefrontClient } from '@shopify/hydrogen'
-import { revalidateTag } from 'next/cache'
+import { cacheLife, cacheTag, revalidateTag } from 'next/cache'
 import { headers } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -15,7 +15,7 @@ import {
   shopifyGidToId,
   toStorefrontQuery,
 } from '../plp-filters'
-import { getStorefrontClient } from '../storefront'
+import { staticStorefrontClient } from '../storefront-static'
 import { ensureStartsWith, sortProductsByAvailability } from '../utils'
 import { reshapeColors, reshapeSizes } from './category-attributes'
 import {
@@ -50,12 +50,17 @@ import {
 async function shopifyQuery<TDoc extends Parameters<StorefrontClient['graphql']>[0]>(
   document: TDoc,
   options?: {
-    variables?: Record<string, unknown>
     tags?: string[]
+    variables?: Record<string, unknown>
   },
 ) {
-  const storefront = await getStorefrontClient()
-  const { data, errors } = await storefront.graphql(document, {
+  'use cache'
+  cacheLife('hours')
+  for (const tag of options?.tags ?? []) {
+    cacheTag(tag)
+  }
+
+  const { data, errors } = await staticStorefrontClient.graphql(document, {
     variables: options?.variables,
   } as never)
 
